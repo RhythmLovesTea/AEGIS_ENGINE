@@ -252,7 +252,8 @@ This document serves as the master, strictly sequential, atomic task backlog for
 
 ---
 
-### TASK-014: Mechanical Spreading Aging Inversion (Fay's Equations)
+### [x] TASK-014: Mechanical Spreading Aging Inversion (Fay's Equations) (Completed)
+- **Status:** Completed
 - **Domain:** Tier 2 — Spill Aging Physics
 - **Prerequisites:** TASK-013
 - **Objective:** Implement physical inversion of Fay's three-regime mechanical spreading laws to estimate slick elapsed age ($t_{age}$) and uncertainty bound.

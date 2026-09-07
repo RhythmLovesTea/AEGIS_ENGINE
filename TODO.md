@@ -175,7 +175,8 @@ This document serves as the master, strictly sequential, atomic task backlog for
 
 ---
 
-### TASK-010: Radar Backscatter Polarimetry & Lookalike Rejection Filters
+### [x] TASK-010: Radar Backscatter Polarimetry & Lookalike Rejection Filters (Completed)
+- **Status:** Completed
 - **Domain:** Tier 1 — Physics Diagnostics
 - **Prerequisites:** TASK-009
 - **Objective:** Implement physical polarimetric algorithms (Bragg resonance, Co-Polarization Difference, Damping Ratio) to reject low-wind and biogenic lookalikes.

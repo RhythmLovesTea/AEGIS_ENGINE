@@ -386,7 +386,8 @@ This document serves as the master, strictly sequential, atomic task backlog for
 
 ---
 
-### TASK-021: Forward Trajectory Forecasting & Mackay Weathering (Sub-Module 3B)
+### [x] TASK-021: Forward Trajectory Forecasting & Mackay Weathering (Sub-Module 3B) (Completed)
+- **Status:** Completed
 - **Domain:** Tier 3 — Forward Modeling & Impact
 - **Prerequisites:** TASK-020
 - **Objective:** Implement forward $+72\text{h}$ trajectory forecasting incorporating Mackay evaporative loss, emulsification, and shoreline beaching detection.

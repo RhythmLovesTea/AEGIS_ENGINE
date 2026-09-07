@@ -442,7 +442,7 @@ This document serves as the master, strictly sequential, atomic task backlog for
 
 ---
 
-### TASK-024: Vessel Kinematic Trajectory Reconstruction (Cubic-Spline Interpolation)
+### [x] TASK-024: Vessel Kinematic Trajectory Reconstruction (Cubic-Spline Interpolation) (Completed)
 - **Domain:** Tier 4 — Trajectory Interpolation
 - **Prerequisites:** TASK-023
 - **Objective:** Reconstruct continuous vessel trajectories from discrete AIS reports using cubic-spline interpolation.

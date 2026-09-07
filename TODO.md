@@ -425,7 +425,8 @@ This document serves as the master, strictly sequential, atomic task backlog for
 
 ## Phase 3: Tier 4 — AIS Spatio-Temporal Correlation & Attribution Scoring
 
-### TASK-023: Historical AIS Data Ingestion Adapter & Spatio-Temporal Spatial Query
+### [x] TASK-023: Historical AIS Data Ingestion Adapter & Spatio-Temporal Spatial Query (Completed)
+- **Status:** Completed
 - **Domain:** Tier 4 — AIS Data Ingestion
 - **Prerequisites:** TASK-022
 - **Objective:** Build AIS ingestion adapter querying AIS feeds (MarineCadastre / AISHub) within the origin spatio-temporal window, with synthetic fallback.

@@ -292,7 +292,8 @@ This document serves as the master, strictly sequential, atomic task backlog for
 
 ---
 
-### TASK-016: Tier 2 Celery Pipeline Task & Integration Test
+### [x] TASK-016: Tier 2 Celery Pipeline Task & Integration Test (Completed)
+- **Status:** Completed
 - **Domain:** Tier 2 — Pipeline Integration
 - **Prerequisites:** TASK-015
 - **Objective:** Wrap morphometry, age inversion, and thickness profiling into an idempotent Celery task updating `SlickCharacterization`.

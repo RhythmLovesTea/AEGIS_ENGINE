@@ -146,5 +146,6 @@ celery_app.conf.update(
     imports=[
         "backend.workers.tasks.pipeline_tasks",
         "backend.workers.tasks.tier1_tasks",
+        "backend.workers.tasks.tier2_tasks",
     ],
 )

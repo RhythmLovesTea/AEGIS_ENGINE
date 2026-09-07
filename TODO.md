@@ -653,7 +653,7 @@ This document serves as the master, strictly sequential, atomic task backlog for
 
 ## Phase 5: API Gateway, Case Orchestration & Security
 
-### TASK-035: FastAPI Application Scaffolding, Middleware & RBAC Security (Architecture 10)
+### [x] TASK-035: FastAPI Application Scaffolding, Middleware & RBAC Security (Architecture 10) (Completed)
 - **Domain:** API Gateway / Security
 - **Prerequisites:** TASK-034
 - **Objective:** Establish the FastAPI core application with JWT authentication, CORS, exception handling, and Role-Based Access Control (RBAC).

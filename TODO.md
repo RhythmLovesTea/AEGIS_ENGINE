@@ -523,7 +523,7 @@ This document serves as the master, strictly sequential, atomic task backlog for
 
 ---
 
-### TASK-028: Tier 4 Celery Pipeline Task & Integration Test
+### [x] TASK-028: Tier 4 Celery Pipeline Task & Integration Test (Completed)
 - **Domain:** Tier 4 — Pipeline Integration
 - **Prerequisites:** TASK-027
 - **Objective:** Wrap AIS ingestion, trajectory reconstruction, anomaly detection, and scoring into a Celery task persisting `VesselCandidate` rows.

@@ -578,7 +578,7 @@ This document serves as the master, strictly sequential, atomic task backlog for
 
 ---
 
-### TASK-031: Counterfactual Forward Simulation Engine (Feature 2 / D2)
+### [x] TASK-031: Counterfactual Forward Simulation Engine (Feature 2 / D2) (Completed)
 - **Domain:** Forensic Verification
 - **Prerequisites:** TASK-030
 - **Objective:** Implement counterfactual forward simulation: re-simulate oil release from a suspect vessel's actual track to evaluate visual and spatial similarity with the observed slick.

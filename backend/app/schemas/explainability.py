@@ -274,3 +274,49 @@ class WhyThisVesselPayload(BaseSchema):
     bar_data: list[BarChartItem] = Field(default_factory=list)
     evidence_checklist: list[EvidenceChecklistItem] = Field(default_factory=list)
     evidence_refs: list[str] = Field(default_factory=list)
+
+
+class CounterfactualResult(BaseSchema):
+    """Counterfactual forward Lagrangian simulation result (Feature 2 / D2)."""
+
+    case_id: uuid.UUID
+    mmsi: int
+    vessel_name: str
+    iou_pct: float = Field(
+        ..., ge=0.0, le=100.0, description="Intersection-over-Union similarity percentage [0 - 100]"
+    )
+    similarity_score: float = Field(
+        ..., ge=0.0, le=100.0, description="Composite geometric similarity score [0 - 100]"
+    )
+    hausdorff_distance_m: float = Field(
+        ..., ge=0.0, description="Maximum Hausdorff boundary discrepancy in meters"
+    )
+    centroid_distance_m: float = Field(
+        ...,
+        ge=0.0,
+        description="Distance between simulated cloud centroid and observed slick centroid",
+    )
+    t_release: datetime = Field(..., description="Release timestamp at seed position")
+    t_obs: datetime = Field(..., description="Observation timestamp of satellite pass")
+    duration_hours: float = Field(..., ge=0.0, description="Simulation drift duration in hours")
+    seed_position: tuple[float, float] = Field(
+        ..., description="Seed coordinates (lon, lat) at vessel position at t_release"
+    )
+    simulated_centroid: tuple[float, float] = Field(
+        ..., description="Centroid (lon, lat) of simulated particle cloud at t_obs"
+    )
+    observed_centroid: tuple[float, float] = Field(
+        ..., description="Centroid (lon, lat) of observed slick polygon at t_obs"
+    )
+    simulated_polygon_geojson: dict[str, Any] = Field(
+        ..., description="GeoJSON polygon geometry of simulated cloud at t_obs"
+    )
+    snapshots: list[dict[str, Any]] = Field(
+        default_factory=list,
+        description="Subsampled particle trajectory snapshots along simulation",
+    )
+    confidence_pct: ConfidenceValue  # Rule 1: Paired confidence
+    rationale: str = Field(
+        ...,
+        description="Objective forensic counterfactual rationale (strictly zero Rule 6 banned terms)",
+    )

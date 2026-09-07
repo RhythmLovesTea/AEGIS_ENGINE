@@ -143,4 +143,8 @@ celery_app.conf.update(
     worker_prefetch_multiplier=1,  # Prevent prefetching on long-running ML/simulation tasks
     worker_concurrency=int(os.getenv("CELERY_CONCURRENCY", "4")),
     result_expires=86400,  # Retain task results for 24 hours
+    imports=[
+        "backend.workers.tasks.pipeline_tasks",
+        "backend.workers.tasks.tier1_tasks",
+    ],
 )

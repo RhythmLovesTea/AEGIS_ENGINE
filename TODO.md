@@ -216,7 +216,8 @@ This document serves as the master, strictly sequential, atomic task backlog for
 
 ---
 
-### TASK-012: Tier 1 Celery Pipeline Task & Integration Test
+### [x] TASK-012: Tier 1 Celery Pipeline Task & Integration Test (Completed)
+- **Status:** Completed
 - **Domain:** Tier 1 — Pipeline Integration
 - **Prerequisites:** TASK-011
 - **Objective:** Wrap Tier 1 into an idempotent Celery task that stores detections in PostGIS and pushes progress updates.

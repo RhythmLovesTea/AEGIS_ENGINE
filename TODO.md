@@ -119,7 +119,8 @@ This document serves as the master, strictly sequential, atomic task backlog for
 
 ---
 
-### TASK-007: Celery & Redis Task Queue Infrastructure with Error Handling & Dead-Letter Queue
+### [x] TASK-007: Celery & Redis Task Queue Infrastructure with Error Handling & Dead-Letter Queue (Completed)
+- **Status:** Completed
 - **Domain:** Backend Core / Distributed Tasks
 - **Prerequisites:** TASK-006
 - **Objective:** Establish the Celery application with Redis broker, task progress tracking, dead-letter routing, and automatic fallback handling.

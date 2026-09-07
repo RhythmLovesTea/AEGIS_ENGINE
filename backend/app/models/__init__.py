@@ -4,6 +4,7 @@ from backend.app.models.base import Base, TimestampMixin, UUIDPrimaryKeyMixin
 from backend.app.models.entities import (
     AHPConfig,
     AISCoverage,
+    AISTrack,
     AlternativeExplanation,
     AuditLog,
     Case,
@@ -12,6 +13,7 @@ from backend.app.models.entities import (
     Dossier,
     ForwardForecast,
     OriginEstimate,
+    ParticleTrajectory,
     SlickCharacterization,
     SlickDetection,
     VesselCandidate,
@@ -34,4 +36,6 @@ __all__ = [
     "AHPConfig",
     "Dossier",
     "AuditLog",
+    "AISTrack",
+    "ParticleTrajectory",
 ]

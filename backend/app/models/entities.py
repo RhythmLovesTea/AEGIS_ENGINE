@@ -273,3 +273,37 @@ class AuditLog(Base, UUIDPrimaryKeyMixin):
     )
 
     case: Mapped[Optional[Case]] = relationship("Case", back_populates="audit_logs")
+
+
+class AISTrack(Base):
+    """TimescaleDB Hypertable for vessel AIS kinematic tracks."""
+
+    __tablename__ = "ais_tracks"
+
+    mmsi: Mapped[int] = mapped_column(BigInteger, primary_key=True)
+    timestamp: Mapped[datetime] = mapped_column(DateTime(timezone=True), primary_key=True)
+    point = mapped_column(Geometry("POINT", srid=4326), nullable=False)
+    sog: Mapped[Optional[float]] = mapped_column(Float, nullable=True)  # Speed over ground (kts)
+    cog: Mapped[Optional[float]] = mapped_column(Float, nullable=True)  # Course over ground (deg)
+    heading: Mapped[Optional[float]] = mapped_column(Float, nullable=True)  # True heading (deg)
+    nav_status: Mapped[Optional[int]] = mapped_column(Integer, nullable=True)  # Navigational status
+    data_source: Mapped[DataSource] = mapped_column(
+        Enum(DataSource, name="data_source_enum", create_type=False),
+        default=DataSource.SYNTHETIC,
+        nullable=False,
+    )
+
+
+class ParticleTrajectory(Base):
+    """TimescaleDB Hypertable for Lagrangian advection particles."""
+
+    __tablename__ = "particle_trajectories"
+
+    case_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True)
+    particle_id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    timestamp: Mapped[datetime] = mapped_column(DateTime(timezone=True), primary_key=True)
+    point = mapped_column(Geometry("POINT", srid=4326), nullable=False)
+    depth_m: Mapped[float] = mapped_column(Float, default=0.0, nullable=False)
+    mass_fraction: Mapped[float] = mapped_column(Float, default=1.0, nullable=False)
+    status: Mapped[str] = mapped_column(String(32), default="active", nullable=False)  # active, beached, evaporated
+

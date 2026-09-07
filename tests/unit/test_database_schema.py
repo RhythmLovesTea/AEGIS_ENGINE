@@ -86,10 +86,29 @@ class TestDatabaseSchema(unittest.TestCase):
         env_py = root_dir / "backend" / "alembic" / "env.py"
         rev_1 = root_dir / "backend" / "alembic" / "versions" / "0001_initial_schema.py"
 
+        rev_2 = root_dir / "backend" / "alembic" / "versions" / "0002_timescale_hypertables.py"
+
         self.assertTrue(alembic_ini.exists(), "alembic.ini missing")
         self.assertTrue(env_py.exists(), "env.py missing")
         self.assertTrue(rev_1.exists(), "0001_initial_schema.py missing")
+        self.assertTrue(rev_2.exists(), "0002_timescale_hypertables.py missing")
+
+    def test_timescale_models_registered(self) -> None:
+        """Verify AISTrack and ParticleTrajectory are mapped and have required columns."""
+        self.assertIn("ais_tracks", Base.metadata.tables)
+        self.assertIn("particle_trajectories", Base.metadata.tables)
+
+        # Check AISTrack columns
+        ais_cols = Base.metadata.tables["ais_tracks"].columns
+        for col in ["mmsi", "timestamp", "point", "sog", "cog", "heading", "nav_status", "data_source"]:
+            self.assertIn(col, ais_cols, f"Column '{col}' missing from ais_tracks")
+
+        # Check ParticleTrajectory columns
+        particle_cols = Base.metadata.tables["particle_trajectories"].columns
+        for col in ["case_id", "particle_id", "timestamp", "point", "depth_m", "mass_fraction", "status"]:
+            self.assertIn(col, particle_cols, f"Column '{col}' missing from particle_trajectories")
 
 
 if __name__ == "__main__":
     unittest.main()
+

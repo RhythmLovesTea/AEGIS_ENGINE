@@ -85,7 +85,8 @@ This document serves as the master, strictly sequential, atomic task backlog for
 
 ---
 
-### TASK-005: TimescaleDB Hypertable Setup for Particle Tracing & AIS Trajectories
+### [x] TASK-005: TimescaleDB Hypertable Setup for Particle Tracing & AIS Trajectories (Completed)
+- **Status:** Completed
 - **Domain:** Database Architecture
 - **Prerequisites:** TASK-004
 - **Objective:** Configure TimescaleDB hypertables for time-series particle advection trajectories and vessel AIS position tracks.

@@ -458,7 +458,7 @@ This document serves as the master, strictly sequential, atomic task backlog for
 
 ---
 
-### TASK-025: Vessel Kinematic Anomaly Detector & Transponder Dark Gap Flagger (FR-19, Rule 4)
+### [x] TASK-025: Vessel Kinematic Anomaly Detector & Transponder Dark Gap Flagger (FR-19, Rule 4) (Completed)
 - **Domain:** Tier 4 — Anomaly Detection
 - **Prerequisites:** TASK-024
 - **Objective:** Detect behavioral anomalies (speed drops into discharge band, abnormal course turns) and flag transponder gaps ($A_{dark}$).

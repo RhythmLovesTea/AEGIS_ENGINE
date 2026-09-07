@@ -328,7 +328,8 @@ This document serves as the master, strictly sequential, atomic task backlog for
 
 ---
 
-### TASK-018: Total Drift Velocity Engine (Currents + Ekman Wind Drift + Stokes Wave Drift)
+### [x] TASK-018: Total Drift Velocity Engine (Currents + Ekman Wind Drift + Stokes Wave Drift) (Completed)
+- **Status:** Completed
 - **Domain:** Tier 3 — Hydrodynamic Physics
 - **Prerequisites:** TASK-017
 - **Objective:** Implement the three-component drift velocity vector composition with Coriolis deflection.

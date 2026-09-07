@@ -64,7 +64,8 @@ This document serves as the master, strictly sequential, atomic task backlog for
 
 ---
 
-### TASK-004: Database Migration Pipeline & Core Relational / Spatial Schema
+### [x] TASK-004: Database Migration Pipeline & Core Relational / Spatial Schema (Completed)
+- **Status:** Completed
 - **Domain:** Database Architecture
 - **Prerequisites:** TASK-003
 - **Objective:** Implement Alembic migration scaffolding and the core relational schema matching Architecture Section 6.

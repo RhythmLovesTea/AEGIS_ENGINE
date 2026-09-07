@@ -500,7 +500,7 @@ This document serves as the master, strictly sequential, atomic task backlog for
 
 ---
 
-### TASK-027: Multi-Criteria Attribution Scoring Engine ($S_{culprit}$)
+### [x] TASK-027: Multi-Criteria Attribution Scoring Engine ($S_{culprit}$) (Completed)
 - **Domain:** Tier 4 — Attribution Scoring
 - **Prerequisites:** TASK-026
 - **Objective:** Compute the 5 normalized sub-scores and AHP-weighted composite attribution score ($S_{culprit} \in [0, 100]$) per candidate vessel.

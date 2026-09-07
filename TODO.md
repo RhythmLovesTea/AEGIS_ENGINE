@@ -159,7 +159,8 @@ This document serves as the master, strictly sequential, atomic task backlog for
 
 ## Phase 1: Tier 1 & Tier 2 — Detection, Characterization & Aging
 
-### TASK-009: SAR & EO Ingestion Adapters (Sentinel-1 / Sentinel-2 & Local GeoTIFF)
+### [x] TASK-009: SAR & EO Ingestion Adapters (Sentinel-1 / Sentinel-2 & Local GeoTIFF) (Completed)
+- **Status:** Completed
 - **Domain:** Tier 1 — Earth Observation Ingestion
 - **Prerequisites:** TASK-008
 - **Objective:** Build ingestion adapters supporting Copernicus Open Access Hub / CDSE and local GeoTIFF files with automatic fallback to synthetic fixtures.

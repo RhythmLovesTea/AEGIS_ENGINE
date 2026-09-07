@@ -348,7 +348,8 @@ This document serves as the master, strictly sequential, atomic task backlog for
 
 ---
 
-### TASK-019: OpenDrift / OpenOil Backward Lagrangian Hindcasting Runner (Sub-Module 3A)
+### [x] TASK-019: OpenDrift / OpenOil Backward Lagrangian Hindcasting Runner (Sub-Module 3A) (Completed)
+- **Status:** Completed
 - **Domain:** Tier 3 — Backward Lagrangian Advection
 - **Prerequisites:** TASK-018
 - **Objective:** Wrap OpenDrift/OpenOil to seed $\ge 10,000$ numerical particles across the slick polygon and simulate backward advection to the release window.

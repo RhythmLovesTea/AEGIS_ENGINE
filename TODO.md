@@ -312,7 +312,8 @@ This document serves as the master, strictly sequential, atomic task backlog for
 
 ## Phase 2: Tier 3 — Hydrodynamic Advection-Diffusion Modeling
 
-### TASK-017: Met-Ocean Data Ingestion Adapter (CMEMS GLO12 Currents & ERA5 Winds)
+### [x] TASK-017: Met-Ocean Data Ingestion Adapter (CMEMS GLO12 Currents & ERA5 Winds) (Completed)
+- **Status:** Completed
 - **Domain:** Tier 3 — Environmental Forcing
 - **Prerequisites:** TASK-016
 - **Objective:** Implement data adapter fetching ocean surface currents (CMEMS GLO12) and surface wind fields (ERA5/GFS) with local NetCDF caching and synthetic generator fallback.

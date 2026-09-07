@@ -1,0 +1,26 @@
+{
+  "model": "CMEMS_GLO12_AND_ERA5",
+  "region_bbox": [
+    72.1,
+    18.7,
+    72.6,
+    19.1
+  ],
+  "time_span": [
+    "2026-09-06T06:00:00+00:00",
+    "2026-09-10T06:00:00+00:00"
+  ],
+  "surface_current": {
+    "u_mps": 0.28,
+    "v_mps": 0.12,
+    "mean_speed_mps": 0.304,
+    "mean_bearing_deg": 66.8
+  },
+  "surface_wind_10m": {
+    "u10_mps": 6.5,
+    "v10_mps": 3.0,
+    "speed_mps": 7.16,
+    "direction_from_deg": 245.2
+  },
+  "data_source": "synthetic"
+}

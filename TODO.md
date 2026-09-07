@@ -135,7 +135,8 @@ This document serves as the master, strictly sequential, atomic task backlog for
 
 ---
 
-### TASK-008: Synthetic Data Generator & Curated Test Fixtures
+### [x] TASK-008: Synthetic Data Generator & Curated Test Fixtures (Completed)
+- **Status:** Completed
 - **Domain:** Data Platform / Testing
 - **Prerequisites:** TASK-007
 - **Objective:** Implement the synthetic data generator and load curated test fixtures for SAR scenes, met-ocean fields, and AIS traffic.

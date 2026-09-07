@@ -1,0 +1,3848 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.18,
+          18.78
+        ]
+      },
+      "properties": {
+        "mmsi": 419000101,
+        "vessel_name": "PACIFIC PEARL",
+        "vessel_type": "Tanker",
+        "timestamp": "2026-09-06T14:00:00+00:00",
+        "sog": 14.5,
+        "cog": 62.0,
+        "heading": 62.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.1875,
+          18.785417
+        ]
+      },
+      "properties": {
+        "mmsi": 419000101,
+        "vessel_name": "PACIFIC PEARL",
+        "vessel_type": "Tanker",
+        "timestamp": "2026-09-06T14:15:00+00:00",
+        "sog": 14.5,
+        "cog": 62.0,
+        "heading": 62.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.195,
+          18.790833
+        ]
+      },
+      "properties": {
+        "mmsi": 419000101,
+        "vessel_name": "PACIFIC PEARL",
+        "vessel_type": "Tanker",
+        "timestamp": "2026-09-06T14:30:00+00:00",
+        "sog": 14.5,
+        "cog": 62.0,
+        "heading": 62.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.2025,
+          18.79625
+        ]
+      },
+      "properties": {
+        "mmsi": 419000101,
+        "vessel_name": "PACIFIC PEARL",
+        "vessel_type": "Tanker",
+        "timestamp": "2026-09-06T14:45:00+00:00",
+        "sog": 14.5,
+        "cog": 62.0,
+        "heading": 62.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.21,
+          18.801667
+        ]
+      },
+      "properties": {
+        "mmsi": 419000101,
+        "vessel_name": "PACIFIC PEARL",
+        "vessel_type": "Tanker",
+        "timestamp": "2026-09-06T15:00:00+00:00",
+        "sog": 14.5,
+        "cog": 62.0,
+        "heading": 62.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.2175,
+          18.807083
+        ]
+      },
+      "properties": {
+        "mmsi": 419000101,
+        "vessel_name": "PACIFIC PEARL",
+        "vessel_type": "Tanker",
+        "timestamp": "2026-09-06T15:15:00+00:00",
+        "sog": 14.5,
+        "cog": 62.0,
+        "heading": 62.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.225,
+          18.8125
+        ]
+      },
+      "properties": {
+        "mmsi": 419000101,
+        "vessel_name": "PACIFIC PEARL",
+        "vessel_type": "Tanker",
+        "timestamp": "2026-09-06T15:30:00+00:00",
+        "sog": 14.5,
+        "cog": 62.0,
+        "heading": 62.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.2325,
+          18.817917
+        ]
+      },
+      "properties": {
+        "mmsi": 419000101,
+        "vessel_name": "PACIFIC PEARL",
+        "vessel_type": "Tanker",
+        "timestamp": "2026-09-06T15:45:00+00:00",
+        "sog": 14.5,
+        "cog": 62.0,
+        "heading": 62.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.24,
+          18.823333
+        ]
+      },
+      "properties": {
+        "mmsi": 419000101,
+        "vessel_name": "PACIFIC PEARL",
+        "vessel_type": "Tanker",
+        "timestamp": "2026-09-06T16:00:00+00:00",
+        "sog": 14.5,
+        "cog": 62.0,
+        "heading": 62.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.2475,
+          18.82875
+        ]
+      },
+      "properties": {
+        "mmsi": 419000101,
+        "vessel_name": "PACIFIC PEARL",
+        "vessel_type": "Tanker",
+        "timestamp": "2026-09-06T16:15:00+00:00",
+        "sog": 14.5,
+        "cog": 62.0,
+        "heading": 62.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.255,
+          18.834167
+        ]
+      },
+      "properties": {
+        "mmsi": 419000101,
+        "vessel_name": "PACIFIC PEARL",
+        "vessel_type": "Tanker",
+        "timestamp": "2026-09-06T16:30:00+00:00",
+        "sog": 14.5,
+        "cog": 62.0,
+        "heading": 62.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.2625,
+          18.839583
+        ]
+      },
+      "properties": {
+        "mmsi": 419000101,
+        "vessel_name": "PACIFIC PEARL",
+        "vessel_type": "Tanker",
+        "timestamp": "2026-09-06T16:45:00+00:00",
+        "sog": 14.5,
+        "cog": 62.0,
+        "heading": 62.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.27,
+          18.845
+        ]
+      },
+      "properties": {
+        "mmsi": 419000101,
+        "vessel_name": "PACIFIC PEARL",
+        "vessel_type": "Tanker",
+        "timestamp": "2026-09-06T17:00:00+00:00",
+        "sog": 14.5,
+        "cog": 62.0,
+        "heading": 62.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.27,
+          18.845
+        ]
+      },
+      "properties": {
+        "mmsi": 419000101,
+        "vessel_name": "PACIFIC PEARL",
+        "vessel_type": "Tanker",
+        "timestamp": "2026-09-06T17:00:00+00:00",
+        "sog": 5.8,
+        "cog": 65.0,
+        "heading": 64.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.275,
+          18.85
+        ]
+      },
+      "properties": {
+        "mmsi": 419000101,
+        "vessel_name": "PACIFIC PEARL",
+        "vessel_type": "Tanker",
+        "timestamp": "2026-09-06T17:15:00+00:00",
+        "sog": 5.8,
+        "cog": 65.0,
+        "heading": 64.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.28,
+          18.855
+        ]
+      },
+      "properties": {
+        "mmsi": 419000101,
+        "vessel_name": "PACIFIC PEARL",
+        "vessel_type": "Tanker",
+        "timestamp": "2026-09-06T17:30:00+00:00",
+        "sog": 5.8,
+        "cog": 65.0,
+        "heading": 64.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.285,
+          18.86
+        ]
+      },
+      "properties": {
+        "mmsi": 419000101,
+        "vessel_name": "PACIFIC PEARL",
+        "vessel_type": "Tanker",
+        "timestamp": "2026-09-06T17:45:00+00:00",
+        "sog": 5.8,
+        "cog": 65.0,
+        "heading": 64.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.29,
+          18.865
+        ]
+      },
+      "properties": {
+        "mmsi": 419000101,
+        "vessel_name": "PACIFIC PEARL",
+        "vessel_type": "Tanker",
+        "timestamp": "2026-09-06T18:00:00+00:00",
+        "sog": 5.8,
+        "cog": 65.0,
+        "heading": 64.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.295,
+          18.87
+        ]
+      },
+      "properties": {
+        "mmsi": 419000101,
+        "vessel_name": "PACIFIC PEARL",
+        "vessel_type": "Tanker",
+        "timestamp": "2026-09-06T18:15:00+00:00",
+        "sog": 5.8,
+        "cog": 65.0,
+        "heading": 64.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.3,
+          18.875
+        ]
+      },
+      "properties": {
+        "mmsi": 419000101,
+        "vessel_name": "PACIFIC PEARL",
+        "vessel_type": "Tanker",
+        "timestamp": "2026-09-06T18:30:00+00:00",
+        "sog": 5.8,
+        "cog": 65.0,
+        "heading": 64.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.305,
+          18.88
+        ]
+      },
+      "properties": {
+        "mmsi": 419000101,
+        "vessel_name": "PACIFIC PEARL",
+        "vessel_type": "Tanker",
+        "timestamp": "2026-09-06T18:45:00+00:00",
+        "sog": 5.8,
+        "cog": 65.0,
+        "heading": 64.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.31,
+          18.885
+        ]
+      },
+      "properties": {
+        "mmsi": 419000101,
+        "vessel_name": "PACIFIC PEARL",
+        "vessel_type": "Tanker",
+        "timestamp": "2026-09-06T19:00:00+00:00",
+        "sog": 5.8,
+        "cog": 65.0,
+        "heading": 64.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.31,
+          18.885
+        ]
+      },
+      "properties": {
+        "mmsi": 419000101,
+        "vessel_name": "PACIFIC PEARL",
+        "vessel_type": "Tanker",
+        "timestamp": "2026-09-06T19:00:00+00:00",
+        "sog": 14.0,
+        "cog": 63.0,
+        "heading": 63.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.315455,
+          18.888523
+        ]
+      },
+      "properties": {
+        "mmsi": 419000101,
+        "vessel_name": "PACIFIC PEARL",
+        "vessel_type": "Tanker",
+        "timestamp": "2026-09-06T19:15:00+00:00",
+        "sog": 14.0,
+        "cog": 63.0,
+        "heading": 63.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.320909,
+          18.892045
+        ]
+      },
+      "properties": {
+        "mmsi": 419000101,
+        "vessel_name": "PACIFIC PEARL",
+        "vessel_type": "Tanker",
+        "timestamp": "2026-09-06T19:30:00+00:00",
+        "sog": 14.0,
+        "cog": 63.0,
+        "heading": 63.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.326364,
+          18.895568
+        ]
+      },
+      "properties": {
+        "mmsi": 419000101,
+        "vessel_name": "PACIFIC PEARL",
+        "vessel_type": "Tanker",
+        "timestamp": "2026-09-06T19:45:00+00:00",
+        "sog": 14.0,
+        "cog": 63.0,
+        "heading": 63.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.331818,
+          18.899091
+        ]
+      },
+      "properties": {
+        "mmsi": 419000101,
+        "vessel_name": "PACIFIC PEARL",
+        "vessel_type": "Tanker",
+        "timestamp": "2026-09-06T20:00:00+00:00",
+        "sog": 14.0,
+        "cog": 63.0,
+        "heading": 63.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.337273,
+          18.902614
+        ]
+      },
+      "properties": {
+        "mmsi": 419000101,
+        "vessel_name": "PACIFIC PEARL",
+        "vessel_type": "Tanker",
+        "timestamp": "2026-09-06T20:15:00+00:00",
+        "sog": 14.0,
+        "cog": 63.0,
+        "heading": 63.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.342727,
+          18.906136
+        ]
+      },
+      "properties": {
+        "mmsi": 419000101,
+        "vessel_name": "PACIFIC PEARL",
+        "vessel_type": "Tanker",
+        "timestamp": "2026-09-06T20:30:00+00:00",
+        "sog": 14.0,
+        "cog": 63.0,
+        "heading": 63.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.348182,
+          18.909659
+        ]
+      },
+      "properties": {
+        "mmsi": 419000101,
+        "vessel_name": "PACIFIC PEARL",
+        "vessel_type": "Tanker",
+        "timestamp": "2026-09-06T20:45:00+00:00",
+        "sog": 14.0,
+        "cog": 63.0,
+        "heading": 63.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.353636,
+          18.913182
+        ]
+      },
+      "properties": {
+        "mmsi": 419000101,
+        "vessel_name": "PACIFIC PEARL",
+        "vessel_type": "Tanker",
+        "timestamp": "2026-09-06T21:00:00+00:00",
+        "sog": 14.0,
+        "cog": 63.0,
+        "heading": 63.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.359091,
+          18.916705
+        ]
+      },
+      "properties": {
+        "mmsi": 419000101,
+        "vessel_name": "PACIFIC PEARL",
+        "vessel_type": "Tanker",
+        "timestamp": "2026-09-06T21:15:00+00:00",
+        "sog": 14.0,
+        "cog": 63.0,
+        "heading": 63.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.364545,
+          18.920227
+        ]
+      },
+      "properties": {
+        "mmsi": 419000101,
+        "vessel_name": "PACIFIC PEARL",
+        "vessel_type": "Tanker",
+        "timestamp": "2026-09-06T21:30:00+00:00",
+        "sog": 14.0,
+        "cog": 63.0,
+        "heading": 63.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.37,
+          18.92375
+        ]
+      },
+      "properties": {
+        "mmsi": 419000101,
+        "vessel_name": "PACIFIC PEARL",
+        "vessel_type": "Tanker",
+        "timestamp": "2026-09-06T21:45:00+00:00",
+        "sog": 14.0,
+        "cog": 63.0,
+        "heading": 63.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.375455,
+          18.927273
+        ]
+      },
+      "properties": {
+        "mmsi": 419000101,
+        "vessel_name": "PACIFIC PEARL",
+        "vessel_type": "Tanker",
+        "timestamp": "2026-09-06T22:00:00+00:00",
+        "sog": 14.0,
+        "cog": 63.0,
+        "heading": 63.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.380909,
+          18.930795
+        ]
+      },
+      "properties": {
+        "mmsi": 419000101,
+        "vessel_name": "PACIFIC PEARL",
+        "vessel_type": "Tanker",
+        "timestamp": "2026-09-06T22:15:00+00:00",
+        "sog": 14.0,
+        "cog": 63.0,
+        "heading": 63.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.386364,
+          18.934318
+        ]
+      },
+      "properties": {
+        "mmsi": 419000101,
+        "vessel_name": "PACIFIC PEARL",
+        "vessel_type": "Tanker",
+        "timestamp": "2026-09-06T22:30:00+00:00",
+        "sog": 14.0,
+        "cog": 63.0,
+        "heading": 63.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.391818,
+          18.937841
+        ]
+      },
+      "properties": {
+        "mmsi": 419000101,
+        "vessel_name": "PACIFIC PEARL",
+        "vessel_type": "Tanker",
+        "timestamp": "2026-09-06T22:45:00+00:00",
+        "sog": 14.0,
+        "cog": 63.0,
+        "heading": 63.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.397273,
+          18.941364
+        ]
+      },
+      "properties": {
+        "mmsi": 419000101,
+        "vessel_name": "PACIFIC PEARL",
+        "vessel_type": "Tanker",
+        "timestamp": "2026-09-06T23:00:00+00:00",
+        "sog": 14.0,
+        "cog": 63.0,
+        "heading": 63.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.402727,
+          18.944886
+        ]
+      },
+      "properties": {
+        "mmsi": 419000101,
+        "vessel_name": "PACIFIC PEARL",
+        "vessel_type": "Tanker",
+        "timestamp": "2026-09-06T23:15:00+00:00",
+        "sog": 14.0,
+        "cog": 63.0,
+        "heading": 63.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.408182,
+          18.948409
+        ]
+      },
+      "properties": {
+        "mmsi": 419000101,
+        "vessel_name": "PACIFIC PEARL",
+        "vessel_type": "Tanker",
+        "timestamp": "2026-09-06T23:30:00+00:00",
+        "sog": 14.0,
+        "cog": 63.0,
+        "heading": 63.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.413636,
+          18.951932
+        ]
+      },
+      "properties": {
+        "mmsi": 419000101,
+        "vessel_name": "PACIFIC PEARL",
+        "vessel_type": "Tanker",
+        "timestamp": "2026-09-06T23:45:00+00:00",
+        "sog": 14.0,
+        "cog": 63.0,
+        "heading": 63.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.419091,
+          18.955455
+        ]
+      },
+      "properties": {
+        "mmsi": 419000101,
+        "vessel_name": "PACIFIC PEARL",
+        "vessel_type": "Tanker",
+        "timestamp": "2026-09-07T00:00:00+00:00",
+        "sog": 14.0,
+        "cog": 63.0,
+        "heading": 63.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.424545,
+          18.958977
+        ]
+      },
+      "properties": {
+        "mmsi": 419000101,
+        "vessel_name": "PACIFIC PEARL",
+        "vessel_type": "Tanker",
+        "timestamp": "2026-09-07T00:15:00+00:00",
+        "sog": 14.0,
+        "cog": 63.0,
+        "heading": 63.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.43,
+          18.9625
+        ]
+      },
+      "properties": {
+        "mmsi": 419000101,
+        "vessel_name": "PACIFIC PEARL",
+        "vessel_type": "Tanker",
+        "timestamp": "2026-09-07T00:30:00+00:00",
+        "sog": 14.0,
+        "cog": 63.0,
+        "heading": 63.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.435455,
+          18.966023
+        ]
+      },
+      "properties": {
+        "mmsi": 419000101,
+        "vessel_name": "PACIFIC PEARL",
+        "vessel_type": "Tanker",
+        "timestamp": "2026-09-07T00:45:00+00:00",
+        "sog": 14.0,
+        "cog": 63.0,
+        "heading": 63.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.440909,
+          18.969545
+        ]
+      },
+      "properties": {
+        "mmsi": 419000101,
+        "vessel_name": "PACIFIC PEARL",
+        "vessel_type": "Tanker",
+        "timestamp": "2026-09-07T01:00:00+00:00",
+        "sog": 14.0,
+        "cog": 63.0,
+        "heading": 63.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.446364,
+          18.973068
+        ]
+      },
+      "properties": {
+        "mmsi": 419000101,
+        "vessel_name": "PACIFIC PEARL",
+        "vessel_type": "Tanker",
+        "timestamp": "2026-09-07T01:15:00+00:00",
+        "sog": 14.0,
+        "cog": 63.0,
+        "heading": 63.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.451818,
+          18.976591
+        ]
+      },
+      "properties": {
+        "mmsi": 419000101,
+        "vessel_name": "PACIFIC PEARL",
+        "vessel_type": "Tanker",
+        "timestamp": "2026-09-07T01:30:00+00:00",
+        "sog": 14.0,
+        "cog": 63.0,
+        "heading": 63.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.457273,
+          18.980114
+        ]
+      },
+      "properties": {
+        "mmsi": 419000101,
+        "vessel_name": "PACIFIC PEARL",
+        "vessel_type": "Tanker",
+        "timestamp": "2026-09-07T01:45:00+00:00",
+        "sog": 14.0,
+        "cog": 63.0,
+        "heading": 63.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.462727,
+          18.983636
+        ]
+      },
+      "properties": {
+        "mmsi": 419000101,
+        "vessel_name": "PACIFIC PEARL",
+        "vessel_type": "Tanker",
+        "timestamp": "2026-09-07T02:00:00+00:00",
+        "sog": 14.0,
+        "cog": 63.0,
+        "heading": 63.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.468182,
+          18.987159
+        ]
+      },
+      "properties": {
+        "mmsi": 419000101,
+        "vessel_name": "PACIFIC PEARL",
+        "vessel_type": "Tanker",
+        "timestamp": "2026-09-07T02:15:00+00:00",
+        "sog": 14.0,
+        "cog": 63.0,
+        "heading": 63.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.473636,
+          18.990682
+        ]
+      },
+      "properties": {
+        "mmsi": 419000101,
+        "vessel_name": "PACIFIC PEARL",
+        "vessel_type": "Tanker",
+        "timestamp": "2026-09-07T02:30:00+00:00",
+        "sog": 14.0,
+        "cog": 63.0,
+        "heading": 63.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.479091,
+          18.994205
+        ]
+      },
+      "properties": {
+        "mmsi": 419000101,
+        "vessel_name": "PACIFIC PEARL",
+        "vessel_type": "Tanker",
+        "timestamp": "2026-09-07T02:45:00+00:00",
+        "sog": 14.0,
+        "cog": 63.0,
+        "heading": 63.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.484545,
+          18.997727
+        ]
+      },
+      "properties": {
+        "mmsi": 419000101,
+        "vessel_name": "PACIFIC PEARL",
+        "vessel_type": "Tanker",
+        "timestamp": "2026-09-07T03:00:00+00:00",
+        "sog": 14.0,
+        "cog": 63.0,
+        "heading": 63.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.49,
+          19.00125
+        ]
+      },
+      "properties": {
+        "mmsi": 419000101,
+        "vessel_name": "PACIFIC PEARL",
+        "vessel_type": "Tanker",
+        "timestamp": "2026-09-07T03:15:00+00:00",
+        "sog": 14.0,
+        "cog": 63.0,
+        "heading": 63.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.495455,
+          19.004773
+        ]
+      },
+      "properties": {
+        "mmsi": 419000101,
+        "vessel_name": "PACIFIC PEARL",
+        "vessel_type": "Tanker",
+        "timestamp": "2026-09-07T03:30:00+00:00",
+        "sog": 14.0,
+        "cog": 63.0,
+        "heading": 63.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.500909,
+          19.008295
+        ]
+      },
+      "properties": {
+        "mmsi": 419000101,
+        "vessel_name": "PACIFIC PEARL",
+        "vessel_type": "Tanker",
+        "timestamp": "2026-09-07T03:45:00+00:00",
+        "sog": 14.0,
+        "cog": 63.0,
+        "heading": 63.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.506364,
+          19.011818
+        ]
+      },
+      "properties": {
+        "mmsi": 419000101,
+        "vessel_name": "PACIFIC PEARL",
+        "vessel_type": "Tanker",
+        "timestamp": "2026-09-07T04:00:00+00:00",
+        "sog": 14.0,
+        "cog": 63.0,
+        "heading": 63.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.511818,
+          19.015341
+        ]
+      },
+      "properties": {
+        "mmsi": 419000101,
+        "vessel_name": "PACIFIC PEARL",
+        "vessel_type": "Tanker",
+        "timestamp": "2026-09-07T04:15:00+00:00",
+        "sog": 14.0,
+        "cog": 63.0,
+        "heading": 63.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.517273,
+          19.018864
+        ]
+      },
+      "properties": {
+        "mmsi": 419000101,
+        "vessel_name": "PACIFIC PEARL",
+        "vessel_type": "Tanker",
+        "timestamp": "2026-09-07T04:30:00+00:00",
+        "sog": 14.0,
+        "cog": 63.0,
+        "heading": 63.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.522727,
+          19.022386
+        ]
+      },
+      "properties": {
+        "mmsi": 419000101,
+        "vessel_name": "PACIFIC PEARL",
+        "vessel_type": "Tanker",
+        "timestamp": "2026-09-07T04:45:00+00:00",
+        "sog": 14.0,
+        "cog": 63.0,
+        "heading": 63.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.528182,
+          19.025909
+        ]
+      },
+      "properties": {
+        "mmsi": 419000101,
+        "vessel_name": "PACIFIC PEARL",
+        "vessel_type": "Tanker",
+        "timestamp": "2026-09-07T05:00:00+00:00",
+        "sog": 14.0,
+        "cog": 63.0,
+        "heading": 63.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.533636,
+          19.029432
+        ]
+      },
+      "properties": {
+        "mmsi": 419000101,
+        "vessel_name": "PACIFIC PEARL",
+        "vessel_type": "Tanker",
+        "timestamp": "2026-09-07T05:15:00+00:00",
+        "sog": 14.0,
+        "cog": 63.0,
+        "heading": 63.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.539091,
+          19.032955
+        ]
+      },
+      "properties": {
+        "mmsi": 419000101,
+        "vessel_name": "PACIFIC PEARL",
+        "vessel_type": "Tanker",
+        "timestamp": "2026-09-07T05:30:00+00:00",
+        "sog": 14.0,
+        "cog": 63.0,
+        "heading": 63.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.544545,
+          19.036477
+        ]
+      },
+      "properties": {
+        "mmsi": 419000101,
+        "vessel_name": "PACIFIC PEARL",
+        "vessel_type": "Tanker",
+        "timestamp": "2026-09-07T05:45:00+00:00",
+        "sog": 14.0,
+        "cog": 63.0,
+        "heading": 63.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.55,
+          19.04
+        ]
+      },
+      "properties": {
+        "mmsi": 419000101,
+        "vessel_name": "PACIFIC PEARL",
+        "vessel_type": "Tanker",
+        "timestamp": "2026-09-07T06:00:00+00:00",
+        "sog": 14.0,
+        "cog": 63.0,
+        "heading": 63.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.15,
+          18.98
+        ]
+      },
+      "properties": {
+        "mmsi": 419000102,
+        "vessel_name": "MAERSK TAIPEI",
+        "vessel_type": "Cargo",
+        "timestamp": "2026-09-06T12:00:00+00:00",
+        "sog": 17.2,
+        "cog": 75.0,
+        "heading": 75.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.15625,
+          18.981458
+        ]
+      },
+      "properties": {
+        "mmsi": 419000102,
+        "vessel_name": "MAERSK TAIPEI",
+        "vessel_type": "Cargo",
+        "timestamp": "2026-09-06T12:15:00+00:00",
+        "sog": 17.2,
+        "cog": 75.0,
+        "heading": 75.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.1625,
+          18.982917
+        ]
+      },
+      "properties": {
+        "mmsi": 419000102,
+        "vessel_name": "MAERSK TAIPEI",
+        "vessel_type": "Cargo",
+        "timestamp": "2026-09-06T12:30:00+00:00",
+        "sog": 17.2,
+        "cog": 75.0,
+        "heading": 75.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.16875,
+          18.984375
+        ]
+      },
+      "properties": {
+        "mmsi": 419000102,
+        "vessel_name": "MAERSK TAIPEI",
+        "vessel_type": "Cargo",
+        "timestamp": "2026-09-06T12:45:00+00:00",
+        "sog": 17.2,
+        "cog": 75.0,
+        "heading": 75.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.175,
+          18.985833
+        ]
+      },
+      "properties": {
+        "mmsi": 419000102,
+        "vessel_name": "MAERSK TAIPEI",
+        "vessel_type": "Cargo",
+        "timestamp": "2026-09-06T13:00:00+00:00",
+        "sog": 17.2,
+        "cog": 75.0,
+        "heading": 75.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.18125,
+          18.987292
+        ]
+      },
+      "properties": {
+        "mmsi": 419000102,
+        "vessel_name": "MAERSK TAIPEI",
+        "vessel_type": "Cargo",
+        "timestamp": "2026-09-06T13:15:00+00:00",
+        "sog": 17.2,
+        "cog": 75.0,
+        "heading": 75.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.1875,
+          18.98875
+        ]
+      },
+      "properties": {
+        "mmsi": 419000102,
+        "vessel_name": "MAERSK TAIPEI",
+        "vessel_type": "Cargo",
+        "timestamp": "2026-09-06T13:30:00+00:00",
+        "sog": 17.2,
+        "cog": 75.0,
+        "heading": 75.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.19375,
+          18.990208
+        ]
+      },
+      "properties": {
+        "mmsi": 419000102,
+        "vessel_name": "MAERSK TAIPEI",
+        "vessel_type": "Cargo",
+        "timestamp": "2026-09-06T13:45:00+00:00",
+        "sog": 17.2,
+        "cog": 75.0,
+        "heading": 75.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.2,
+          18.991667
+        ]
+      },
+      "properties": {
+        "mmsi": 419000102,
+        "vessel_name": "MAERSK TAIPEI",
+        "vessel_type": "Cargo",
+        "timestamp": "2026-09-06T14:00:00+00:00",
+        "sog": 17.2,
+        "cog": 75.0,
+        "heading": 75.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.20625,
+          18.993125
+        ]
+      },
+      "properties": {
+        "mmsi": 419000102,
+        "vessel_name": "MAERSK TAIPEI",
+        "vessel_type": "Cargo",
+        "timestamp": "2026-09-06T14:15:00+00:00",
+        "sog": 17.2,
+        "cog": 75.0,
+        "heading": 75.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.2125,
+          18.994583
+        ]
+      },
+      "properties": {
+        "mmsi": 419000102,
+        "vessel_name": "MAERSK TAIPEI",
+        "vessel_type": "Cargo",
+        "timestamp": "2026-09-06T14:30:00+00:00",
+        "sog": 17.2,
+        "cog": 75.0,
+        "heading": 75.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.21875,
+          18.996042
+        ]
+      },
+      "properties": {
+        "mmsi": 419000102,
+        "vessel_name": "MAERSK TAIPEI",
+        "vessel_type": "Cargo",
+        "timestamp": "2026-09-06T14:45:00+00:00",
+        "sog": 17.2,
+        "cog": 75.0,
+        "heading": 75.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.225,
+          18.9975
+        ]
+      },
+      "properties": {
+        "mmsi": 419000102,
+        "vessel_name": "MAERSK TAIPEI",
+        "vessel_type": "Cargo",
+        "timestamp": "2026-09-06T15:00:00+00:00",
+        "sog": 17.2,
+        "cog": 75.0,
+        "heading": 75.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.23125,
+          18.998958
+        ]
+      },
+      "properties": {
+        "mmsi": 419000102,
+        "vessel_name": "MAERSK TAIPEI",
+        "vessel_type": "Cargo",
+        "timestamp": "2026-09-06T15:15:00+00:00",
+        "sog": 17.2,
+        "cog": 75.0,
+        "heading": 75.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.2375,
+          19.000417
+        ]
+      },
+      "properties": {
+        "mmsi": 419000102,
+        "vessel_name": "MAERSK TAIPEI",
+        "vessel_type": "Cargo",
+        "timestamp": "2026-09-06T15:30:00+00:00",
+        "sog": 17.2,
+        "cog": 75.0,
+        "heading": 75.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.24375,
+          19.001875
+        ]
+      },
+      "properties": {
+        "mmsi": 419000102,
+        "vessel_name": "MAERSK TAIPEI",
+        "vessel_type": "Cargo",
+        "timestamp": "2026-09-06T15:45:00+00:00",
+        "sog": 17.2,
+        "cog": 75.0,
+        "heading": 75.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.25,
+          19.003333
+        ]
+      },
+      "properties": {
+        "mmsi": 419000102,
+        "vessel_name": "MAERSK TAIPEI",
+        "vessel_type": "Cargo",
+        "timestamp": "2026-09-06T16:00:00+00:00",
+        "sog": 17.2,
+        "cog": 75.0,
+        "heading": 75.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.25625,
+          19.004792
+        ]
+      },
+      "properties": {
+        "mmsi": 419000102,
+        "vessel_name": "MAERSK TAIPEI",
+        "vessel_type": "Cargo",
+        "timestamp": "2026-09-06T16:15:00+00:00",
+        "sog": 17.2,
+        "cog": 75.0,
+        "heading": 75.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.2625,
+          19.00625
+        ]
+      },
+      "properties": {
+        "mmsi": 419000102,
+        "vessel_name": "MAERSK TAIPEI",
+        "vessel_type": "Cargo",
+        "timestamp": "2026-09-06T16:30:00+00:00",
+        "sog": 17.2,
+        "cog": 75.0,
+        "heading": 75.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.26875,
+          19.007708
+        ]
+      },
+      "properties": {
+        "mmsi": 419000102,
+        "vessel_name": "MAERSK TAIPEI",
+        "vessel_type": "Cargo",
+        "timestamp": "2026-09-06T16:45:00+00:00",
+        "sog": 17.2,
+        "cog": 75.0,
+        "heading": 75.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.275,
+          19.009167
+        ]
+      },
+      "properties": {
+        "mmsi": 419000102,
+        "vessel_name": "MAERSK TAIPEI",
+        "vessel_type": "Cargo",
+        "timestamp": "2026-09-06T17:00:00+00:00",
+        "sog": 17.2,
+        "cog": 75.0,
+        "heading": 75.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.28125,
+          19.010625
+        ]
+      },
+      "properties": {
+        "mmsi": 419000102,
+        "vessel_name": "MAERSK TAIPEI",
+        "vessel_type": "Cargo",
+        "timestamp": "2026-09-06T17:15:00+00:00",
+        "sog": 17.2,
+        "cog": 75.0,
+        "heading": 75.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.2875,
+          19.012083
+        ]
+      },
+      "properties": {
+        "mmsi": 419000102,
+        "vessel_name": "MAERSK TAIPEI",
+        "vessel_type": "Cargo",
+        "timestamp": "2026-09-06T17:30:00+00:00",
+        "sog": 17.2,
+        "cog": 75.0,
+        "heading": 75.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.29375,
+          19.013542
+        ]
+      },
+      "properties": {
+        "mmsi": 419000102,
+        "vessel_name": "MAERSK TAIPEI",
+        "vessel_type": "Cargo",
+        "timestamp": "2026-09-06T17:45:00+00:00",
+        "sog": 17.2,
+        "cog": 75.0,
+        "heading": 75.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.3,
+          19.015
+        ]
+      },
+      "properties": {
+        "mmsi": 419000102,
+        "vessel_name": "MAERSK TAIPEI",
+        "vessel_type": "Cargo",
+        "timestamp": "2026-09-06T18:00:00+00:00",
+        "sog": 17.2,
+        "cog": 75.0,
+        "heading": 75.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.30625,
+          19.016458
+        ]
+      },
+      "properties": {
+        "mmsi": 419000102,
+        "vessel_name": "MAERSK TAIPEI",
+        "vessel_type": "Cargo",
+        "timestamp": "2026-09-06T18:15:00+00:00",
+        "sog": 17.2,
+        "cog": 75.0,
+        "heading": 75.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.3125,
+          19.017917
+        ]
+      },
+      "properties": {
+        "mmsi": 419000102,
+        "vessel_name": "MAERSK TAIPEI",
+        "vessel_type": "Cargo",
+        "timestamp": "2026-09-06T18:30:00+00:00",
+        "sog": 17.2,
+        "cog": 75.0,
+        "heading": 75.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.31875,
+          19.019375
+        ]
+      },
+      "properties": {
+        "mmsi": 419000102,
+        "vessel_name": "MAERSK TAIPEI",
+        "vessel_type": "Cargo",
+        "timestamp": "2026-09-06T18:45:00+00:00",
+        "sog": 17.2,
+        "cog": 75.0,
+        "heading": 75.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.325,
+          19.020833
+        ]
+      },
+      "properties": {
+        "mmsi": 419000102,
+        "vessel_name": "MAERSK TAIPEI",
+        "vessel_type": "Cargo",
+        "timestamp": "2026-09-06T19:00:00+00:00",
+        "sog": 17.2,
+        "cog": 75.0,
+        "heading": 75.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.33125,
+          19.022292
+        ]
+      },
+      "properties": {
+        "mmsi": 419000102,
+        "vessel_name": "MAERSK TAIPEI",
+        "vessel_type": "Cargo",
+        "timestamp": "2026-09-06T19:15:00+00:00",
+        "sog": 17.2,
+        "cog": 75.0,
+        "heading": 75.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.3375,
+          19.02375
+        ]
+      },
+      "properties": {
+        "mmsi": 419000102,
+        "vessel_name": "MAERSK TAIPEI",
+        "vessel_type": "Cargo",
+        "timestamp": "2026-09-06T19:30:00+00:00",
+        "sog": 17.2,
+        "cog": 75.0,
+        "heading": 75.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.34375,
+          19.025208
+        ]
+      },
+      "properties": {
+        "mmsi": 419000102,
+        "vessel_name": "MAERSK TAIPEI",
+        "vessel_type": "Cargo",
+        "timestamp": "2026-09-06T19:45:00+00:00",
+        "sog": 17.2,
+        "cog": 75.0,
+        "heading": 75.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.35,
+          19.026667
+        ]
+      },
+      "properties": {
+        "mmsi": 419000102,
+        "vessel_name": "MAERSK TAIPEI",
+        "vessel_type": "Cargo",
+        "timestamp": "2026-09-06T20:00:00+00:00",
+        "sog": 17.2,
+        "cog": 75.0,
+        "heading": 75.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.35625,
+          19.028125
+        ]
+      },
+      "properties": {
+        "mmsi": 419000102,
+        "vessel_name": "MAERSK TAIPEI",
+        "vessel_type": "Cargo",
+        "timestamp": "2026-09-06T20:15:00+00:00",
+        "sog": 17.2,
+        "cog": 75.0,
+        "heading": 75.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.3625,
+          19.029583
+        ]
+      },
+      "properties": {
+        "mmsi": 419000102,
+        "vessel_name": "MAERSK TAIPEI",
+        "vessel_type": "Cargo",
+        "timestamp": "2026-09-06T20:30:00+00:00",
+        "sog": 17.2,
+        "cog": 75.0,
+        "heading": 75.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.36875,
+          19.031042
+        ]
+      },
+      "properties": {
+        "mmsi": 419000102,
+        "vessel_name": "MAERSK TAIPEI",
+        "vessel_type": "Cargo",
+        "timestamp": "2026-09-06T20:45:00+00:00",
+        "sog": 17.2,
+        "cog": 75.0,
+        "heading": 75.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.375,
+          19.0325
+        ]
+      },
+      "properties": {
+        "mmsi": 419000102,
+        "vessel_name": "MAERSK TAIPEI",
+        "vessel_type": "Cargo",
+        "timestamp": "2026-09-06T21:00:00+00:00",
+        "sog": 17.2,
+        "cog": 75.0,
+        "heading": 75.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.38125,
+          19.033958
+        ]
+      },
+      "properties": {
+        "mmsi": 419000102,
+        "vessel_name": "MAERSK TAIPEI",
+        "vessel_type": "Cargo",
+        "timestamp": "2026-09-06T21:15:00+00:00",
+        "sog": 17.2,
+        "cog": 75.0,
+        "heading": 75.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.3875,
+          19.035417
+        ]
+      },
+      "properties": {
+        "mmsi": 419000102,
+        "vessel_name": "MAERSK TAIPEI",
+        "vessel_type": "Cargo",
+        "timestamp": "2026-09-06T21:30:00+00:00",
+        "sog": 17.2,
+        "cog": 75.0,
+        "heading": 75.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.39375,
+          19.036875
+        ]
+      },
+      "properties": {
+        "mmsi": 419000102,
+        "vessel_name": "MAERSK TAIPEI",
+        "vessel_type": "Cargo",
+        "timestamp": "2026-09-06T21:45:00+00:00",
+        "sog": 17.2,
+        "cog": 75.0,
+        "heading": 75.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.4,
+          19.038333
+        ]
+      },
+      "properties": {
+        "mmsi": 419000102,
+        "vessel_name": "MAERSK TAIPEI",
+        "vessel_type": "Cargo",
+        "timestamp": "2026-09-06T22:00:00+00:00",
+        "sog": 17.2,
+        "cog": 75.0,
+        "heading": 75.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.40625,
+          19.039792
+        ]
+      },
+      "properties": {
+        "mmsi": 419000102,
+        "vessel_name": "MAERSK TAIPEI",
+        "vessel_type": "Cargo",
+        "timestamp": "2026-09-06T22:15:00+00:00",
+        "sog": 17.2,
+        "cog": 75.0,
+        "heading": 75.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.4125,
+          19.04125
+        ]
+      },
+      "properties": {
+        "mmsi": 419000102,
+        "vessel_name": "MAERSK TAIPEI",
+        "vessel_type": "Cargo",
+        "timestamp": "2026-09-06T22:30:00+00:00",
+        "sog": 17.2,
+        "cog": 75.0,
+        "heading": 75.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.41875,
+          19.042708
+        ]
+      },
+      "properties": {
+        "mmsi": 419000102,
+        "vessel_name": "MAERSK TAIPEI",
+        "vessel_type": "Cargo",
+        "timestamp": "2026-09-06T22:45:00+00:00",
+        "sog": 17.2,
+        "cog": 75.0,
+        "heading": 75.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.425,
+          19.044167
+        ]
+      },
+      "properties": {
+        "mmsi": 419000102,
+        "vessel_name": "MAERSK TAIPEI",
+        "vessel_type": "Cargo",
+        "timestamp": "2026-09-06T23:00:00+00:00",
+        "sog": 17.2,
+        "cog": 75.0,
+        "heading": 75.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.43125,
+          19.045625
+        ]
+      },
+      "properties": {
+        "mmsi": 419000102,
+        "vessel_name": "MAERSK TAIPEI",
+        "vessel_type": "Cargo",
+        "timestamp": "2026-09-06T23:15:00+00:00",
+        "sog": 17.2,
+        "cog": 75.0,
+        "heading": 75.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.4375,
+          19.047083
+        ]
+      },
+      "properties": {
+        "mmsi": 419000102,
+        "vessel_name": "MAERSK TAIPEI",
+        "vessel_type": "Cargo",
+        "timestamp": "2026-09-06T23:30:00+00:00",
+        "sog": 17.2,
+        "cog": 75.0,
+        "heading": 75.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.44375,
+          19.048542
+        ]
+      },
+      "properties": {
+        "mmsi": 419000102,
+        "vessel_name": "MAERSK TAIPEI",
+        "vessel_type": "Cargo",
+        "timestamp": "2026-09-06T23:45:00+00:00",
+        "sog": 17.2,
+        "cog": 75.0,
+        "heading": 75.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.45,
+          19.05
+        ]
+      },
+      "properties": {
+        "mmsi": 419000102,
+        "vessel_name": "MAERSK TAIPEI",
+        "vessel_type": "Cargo",
+        "timestamp": "2026-09-07T00:00:00+00:00",
+        "sog": 17.2,
+        "cog": 75.0,
+        "heading": 75.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.5,
+          18.65
+        ]
+      },
+      "properties": {
+        "mmsi": 419000103,
+        "vessel_name": "SAGAR JYOTI",
+        "vessel_type": "Fishing",
+        "timestamp": "2026-09-06T18:00:00+00:00",
+        "sog": 3.5,
+        "cog": 45.0,
+        "heading": 45.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.501042,
+          18.651042
+        ]
+      },
+      "properties": {
+        "mmsi": 419000103,
+        "vessel_name": "SAGAR JYOTI",
+        "vessel_type": "Fishing",
+        "timestamp": "2026-09-06T18:15:00+00:00",
+        "sog": 3.5,
+        "cog": 45.0,
+        "heading": 45.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.502083,
+          18.652083
+        ]
+      },
+      "properties": {
+        "mmsi": 419000103,
+        "vessel_name": "SAGAR JYOTI",
+        "vessel_type": "Fishing",
+        "timestamp": "2026-09-06T18:30:00+00:00",
+        "sog": 3.5,
+        "cog": 45.0,
+        "heading": 45.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.503125,
+          18.653125
+        ]
+      },
+      "properties": {
+        "mmsi": 419000103,
+        "vessel_name": "SAGAR JYOTI",
+        "vessel_type": "Fishing",
+        "timestamp": "2026-09-06T18:45:00+00:00",
+        "sog": 3.5,
+        "cog": 45.0,
+        "heading": 45.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.504167,
+          18.654167
+        ]
+      },
+      "properties": {
+        "mmsi": 419000103,
+        "vessel_name": "SAGAR JYOTI",
+        "vessel_type": "Fishing",
+        "timestamp": "2026-09-06T19:00:00+00:00",
+        "sog": 3.5,
+        "cog": 45.0,
+        "heading": 45.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.505208,
+          18.655208
+        ]
+      },
+      "properties": {
+        "mmsi": 419000103,
+        "vessel_name": "SAGAR JYOTI",
+        "vessel_type": "Fishing",
+        "timestamp": "2026-09-06T19:15:00+00:00",
+        "sog": 3.5,
+        "cog": 45.0,
+        "heading": 45.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.50625,
+          18.65625
+        ]
+      },
+      "properties": {
+        "mmsi": 419000103,
+        "vessel_name": "SAGAR JYOTI",
+        "vessel_type": "Fishing",
+        "timestamp": "2026-09-06T19:30:00+00:00",
+        "sog": 3.5,
+        "cog": 45.0,
+        "heading": 45.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.507292,
+          18.657292
+        ]
+      },
+      "properties": {
+        "mmsi": 419000103,
+        "vessel_name": "SAGAR JYOTI",
+        "vessel_type": "Fishing",
+        "timestamp": "2026-09-06T19:45:00+00:00",
+        "sog": 3.5,
+        "cog": 45.0,
+        "heading": 45.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.508333,
+          18.658333
+        ]
+      },
+      "properties": {
+        "mmsi": 419000103,
+        "vessel_name": "SAGAR JYOTI",
+        "vessel_type": "Fishing",
+        "timestamp": "2026-09-06T20:00:00+00:00",
+        "sog": 3.5,
+        "cog": 45.0,
+        "heading": 45.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.509375,
+          18.659375
+        ]
+      },
+      "properties": {
+        "mmsi": 419000103,
+        "vessel_name": "SAGAR JYOTI",
+        "vessel_type": "Fishing",
+        "timestamp": "2026-09-06T20:15:00+00:00",
+        "sog": 3.5,
+        "cog": 45.0,
+        "heading": 45.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.510417,
+          18.660417
+        ]
+      },
+      "properties": {
+        "mmsi": 419000103,
+        "vessel_name": "SAGAR JYOTI",
+        "vessel_type": "Fishing",
+        "timestamp": "2026-09-06T20:30:00+00:00",
+        "sog": 3.5,
+        "cog": 45.0,
+        "heading": 45.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.511458,
+          18.661458
+        ]
+      },
+      "properties": {
+        "mmsi": 419000103,
+        "vessel_name": "SAGAR JYOTI",
+        "vessel_type": "Fishing",
+        "timestamp": "2026-09-06T20:45:00+00:00",
+        "sog": 3.5,
+        "cog": 45.0,
+        "heading": 45.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.5125,
+          18.6625
+        ]
+      },
+      "properties": {
+        "mmsi": 419000103,
+        "vessel_name": "SAGAR JYOTI",
+        "vessel_type": "Fishing",
+        "timestamp": "2026-09-06T21:00:00+00:00",
+        "sog": 3.5,
+        "cog": 45.0,
+        "heading": 45.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.513542,
+          18.663542
+        ]
+      },
+      "properties": {
+        "mmsi": 419000103,
+        "vessel_name": "SAGAR JYOTI",
+        "vessel_type": "Fishing",
+        "timestamp": "2026-09-06T21:15:00+00:00",
+        "sog": 3.5,
+        "cog": 45.0,
+        "heading": 45.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.514583,
+          18.664583
+        ]
+      },
+      "properties": {
+        "mmsi": 419000103,
+        "vessel_name": "SAGAR JYOTI",
+        "vessel_type": "Fishing",
+        "timestamp": "2026-09-06T21:30:00+00:00",
+        "sog": 3.5,
+        "cog": 45.0,
+        "heading": 45.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.515625,
+          18.665625
+        ]
+      },
+      "properties": {
+        "mmsi": 419000103,
+        "vessel_name": "SAGAR JYOTI",
+        "vessel_type": "Fishing",
+        "timestamp": "2026-09-06T21:45:00+00:00",
+        "sog": 3.5,
+        "cog": 45.0,
+        "heading": 45.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.516667,
+          18.666667
+        ]
+      },
+      "properties": {
+        "mmsi": 419000103,
+        "vessel_name": "SAGAR JYOTI",
+        "vessel_type": "Fishing",
+        "timestamp": "2026-09-06T22:00:00+00:00",
+        "sog": 3.5,
+        "cog": 45.0,
+        "heading": 45.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.517708,
+          18.667708
+        ]
+      },
+      "properties": {
+        "mmsi": 419000103,
+        "vessel_name": "SAGAR JYOTI",
+        "vessel_type": "Fishing",
+        "timestamp": "2026-09-06T22:15:00+00:00",
+        "sog": 3.5,
+        "cog": 45.0,
+        "heading": 45.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.51875,
+          18.66875
+        ]
+      },
+      "properties": {
+        "mmsi": 419000103,
+        "vessel_name": "SAGAR JYOTI",
+        "vessel_type": "Fishing",
+        "timestamp": "2026-09-06T22:30:00+00:00",
+        "sog": 3.5,
+        "cog": 45.0,
+        "heading": 45.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.519792,
+          18.669792
+        ]
+      },
+      "properties": {
+        "mmsi": 419000103,
+        "vessel_name": "SAGAR JYOTI",
+        "vessel_type": "Fishing",
+        "timestamp": "2026-09-06T22:45:00+00:00",
+        "sog": 3.5,
+        "cog": 45.0,
+        "heading": 45.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.520833,
+          18.670833
+        ]
+      },
+      "properties": {
+        "mmsi": 419000103,
+        "vessel_name": "SAGAR JYOTI",
+        "vessel_type": "Fishing",
+        "timestamp": "2026-09-06T23:00:00+00:00",
+        "sog": 3.5,
+        "cog": 45.0,
+        "heading": 45.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.521875,
+          18.671875
+        ]
+      },
+      "properties": {
+        "mmsi": 419000103,
+        "vessel_name": "SAGAR JYOTI",
+        "vessel_type": "Fishing",
+        "timestamp": "2026-09-06T23:15:00+00:00",
+        "sog": 3.5,
+        "cog": 45.0,
+        "heading": 45.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.522917,
+          18.672917
+        ]
+      },
+      "properties": {
+        "mmsi": 419000103,
+        "vessel_name": "SAGAR JYOTI",
+        "vessel_type": "Fishing",
+        "timestamp": "2026-09-06T23:30:00+00:00",
+        "sog": 3.5,
+        "cog": 45.0,
+        "heading": 45.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.523958,
+          18.673958
+        ]
+      },
+      "properties": {
+        "mmsi": 419000103,
+        "vessel_name": "SAGAR JYOTI",
+        "vessel_type": "Fishing",
+        "timestamp": "2026-09-06T23:45:00+00:00",
+        "sog": 3.5,
+        "cog": 45.0,
+        "heading": 45.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.525,
+          18.675
+        ]
+      },
+      "properties": {
+        "mmsi": 419000103,
+        "vessel_name": "SAGAR JYOTI",
+        "vessel_type": "Fishing",
+        "timestamp": "2026-09-07T00:00:00+00:00",
+        "sog": 3.5,
+        "cog": 45.0,
+        "heading": 45.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.526042,
+          18.676042
+        ]
+      },
+      "properties": {
+        "mmsi": 419000103,
+        "vessel_name": "SAGAR JYOTI",
+        "vessel_type": "Fishing",
+        "timestamp": "2026-09-07T00:15:00+00:00",
+        "sog": 3.5,
+        "cog": 45.0,
+        "heading": 45.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.527083,
+          18.677083
+        ]
+      },
+      "properties": {
+        "mmsi": 419000103,
+        "vessel_name": "SAGAR JYOTI",
+        "vessel_type": "Fishing",
+        "timestamp": "2026-09-07T00:30:00+00:00",
+        "sog": 3.5,
+        "cog": 45.0,
+        "heading": 45.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.528125,
+          18.678125
+        ]
+      },
+      "properties": {
+        "mmsi": 419000103,
+        "vessel_name": "SAGAR JYOTI",
+        "vessel_type": "Fishing",
+        "timestamp": "2026-09-07T00:45:00+00:00",
+        "sog": 3.5,
+        "cog": 45.0,
+        "heading": 45.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.529167,
+          18.679167
+        ]
+      },
+      "properties": {
+        "mmsi": 419000103,
+        "vessel_name": "SAGAR JYOTI",
+        "vessel_type": "Fishing",
+        "timestamp": "2026-09-07T01:00:00+00:00",
+        "sog": 3.5,
+        "cog": 45.0,
+        "heading": 45.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.530208,
+          18.680208
+        ]
+      },
+      "properties": {
+        "mmsi": 419000103,
+        "vessel_name": "SAGAR JYOTI",
+        "vessel_type": "Fishing",
+        "timestamp": "2026-09-07T01:15:00+00:00",
+        "sog": 3.5,
+        "cog": 45.0,
+        "heading": 45.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.53125,
+          18.68125
+        ]
+      },
+      "properties": {
+        "mmsi": 419000103,
+        "vessel_name": "SAGAR JYOTI",
+        "vessel_type": "Fishing",
+        "timestamp": "2026-09-07T01:30:00+00:00",
+        "sog": 3.5,
+        "cog": 45.0,
+        "heading": 45.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.532292,
+          18.682292
+        ]
+      },
+      "properties": {
+        "mmsi": 419000103,
+        "vessel_name": "SAGAR JYOTI",
+        "vessel_type": "Fishing",
+        "timestamp": "2026-09-07T01:45:00+00:00",
+        "sog": 3.5,
+        "cog": 45.0,
+        "heading": 45.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.533333,
+          18.683333
+        ]
+      },
+      "properties": {
+        "mmsi": 419000103,
+        "vessel_name": "SAGAR JYOTI",
+        "vessel_type": "Fishing",
+        "timestamp": "2026-09-07T02:00:00+00:00",
+        "sog": 3.5,
+        "cog": 45.0,
+        "heading": 45.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.534375,
+          18.684375
+        ]
+      },
+      "properties": {
+        "mmsi": 419000103,
+        "vessel_name": "SAGAR JYOTI",
+        "vessel_type": "Fishing",
+        "timestamp": "2026-09-07T02:15:00+00:00",
+        "sog": 3.5,
+        "cog": 45.0,
+        "heading": 45.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.535417,
+          18.685417
+        ]
+      },
+      "properties": {
+        "mmsi": 419000103,
+        "vessel_name": "SAGAR JYOTI",
+        "vessel_type": "Fishing",
+        "timestamp": "2026-09-07T02:30:00+00:00",
+        "sog": 3.5,
+        "cog": 45.0,
+        "heading": 45.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.536458,
+          18.686458
+        ]
+      },
+      "properties": {
+        "mmsi": 419000103,
+        "vessel_name": "SAGAR JYOTI",
+        "vessel_type": "Fishing",
+        "timestamp": "2026-09-07T02:45:00+00:00",
+        "sog": 3.5,
+        "cog": 45.0,
+        "heading": 45.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.5375,
+          18.6875
+        ]
+      },
+      "properties": {
+        "mmsi": 419000103,
+        "vessel_name": "SAGAR JYOTI",
+        "vessel_type": "Fishing",
+        "timestamp": "2026-09-07T03:00:00+00:00",
+        "sog": 3.5,
+        "cog": 45.0,
+        "heading": 45.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.538542,
+          18.688542
+        ]
+      },
+      "properties": {
+        "mmsi": 419000103,
+        "vessel_name": "SAGAR JYOTI",
+        "vessel_type": "Fishing",
+        "timestamp": "2026-09-07T03:15:00+00:00",
+        "sog": 3.5,
+        "cog": 45.0,
+        "heading": 45.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.539583,
+          18.689583
+        ]
+      },
+      "properties": {
+        "mmsi": 419000103,
+        "vessel_name": "SAGAR JYOTI",
+        "vessel_type": "Fishing",
+        "timestamp": "2026-09-07T03:30:00+00:00",
+        "sog": 3.5,
+        "cog": 45.0,
+        "heading": 45.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.540625,
+          18.690625
+        ]
+      },
+      "properties": {
+        "mmsi": 419000103,
+        "vessel_name": "SAGAR JYOTI",
+        "vessel_type": "Fishing",
+        "timestamp": "2026-09-07T03:45:00+00:00",
+        "sog": 3.5,
+        "cog": 45.0,
+        "heading": 45.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.541667,
+          18.691667
+        ]
+      },
+      "properties": {
+        "mmsi": 419000103,
+        "vessel_name": "SAGAR JYOTI",
+        "vessel_type": "Fishing",
+        "timestamp": "2026-09-07T04:00:00+00:00",
+        "sog": 3.5,
+        "cog": 45.0,
+        "heading": 45.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.542708,
+          18.692708
+        ]
+      },
+      "properties": {
+        "mmsi": 419000103,
+        "vessel_name": "SAGAR JYOTI",
+        "vessel_type": "Fishing",
+        "timestamp": "2026-09-07T04:15:00+00:00",
+        "sog": 3.5,
+        "cog": 45.0,
+        "heading": 45.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.54375,
+          18.69375
+        ]
+      },
+      "properties": {
+        "mmsi": 419000103,
+        "vessel_name": "SAGAR JYOTI",
+        "vessel_type": "Fishing",
+        "timestamp": "2026-09-07T04:30:00+00:00",
+        "sog": 3.5,
+        "cog": 45.0,
+        "heading": 45.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.544792,
+          18.694792
+        ]
+      },
+      "properties": {
+        "mmsi": 419000103,
+        "vessel_name": "SAGAR JYOTI",
+        "vessel_type": "Fishing",
+        "timestamp": "2026-09-07T04:45:00+00:00",
+        "sog": 3.5,
+        "cog": 45.0,
+        "heading": 45.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.545833,
+          18.695833
+        ]
+      },
+      "properties": {
+        "mmsi": 419000103,
+        "vessel_name": "SAGAR JYOTI",
+        "vessel_type": "Fishing",
+        "timestamp": "2026-09-07T05:00:00+00:00",
+        "sog": 3.5,
+        "cog": 45.0,
+        "heading": 45.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.546875,
+          18.696875
+        ]
+      },
+      "properties": {
+        "mmsi": 419000103,
+        "vessel_name": "SAGAR JYOTI",
+        "vessel_type": "Fishing",
+        "timestamp": "2026-09-07T05:15:00+00:00",
+        "sog": 3.5,
+        "cog": 45.0,
+        "heading": 45.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.547917,
+          18.697917
+        ]
+      },
+      "properties": {
+        "mmsi": 419000103,
+        "vessel_name": "SAGAR JYOTI",
+        "vessel_type": "Fishing",
+        "timestamp": "2026-09-07T05:30:00+00:00",
+        "sog": 3.5,
+        "cog": 45.0,
+        "heading": 45.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.548958,
+          18.698958
+        ]
+      },
+      "properties": {
+        "mmsi": 419000103,
+        "vessel_name": "SAGAR JYOTI",
+        "vessel_type": "Fishing",
+        "timestamp": "2026-09-07T05:45:00+00:00",
+        "sog": 3.5,
+        "cog": 45.0,
+        "heading": 45.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.55,
+          18.7
+        ]
+      },
+      "properties": {
+        "mmsi": 419000103,
+        "vessel_name": "SAGAR JYOTI",
+        "vessel_type": "Fishing",
+        "timestamp": "2026-09-07T06:00:00+00:00",
+        "sog": 3.5,
+        "cog": 45.0,
+        "heading": 45.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.2,
+          18.8
+        ]
+      },
+      "properties": {
+        "mmsi": 419000104,
+        "vessel_name": "SEA SHADOW",
+        "vessel_type": "Tanker",
+        "timestamp": "2026-09-06T16:00:00+00:00",
+        "sog": 11.5,
+        "cog": 55.0,
+        "heading": 55.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.209375,
+          18.8075
+        ]
+      },
+      "properties": {
+        "mmsi": 419000104,
+        "vessel_name": "SEA SHADOW",
+        "vessel_type": "Tanker",
+        "timestamp": "2026-09-06T16:15:00+00:00",
+        "sog": 11.5,
+        "cog": 55.0,
+        "heading": 55.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.21875,
+          18.815
+        ]
+      },
+      "properties": {
+        "mmsi": 419000104,
+        "vessel_name": "SEA SHADOW",
+        "vessel_type": "Tanker",
+        "timestamp": "2026-09-06T16:30:00+00:00",
+        "sog": 11.5,
+        "cog": 55.0,
+        "heading": 55.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.228125,
+          18.8225
+        ]
+      },
+      "properties": {
+        "mmsi": 419000104,
+        "vessel_name": "SEA SHADOW",
+        "vessel_type": "Tanker",
+        "timestamp": "2026-09-06T16:45:00+00:00",
+        "sog": 11.5,
+        "cog": 55.0,
+        "heading": 55.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.321875,
+          18.8975
+        ]
+      },
+      "properties": {
+        "mmsi": 419000104,
+        "vessel_name": "SEA SHADOW",
+        "vessel_type": "Tanker",
+        "timestamp": "2026-09-06T19:15:00+00:00",
+        "sog": 11.5,
+        "cog": 55.0,
+        "heading": 55.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.33125,
+          18.905
+        ]
+      },
+      "properties": {
+        "mmsi": 419000104,
+        "vessel_name": "SEA SHADOW",
+        "vessel_type": "Tanker",
+        "timestamp": "2026-09-06T19:30:00+00:00",
+        "sog": 11.5,
+        "cog": 55.0,
+        "heading": 55.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.340625,
+          18.9125
+        ]
+      },
+      "properties": {
+        "mmsi": 419000104,
+        "vessel_name": "SEA SHADOW",
+        "vessel_type": "Tanker",
+        "timestamp": "2026-09-06T19:45:00+00:00",
+        "sog": 11.5,
+        "cog": 55.0,
+        "heading": 55.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.35,
+          18.92
+        ]
+      },
+      "properties": {
+        "mmsi": 419000104,
+        "vessel_name": "SEA SHADOW",
+        "vessel_type": "Tanker",
+        "timestamp": "2026-09-06T20:00:00+00:00",
+        "sog": 11.5,
+        "cog": 55.0,
+        "heading": 55.0,
+        "nav_status": 0,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.15,
+          19.35
+        ]
+      },
+      "properties": {
+        "mmsi": 419000105,
+        "vessel_name": "OFFSHORE TENDER 3",
+        "vessel_type": "Offshore",
+        "timestamp": "2026-09-07T06:00:00+00:00",
+        "sog": 0.2,
+        "cog": 180.0,
+        "heading": 180.0,
+        "nav_status": 5,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.15,
+          19.35
+        ]
+      },
+      "properties": {
+        "mmsi": 419000105,
+        "vessel_name": "OFFSHORE TENDER 3",
+        "vessel_type": "Offshore",
+        "timestamp": "2026-09-07T04:00:00+00:00",
+        "sog": 0.2,
+        "cog": 180.0,
+        "heading": 180.0,
+        "nav_status": 5,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.15,
+          19.35
+        ]
+      },
+      "properties": {
+        "mmsi": 419000105,
+        "vessel_name": "OFFSHORE TENDER 3",
+        "vessel_type": "Offshore",
+        "timestamp": "2026-09-07T02:00:00+00:00",
+        "sog": 0.2,
+        "cog": 180.0,
+        "heading": 180.0,
+        "nav_status": 5,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.15,
+          19.35
+        ]
+      },
+      "properties": {
+        "mmsi": 419000105,
+        "vessel_name": "OFFSHORE TENDER 3",
+        "vessel_type": "Offshore",
+        "timestamp": "2026-09-07T00:00:00+00:00",
+        "sog": 0.2,
+        "cog": 180.0,
+        "heading": 180.0,
+        "nav_status": 5,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.15,
+          19.35
+        ]
+      },
+      "properties": {
+        "mmsi": 419000105,
+        "vessel_name": "OFFSHORE TENDER 3",
+        "vessel_type": "Offshore",
+        "timestamp": "2026-09-06T22:00:00+00:00",
+        "sog": 0.2,
+        "cog": 180.0,
+        "heading": 180.0,
+        "nav_status": 5,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.15,
+          19.35
+        ]
+      },
+      "properties": {
+        "mmsi": 419000105,
+        "vessel_name": "OFFSHORE TENDER 3",
+        "vessel_type": "Offshore",
+        "timestamp": "2026-09-06T20:00:00+00:00",
+        "sog": 0.2,
+        "cog": 180.0,
+        "heading": 180.0,
+        "nav_status": 5,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.15,
+          19.35
+        ]
+      },
+      "properties": {
+        "mmsi": 419000105,
+        "vessel_name": "OFFSHORE TENDER 3",
+        "vessel_type": "Offshore",
+        "timestamp": "2026-09-06T18:00:00+00:00",
+        "sog": 0.2,
+        "cog": 180.0,
+        "heading": 180.0,
+        "nav_status": 5,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.15,
+          19.35
+        ]
+      },
+      "properties": {
+        "mmsi": 419000105,
+        "vessel_name": "OFFSHORE TENDER 3",
+        "vessel_type": "Offshore",
+        "timestamp": "2026-09-06T16:00:00+00:00",
+        "sog": 0.2,
+        "cog": 180.0,
+        "heading": 180.0,
+        "nav_status": 5,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.15,
+          19.35
+        ]
+      },
+      "properties": {
+        "mmsi": 419000105,
+        "vessel_name": "OFFSHORE TENDER 3",
+        "vessel_type": "Offshore",
+        "timestamp": "2026-09-06T14:00:00+00:00",
+        "sog": 0.2,
+        "cog": 180.0,
+        "heading": 180.0,
+        "nav_status": 5,
+        "data_source": "synthetic"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.15,
+          19.35
+        ]
+      },
+      "properties": {
+        "mmsi": 419000105,
+        "vessel_name": "OFFSHORE TENDER 3",
+        "vessel_type": "Offshore",
+        "timestamp": "2026-09-06T12:00:00+00:00",
+        "sog": 0.2,
+        "cog": 180.0,
+        "heading": 180.0,
+        "nav_status": 5,
+        "data_source": "synthetic"
+      }
+    }
+  ]
+}

@@ -367,7 +367,8 @@ This document serves as the master, strictly sequential, atomic task backlog for
 
 ---
 
-### TASK-020: Origin Density Estimation (2D Gaussian Kernel Density Estimation)
+### [x] TASK-020: Origin Density Estimation (2D Gaussian Kernel Density Estimation) (Completed)
+- **Status:** Completed
 - **Domain:** Tier 3 — Probabilistic Origin
 - **Prerequisites:** TASK-019
 - **Objective:** Estimate origin probability centroid ($\mu_p$), spatial covariance matrix ($\Sigma_p$), and release time window from the backward particle ensemble.

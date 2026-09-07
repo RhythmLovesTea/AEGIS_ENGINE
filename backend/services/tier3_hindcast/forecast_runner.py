@@ -539,3 +539,7 @@ class ForwardTrajectoryForecaster:
             data_source=data_source,
             execution_time_sec=elapsed_wall_sec,
         )
+
+
+# Alias for consistent naming across Tier 3 modules
+ForwardForecastRunner = ForwardTrajectoryForecaster

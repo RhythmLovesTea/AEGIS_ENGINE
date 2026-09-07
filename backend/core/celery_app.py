@@ -5,7 +5,7 @@ from __future__ import annotations
 import json
 import logging
 import os
-from typing import Any, Dict, Optional
+from typing import Any
 
 from celery import Celery, Task
 from kombu import Exchange, Queue
@@ -61,7 +61,7 @@ class AegisTask(Task):
         stage: str,
         percent: float,
         message: str = "",
-        extra: Optional[Dict[str, Any]] = None,
+        extra: dict[str, Any] | None = None,
     ) -> None:
         """Update task state to PROGRESS and publish event to Redis for WebSocket clients."""
         payload = {
@@ -86,7 +86,6 @@ class AegisTask(Task):
             r.publish(f"cases:{case_id}:progress", json.dumps(payload))
         except Exception as e:
             logger.debug(f"Redis Pub/Sub broadcast skipped (offline/unavailable): {e}")
-
 
     def on_failure(
         self,
@@ -114,9 +113,7 @@ class AegisTask(Task):
         einfo: Any,
     ) -> None:
         """Invoked when a task is scheduled for retry."""
-        logger.warning(
-            f"⚠️ Task {self.name} [{task_id}] retrying due to: {exc}"
-        )
+        logger.warning(f"⚠️ Task {self.name} [{task_id}] retrying due to: {exc}")
         super().on_retry(exc, task_id, args, kwargs, einfo)
 
 
@@ -147,5 +144,6 @@ celery_app.conf.update(
         "backend.workers.tasks.pipeline_tasks",
         "backend.workers.tasks.tier1_tasks",
         "backend.workers.tasks.tier2_tasks",
+        "backend.workers.tasks.tier3_tasks",
     ],
 )

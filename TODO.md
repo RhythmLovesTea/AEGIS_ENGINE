@@ -404,7 +404,8 @@ This document serves as the master, strictly sequential, atomic task backlog for
 
 ---
 
-### TASK-022: Tier 3 Celery Pipeline Task, Particle Persistence & Integration Test
+### [x] TASK-022: Tier 3 Celery Pipeline Task, Particle Persistence & Integration Test (Completed)
+- **Status:** Completed
 - **Domain:** Tier 3 — Pipeline Integration
 - **Prerequisites:** TASK-021
 - **Objective:** Wrap hindcast and forecast into a Celery task that stores origin estimates in Postgres and streams particle trajectories to TimescaleDB.

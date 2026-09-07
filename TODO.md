@@ -271,7 +271,8 @@ This document serves as the master, strictly sequential, atomic task backlog for
 
 ---
 
-### TASK-015: Thickness Profiling & Volumetric Estimation (Bonn Agreement BAOAC)
+### [x] TASK-015: Thickness Profiling & Volumetric Estimation (Bonn Agreement BAOAC) (Completed)
+- **Status:** Completed
 - **Domain:** Tier 2 — Thickness Profiling
 - **Prerequisites:** TASK-014
 - **Objective:** Implement the Bonn Agreement Oil Appearance Code (BAOAC) classification to derive spatial thickness map and integrated spill volume.

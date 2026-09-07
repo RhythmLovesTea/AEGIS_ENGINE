@@ -374,3 +374,74 @@ class CounterfactualResult(BaseSchema):
         ...,
         description="Objective forensic counterfactual rationale (strictly zero Rule 6 banned terms)",
     )
+
+
+class ParticleReplayPoint(BaseSchema):
+    """Lagrangian advection particle at a requested replay timestamp."""
+
+    particle_id: int
+    lon: float
+    lat: float
+    depth_m: float = 0.0
+    status: str = Field(default="active", description="'active' | 'beached' | 'evaporated'")
+
+
+class ParticleEnsembleState(BaseSchema):
+    """Ensemble summary and coordinates for deck.gl map rendering."""
+
+    timestamp: datetime
+    mean_lon: float
+    mean_lat: float
+    n_particles: int
+    subsample_coords: list[list[float]] = Field(
+        default_factory=list,
+        description="Subsampled [lon, lat] coordinates for high-performance cartography",
+    )
+    dispersion_radius_m: float = Field(
+        default=0.0,
+        ge=0.0,
+        description="Estimated standard deviation particle dispersion radius in meters",
+    )
+
+
+class VesselReplayState(BaseSchema):
+    """Rule 1: Vessel position, kinematics, and dynamic attribution at replay timestamp."""
+
+    mmsi: int
+    name: str
+    vessel_type: str
+    flag_state: str | None = None
+    lon: float
+    lat: float
+    sog_kts: float = Field(..., ge=0.0, description="Interpolated speed over ground in knots")
+    cog_deg: float = Field(
+        ..., ge=0.0, le=360.0, description="Interpolated course over ground in degrees"
+    )
+    distance_to_cloud_m: float = Field(
+        ..., ge=0.0, description="Euclidean distance to particle ensemble center"
+    )
+    current_s_culprit: float = Field(
+        ..., ge=0.0, le=100.0, description="Dynamic attribution score at time t"
+    )
+    rank: int = Field(..., ge=1, description="Live ranking among candidates at time t")
+    confidence_pct: ConfidenceValue  # Rule 1: Paired confidence
+    in_surveillance_zone: bool = True
+
+
+class ReplayStatePayload(BaseSchema):
+    """Investigation Replay state at a discrete or interpolated timestamp (Feature 4 / D4)."""
+
+    case_id: uuid.UUID
+    timestamp: datetime = Field(..., description="Query timestamp t in UTC")
+    particles: ParticleEnsembleState
+    vessels: list[VesselReplayState] = Field(default_factory=list)
+    observed_slick_centroid: tuple[float, float] | None = None
+    estimated_origin_centroid: tuple[float, float] | None = None
+    time_progress_pct: float = Field(
+        default=0.0,
+        ge=0.0,
+        le=100.0,
+        description="Normalized timeline progress percentage [0 - 100]",
+    )
+    confidence_pct: ConfidenceValue  # Rule 1: Paired confidence
+    metadata: dict[str, Any] = Field(default_factory=dict)

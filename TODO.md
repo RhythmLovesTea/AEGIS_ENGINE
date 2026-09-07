@@ -613,7 +613,7 @@ This document serves as the master, strictly sequential, atomic task backlog for
 
 ---
 
-### TASK-033: Replay State Server (Feature 4 / D4)
+### [x] TASK-033: Replay State Server (Feature 4 / D4) (Completed)
 - **Domain:** Backend API / Scrubber Support
 - **Prerequisites:** TASK-032
 - **Objective:** Implement time-slice query engine serving particle and vessel positions for the frontend time-scrubber.

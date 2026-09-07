@@ -39,47 +39,101 @@ class AlternativeExplanationResponse(AlternativeExplanationBase):
 
 
 class EvidenceTimelineItem(BaseSchema):
-    """Chronological event reconstruction entry."""
+    """Rule 1: Chronological event reconstruction entry with paired confidence."""
 
     timestamp: datetime
     event_type: str = Field(
         ...,
-        description="'satellite_pass' | 'spill_origin' | 'vessel_entry' | 'anomaly_detected' | 'cpa_reached'",
+        description=(
+            "'satellite_pass' | 'release_window' | 'vessel_entry' | "
+            "'anomaly_detected' | 'cpa_reached' | 'drift_progression' | 'slick_observed'"
+        ),
     )
     title: str
     description: str
     evidence_ref: str | None = None
+    confidence_pct: ConfidenceValue = Field(
+        default=85.0, description="Rule 1: Paired confidence score in [0.0, 100.0]"
+    )
+    properties: dict[str, Any] = Field(default_factory=dict)
+
+
+class EvidenceTimelinePayload(BaseSchema):
+    """Chronological event reconstruction timeline payload."""
+
+    case_id: uuid.UUID
+    mmsi: int | None = Field(default=None, description="Candidate vessel MMSI filter, if any")
+    events: list[EvidenceTimelineItem] = Field(default_factory=list)
+    start_time: datetime | None = None
+    end_time: datetime | None = None
+    total_duration_hours: float = Field(default=0.0, ge=0.0)
+    confidence_pct: ConfidenceValue = Field(
+        default=85.0, description="Rule 1: Paired confidence score in [0.0, 100.0]"
+    )
 
 
 class GraphNode(BaseSchema):
-    """Node in the evidence graph."""
+    """Rule 1: Node in the interactive evidence graph."""
 
     id: str
     label: str
     node_type: str = Field(
         ...,
-        description="'scene' | 'slick' | 'origin' | 'ais_track' | 'vessel' | 'seep' | 'anomaly'",
+        description=(
+            "'scene' | 'slick' | 'origin' | 'time_window' | 'ais_track' | "
+            "'vessel' | 'anomaly' | 'alternative_hypothesis' | 'counterfactual'"
+        ),
+    )
+    confidence_pct: ConfidenceValue = Field(
+        default=85.0, description="Rule 1: Paired confidence score in [0.0, 100.0]"
     )
     properties: dict[str, Any] = Field(default_factory=dict)
 
 
 class GraphEdge(BaseSchema):
-    """Directed edge in the evidence graph."""
+    """Rule 1: Directed causal edge in the evidence graph."""
 
     source: str
     target: str
     relation: str = Field(
         ...,
-        description="'DETECTED' | 'DRIFTED_FROM' | 'TRAVERSED' | 'FLAGGED_BY' | 'EXPLAINS'",
+        description=(
+            "'OBSERVED' | 'DRIFTED_FROM' | 'ESTIMATED_WINDOW' | 'TRAVERSED' | "
+            "'BROADCAST_BY' | 'CORRELATED_WITH' | 'EXHIBITED' | 'COINCIDED_WITH' | "
+            "'EVALUATED_AGAINST' | 'SIMULATED_FORWARD' | 'CONGRUENT_WITH'"
+        ),
+    )
+    confidence_pct: ConfidenceValue = Field(
+        default=85.0, description="Rule 1: Paired confidence score in [0.0, 100.0]"
     )
     properties: dict[str, Any] = Field(default_factory=dict)
 
 
 class EvidenceGraphPayload(BaseSchema):
-    """Evidence graph response for interactive visualization."""
+    """Interactive node-edge evidence graph payload."""
 
-    nodes: list[GraphNode]
-    edges: list[GraphEdge]
+    case_id: uuid.UUID
+    mmsi: int | None = Field(default=None, description="Candidate vessel MMSI filter, if any")
+    nodes: list[GraphNode] = Field(default_factory=list)
+    edges: list[GraphEdge] = Field(default_factory=list)
+    is_acyclic: bool = Field(default=True, description="Whether graph is a valid DAG")
+    topological_order: list[str] = Field(default_factory=list)
+    confidence_pct: ConfidenceValue = Field(
+        default=85.0, description="Rule 1: Paired confidence score in [0.0, 100.0]"
+    )
+    metadata: dict[str, Any] = Field(default_factory=dict)
+
+
+class EvidenceBundlePayload(BaseSchema):
+    """Comprehensive forensic evidence package combining timeline and graph."""
+
+    case_id: uuid.UUID
+    mmsi: int | None = None
+    timeline: EvidenceTimelinePayload
+    graph: EvidenceGraphPayload
+    confidence_pct: ConfidenceValue = Field(
+        default=85.0, description="Rule 1: Paired confidence score in [0.0, 100.0]"
+    )
 
 
 class SpatialBreakdown(BaseSchema):

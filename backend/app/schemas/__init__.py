@@ -24,6 +24,11 @@ from backend.app.schemas.detection import (
     SlickDetectionCreate,
     SlickDetectionResponse,
 )
+from backend.app.schemas.dossier import (
+    DossierGenerateRequest,
+    DossierResponse,
+    DossierResult,
+)
 from backend.app.schemas.explainability import (
     AlternativeExplanationBase,
     AlternativeExplanationCreate,
@@ -118,4 +123,7 @@ __all__ = [
     "CaseCreateRequest",
     "WhatIfRequest",
     "CaseDetailResponse",
+    "DossierGenerateRequest",
+    "DossierResult",
+    "DossierResponse",
 ]

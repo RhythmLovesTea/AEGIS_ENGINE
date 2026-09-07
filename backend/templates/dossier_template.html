@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AEGIS-Marine Forensic Attribution Dossier</title>
+  <style>
+    @page {
+      size: A4;
+      margin: 16mm 14mm 20mm 14mm;
+      @bottom-right {
+        content: "Page " counter(page) " of " counter(pages);
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        font-size: 8pt;
+        color: #5c6c7a;
+      }
+      @bottom-left {
+        content: "AEGIS-MARINE LEGAL DOSSIER | EVIDENTIARY GRADE";
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        font-size: 8pt;
+        color: #5c6c7a;
+        letter-spacing: 0.5px;
+      }
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      color: #001e2b;
+      background-color: #ffffff;
+      line-height: 1.45;
+      font-size: 9.5pt;
+    }
+
+    .header-bar {
+      border-bottom: 2px solid #001e2b;
+      padding-bottom: 12px;
+      margin-bottom: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    .agency-title {
+      font-size: 16pt;
+      font-weight: 700;
+      color: #001e2b;
+      letter-spacing: -0.3px;
+      text-transform: uppercase;
+    }
+
+    .agency-subtitle {
+      font-size: 8.5pt;
+      color: #00684a;
+      font-weight: 600;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      margin-top: 2px;
+    }
+
+    .badge-evidentiary {
+      display: inline-block;
+      background-color: #001e2b;
+      color: #00ed64;
+      font-size: 7.5pt;
+      font-weight: 700;
+      padding: 4px 8px;
+      border-radius: 4px;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+    }
+
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      background-color: #f9fbfa;
+      border: 1px solid #e1e5e8;
+      border-radius: 6px;
+      padding: 10px 12px;
+      margin-bottom: 16px;
+      font-size: 8.5pt;
+    }
+
+    .meta-item {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .meta-label {
+      font-size: 7pt;
+      color: #5c6c7a;
+      text-transform: uppercase;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      margin-bottom: 2px;
+    }
+
+    .meta-value {
+      font-weight: 600;
+      color: #001e2b;
+      word-break: break-all;
+    }
+
+    .meta-value-mono {
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+      font-size: 8pt;
+    }
+
+    h2.section-heading {
+      font-size: 11pt;
+      font-weight: 700;
+      color: #001e2b;
+      border-left: 4px solid #00a35c;
+      padding-left: 8px;
+      margin-top: 16px;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      page-break-after: avoid;
+    }
+
+    p.section-intro {
+      font-size: 8.5pt;
+      color: #3d4f5b;
+      margin-bottom: 8px;
+      line-height: 1.4;
+    }
+
+    .card-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 12px;
+      page-break-inside: avoid;
+    }
+
+    .card-grid-3 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 12px;
+      page-break-inside: avoid;
+    }
+
+    .data-card {
+      background-color: #ffffff;
+      border: 1px solid #e1e5e8;
+      border-radius: 6px;
+      padding: 8px 10px;
+    }
+
+    .data-card-header {
+      font-size: 7.5pt;
+      font-weight: 700;
+      color: #003d4f;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
+      border-bottom: 1px solid #eceff1;
+      padding-bottom: 4px;
+    }
+
+    .table-container {
+      margin-bottom: 12px;
+      page-break-inside: avoid;
+    }
+
+    table.data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 8pt;
+      text-align: left;
+    }
+
+    table.data-table th {
+      background-color: #f4f7f6;
+      color: #001e2b;
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: 7pt;
+      letter-spacing: 0.4px;
+      padding: 6px 6px;
+      border-top: 1px solid #c1ccd6;
+      border-bottom: 1px solid #c1ccd6;
+    }
+
+    table.data-table td {
+      padding: 6px 6px;
+      border-bottom: 1px solid #eceff1;
+      color: #1c2d38;
+      vertical-align: middle;
+    }
+
+    table.data-table tr:nth-child(even) td {
+      background-color: #f9fbfa;
+    }
+
+    .mono {
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+      font-size: 7.5pt;
+    }
+
+    .badge-rank {
+      display: inline-block;
+      font-weight: 700;
+      background-color: #001e2b;
+      color: #ffffff;
+      padding: 2px 5px;
+      border-radius: 3px;
+      font-size: 7pt;
+    }
+
+    .badge-rank-1 {
+      background-color: #00684a;
+      color: #ffffff;
+    }
+
+    .badge-ais {
+      display: inline-block;
+      font-size: 6.5pt;
+      font-weight: 700;
+      padding: 2px 4px;
+      border-radius: 3px;
+      text-transform: uppercase;
+    }
+
+    .badge-ais-full {
+      background-color: #e3fcef;
+      color: #00684a;
+    }
+
+    .badge-ais-dark {
+      background-color: #fee2e2;
+      color: #991b1b;
+    }
+
+    .badge-ais-unknown {
+      background-color: #fef3c7;
+      color: #92400e;
+    }
+
+    .score-pill {
+      display: inline-block;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 8pt;
+    }
+
+    .score-high {
+      background-color: #fee2e2;
+      color: #991b1b;
+    }
+
+    .score-med {
+      background-color: #fef3c7;
+      color: #92400e;
+    }
+
+    .score-low {
+      background-color: #e3fcef;
+      color: #00684a;
+    }
+
+    .confidence-tag {
+      font-size: 7pt;
+      color: #5c6c7a;
+      font-weight: 600;
+    }
+
+    .sar-chip-container {
+      margin-top: 6px;
+      margin-bottom: 8px;
+      text-align: center;
+      border: 1px solid #e1e5e8;
+      border-radius: 4px;
+      padding: 4px;
+      background-color: #f9fbfa;
+    }
+
+    .sar-chip-container img {
+      max-width: 100%;
+      max-height: 160px;
+      border-radius: 3px;
+      object-fit: contain;
+    }
+
+    .sar-chip-caption {
+      font-size: 7pt;
+      color: #5c6c7a;
+      margin-top: 3px;
+    }
+
+    .disclaimer-box {
+      background-color: #fff8e0;
+      border: 1.5px solid #f59e0b;
+      border-radius: 6px;
+      padding: 10px 12px;
+      margin-top: 14px;
+      margin-bottom: 14px;
+      page-break-inside: avoid;
+    }
+
+    .disclaimer-title {
+      font-size: 8.5pt;
+      font-weight: 700;
+      color: #92400e;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+    }
+
+    .disclaimer-body {
+      font-size: 8pt;
+      color: #78350f;
+      line-height: 1.45;
+    }
+
+    .custody-footer {
+      border: 1px solid #c1ccd6;
+      border-radius: 6px;
+      padding: 10px 12px;
+      background-color: #f9fbfa;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      margin-top: 12px;
+      page-break-inside: avoid;
+    }
+
+    .custody-meta {
+      flex: 1;
+    }
+
+    .custody-title {
+      font-size: 8pt;
+      font-weight: 700;
+      color: #001e2b;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+    }
+
+    .hash-block {
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+      font-size: 7.5pt;
+      background-color: #ffffff;
+      border: 1px solid #e1e5e8;
+      padding: 4px 6px;
+      border-radius: 4px;
+      color: #001e2b;
+      word-break: break-all;
+      margin-bottom: 4px;
+    }
+
+    .custody-notes {
+      font-size: 7pt;
+      color: #5c6c7a;
+      line-height: 1.35;
+    }
+
+    .qr-container {
+      width: 72px;
+      height: 72px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    .qr-container img {
+      width: 68px;
+      height: 68px;
+    }
+
+    .page-break {
+      page-break-before: always;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Official Maritime Agency Header -->
+  <div class="header-bar">
+    <div>
+      <div class="agency-title">AEGIS-Marine Forensic Attribution Dossier</div>
+      <div class="agency-subtitle">Automated Spaceborne Detection &amp; Hydrodynamic Hindcast Evidentiary Package</div>
+    </div>
+    <div style="text-align: right;">
+      <span class="badge-evidentiary">Forensic Chain-of-Custody</span>
+      <div style="font-size: 7pt; color: #5c6c7a; margin-top: 4px;">ISO/IEC 27037 Compliant</div>
+    </div>
+  </div>
+
+  <!-- Case & Acquisition Metadata Bar -->
+  <div class="meta-grid">
+    <div class="meta-item">
+      <span class="meta-label">Case Identifier</span>
+      <span class="meta-value meta-value-mono">{{ case_id }}</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">Attribution Analysis Date (UTC)</span>
+      <span class="meta-value">{{ generated_at }}</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">Investigative Authority</span>
+      <span class="meta-value">{{ generated_by }}</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">Status / Verification Grade</span>
+      <span class="meta-value" style="color: #00684a;">READY (AHP Correlated)</span>
+    </div>
+  </div>
+
+  <!-- SECTION 1: Executive Incident Summary & Satellite Acquisition Metadata -->
+  <h2 class="section-heading">1. Executive Incident Summary &amp; Satellite Acquisition Metadata</h2>
+  <p class="section-intro">
+    Automated Sentinel-1 Synthetic Aperture Radar (SAR) acquisition and deep segmentation analysis identified an anomalous marine hydrocarbon slick pattern with paired statistical confidence.
+  </p>
+
+  <div class="card-grid-3">
+    <div class="data-card">
+      <div class="data-card-header">Satellite Observation Sensor</div>
+      <div style="font-size: 8.5pt;">
+        <div><strong>Sensor / Mode:</strong> {{ detection.sensor }}</div>
+        <div><strong>Acquisition UTC:</strong> {{ detection.detection_time }}</div>
+        <div><strong>Data Source:</strong> {{ detection.data_source }}</div>
+      </div>
+    </div>
+    <div class="data-card">
+      <div class="data-card-header">Geographic Location</div>
+      <div style="font-size: 8.5pt;">
+        <div><strong>Centroid Lat/Lon:</strong> <span class="mono">{{ detection.centroid_lat }}&deg;, {{ detection.centroid_lon }}&deg;</span></div>
+        <div><strong>Observed Surface Area:</strong> {{ detection.area_km2 }} km&sup2; ({{ detection.area_m2 }} m&sup2;)</div>
+        <div><strong>Lookalike Risk Index:</strong> {{ detection.lookalike_risk }}</div>
+      </div>
+    </div>
+    <div class="data-card">
+      <div class="data-card-header">Detection Confidence Rating</div>
+      <div style="font-size: 8.5pt;">
+        <div><strong>Confidence (Rule 1):</strong> <span style="font-weight: 700; color: #00684a;">{{ detection.confidence }}%</span></div>
+        <div><strong>Classification:</strong> Synthetic Aperture Dark Slick</div>
+        <div><strong>Verification Status:</strong> Statistically Correlated</div>
+      </div>
+    </div>
+  </div>
+
+  {% if sar_chip_b64 %}
+  <div class="sar-chip-container">
+    <img src="{{ sar_chip_b64 }}" alt="Sentinel-1 SAR Slick Chip">
+    <div class="sar-chip-caption">Figure 1: Sentinel-1 SAR imagery chip (calibrated sigma-naught backscatter &amp; detected boundary polygon).</div>
+  </div>
+  {% endif %}
+
+  <!-- SECTION 2: Slick Morphometry, Volume & Spreading Aging Inversion -->
+  <h2 class="section-heading">2. Slick Morphometry, Volume &amp; Spreading Aging Inversion</h2>
+  <p class="section-intro">
+    Morphometric analysis according to the Bonn Agreement Oil Appearance Code (BAOAC) combined with Fay mechanical spreading inversion equations establishes the estimated age window and volume.
+  </p>
+
+  <div class="card-grid-3">
+    <div class="data-card">
+      <div class="data-card-header">Morphological Geometry</div>
+      <div style="font-size: 8.5pt;">
+        <div><strong>Perimeter:</strong> {{ characterization.perimeter_km }} km</div>
+        <div><strong>Principal Axis:</strong> {{ characterization.principal_axis_deg }}&deg;</div>
+        <div><strong>Morphology Class:</strong> Linear Feathered Trail</div>
+      </div>
+    </div>
+    <div class="data-card">
+      <div class="data-card-header">Volume &amp; Thickness (BAOAC)</div>
+      <div style="font-size: 8.5pt;">
+        <div><strong>BAOAC Appearance Code:</strong> {{ characterization.baoac_code }}</div>
+        <div><strong>Estimated Volume:</strong> {{ characterization.estimated_volume_m3 }} m&sup3;</div>
+        <div><strong>Equivalent Volume:</strong> {{ characterization.estimated_volume_bbl }} bbl</div>
+      </div>
+    </div>
+    <div class="data-card">
+      <div class="data-card-header">Fay Aging Inversion</div>
+      <div style="font-size: 8.5pt;">
+        <div><strong>Estimated Slick Age:</strong> {{ characterization.t_age_hours }} hours</div>
+        <div><strong>Paired Age Confidence:</strong> <span style="font-weight: 700; color: #00684a;">{{ characterization.age_confidence }}%</span></div>
+        <div><strong>Estimated Release Window:</strong> {{ characterization.release_window_str }}</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 3: Hydrodynamic Hindcast Origin Cloud & Environmental Forcing Summary -->
+  <h2 class="section-heading">3. Hydrodynamic Hindcast Origin Cloud &amp; Environmental Forcing Summary</h2>
+  <p class="section-intro">
+    Lagrangian ensemble hindcast advects observed particles reverse-in-time forced by CMEMS ocean current fields and ERA5 surface winds to reconstruct the probabilistic origin cloud.
+  </p>
+
+  <div class="card-grid-3">
+    <div class="data-card">
+      <div class="data-card-header">Origin Cloud Centroid</div>
+      <div style="font-size: 8.5pt;">
+        <div><strong>Centroid Coordinate:</strong> <span class="mono">{{ origin.centroid_lat }}&deg;, {{ origin.centroid_lon }}&deg;</span></div>
+        <div><strong>Search Radius:</strong> {{ origin.search_radius_km }} km</div>
+        <div><strong>3-&sigma; Uncertainty Area:</strong> {{ origin.region_area_km2 }} km&sup2;</div>
+      </div>
+    </div>
+    <div class="data-card">
+      <div class="data-card-header">Environmental Metocean Forcing</div>
+      <div style="font-size: 8.5pt;">
+        <div><strong>CMEMS Current Velocity:</strong> {{ environmental.current_speed_ms }} m/s ({{ environmental.current_dir_deg }}&deg;)</div>
+        <div><strong>ERA5 10m Wind Speed:</strong> {{ environmental.wind_speed_ms }} m/s ({{ environmental.wind_dir_deg }}&deg;)</div>
+        <div><strong>Sea Surface Temp:</strong> {{ environmental.sst_c }} &deg;C</div>
+      </div>
+    </div>
+    <div class="data-card">
+      <div class="data-card-header">Drift Simulation Reliability</div>
+      <div style="font-size: 8.5pt;">
+        <div><strong>Simulation Model:</strong> OpenDrift / OpenOil</div>
+        <div><strong>Origin Confidence (Rule 1):</strong> <span style="font-weight: 700; color: #00684a;">{{ origin.confidence_pct }}%</span></div>
+        <div><strong>Ensemble Particle Count:</strong> 2,500 particles</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 4: Ranked Candidate Suspects Table -->
+  <h2 class="section-heading">4. Ranked Candidate Suspects Table (Analytical Hierarchy Process)</h2>
+  <p class="section-intro">
+    Correlating AIS kinematic records against the hindcast origin trajectory ensemble using multi-criteria Analytical Hierarchy Process (AHP). Sub-scores are persisted per Rule 2; dark vessels are surfaced per Rule 4.
+  </p>
+
+  <div class="table-container">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th style="width: 30px;">#</th>
+          <th>Candidate Vessel</th>
+          <th>MMSI / IMO</th>
+          <th>Type / Flag</th>
+          <th>AIS Status</th>
+          <th title="Spatial Mahalanobis Proximity">S_spat</th>
+          <th title="Temporal Coincidence">S_temp</th>
+          <th title="Kinematic Trajectory">S_kin</th>
+          <th title="Behavioral Anomaly">S_anom</th>
+          <th title="Vessel Type Prior">S_type</th>
+          <th title="Composite AHP Attribution Score">S_culprit</th>
+          <th>Confidence</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for candidate in candidates %}
+        <tr>
+          <td>
+            <span class="badge-rank {% if loop.first %}badge-rank-1{% endif %}">#{{ loop.index }}</span>
+          </td>
+          <td>
+            <strong>{{ candidate.name }}</strong>
+            {% if candidate.anomaly_flags %}
+            <div style="font-size: 6.5pt; color: #991b1b; margin-top: 1px;">
+              {{ candidate.anomaly_flags|join(", ") }}
+            </div>
+            {% endif %}
+          </td>
+          <td class="mono">{{ candidate.mmsi }}{% if candidate.imo %}<br><span style="color:#5c6c7a;">IMO:{{ candidate.imo }}</span>{% endif %}</td>
+          <td>{{ candidate.vessel_type }}{% if candidate.flag_state %}<br><span style="color:#5c6c7a;">{{ candidate.flag_state }}</span>{% endif %}</td>
+          <td>
+            {% if candidate.ais_coverage == "dark_gap" %}
+              <span class="badge-ais badge-ais-dark">DARK GAP</span>
+            {% elif candidate.ais_coverage == "non_ais_unknown" %}
+              <span class="badge-ais badge-ais-unknown">NON-AIS</span>
+            {% else %}
+              <span class="badge-ais badge-ais-full">FULL</span>
+            {% endif %}
+          </td>
+          <td>{{ "%.1f"|format(candidate.sub_scores.spatial) }}</td>
+          <td>{{ "%.1f"|format(candidate.sub_scores.temporal) }}</td>
+          <td>{{ "%.1f"|format(candidate.sub_scores.kinematic) }}</td>
+          <td>{{ "%.1f"|format(candidate.sub_scores.anomaly) }}</td>
+          <td>{{ "%.1f"|format(candidate.sub_scores.type) }}</td>
+          <td>
+            <span class="score-pill {% if candidate.s_culprit >= 75 %}score-high{% elif candidate.s_culprit >= 45 %}score-med{% else %}score-low{% endif %}">
+              {{ "%.1f"|format(candidate.s_culprit) }}
+            </span>
+          </td>
+          <td>
+            <span class="confidence-tag">{{ "%.1f"|format(candidate.confidence) }}%</span>
+          </td>
+        </tr>
+        {% else %}
+        <tr>
+          <td colspan="12" style="text-align: center; color: #5c6c7a; padding: 12px;">
+            No candidate vessels identified within the spatiotemporal search envelope.
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <!-- SECTION 5: Alternative Explanations Evaluated -->
+  <h2 class="section-heading">5. Alternative Explanations Evaluated (Rule 5)</h2>
+  <p class="section-intro">
+    Systematic evaluation of non-vessel natural phenomena and sensor artifacts to preclude false attribution.
+  </p>
+
+  <div class="card-grid-3">
+    {% for alt in alternatives %}
+    <div class="data-card">
+      <div class="data-card-header">{{ alt.hypothesis_title }}</div>
+      <div style="font-size: 8pt; margin-bottom: 4px;">
+        <strong>Plausibility Score:</strong> {{ "%.1f"|format(alt.score) }} / 100.0<br>
+        <strong>Paired Confidence (Rule 1):</strong> <span style="font-weight:700; color: #00684a;">{{ "%.1f"|format(alt.confidence) }}%</span>
+      </div>
+      <div style="font-size: 7.5pt; color: #3d4f5b; line-height: 1.35;">
+        {{ alt.technical_summary }}
+      </div>
+    </div>
+    {% else %}
+    <div class="data-card" style="grid-column: span 3;">
+      <div style="font-size: 8pt; color: #5c6c7a;">No alternative hypotheses recorded.</div>
+    </div>
+    {% endfor %}
+  </div>
+
+  <!-- SECTION 6: Mandatory Responsible-Use Disclaimer & Legal Notice (FR-20) -->
+  <div class="disclaimer-box">
+    <div class="disclaimer-title">6. Mandatory Responsible-Use Notice &amp; Evidentiary Limitations (FR-20)</div>
+    <div class="disclaimer-body">
+      This dossier provides evidentiary correlation analysis based on spaceborne synthetic aperture radar (SAR), hydrodynamic Lagrangian hindcasting, and AIS vessel tracking data. Outputs represent probabilistic candidates and do not constitute a final legal determination of liability. Final evidentiary verification requires on-site sampling, physical oil chemical fingerprinting, and authorized maritime inspection pursuant to MARPOL 73/78 Annex I and UNCLOS Article 217 guidelines.
+    </div>
+  </div>
+
+  <!-- Chain-of-Custody & Cryptographic Stamp Footer -->
+  <div class="custody-footer">
+    <div class="custody-meta">
+      <div class="custody-title">Cryptographic Chain-of-Custody Integrity Digest (SHA-256)</div>
+      <div class="hash-block">{{ sha256_hash }}</div>
+      <div class="custody-notes">
+        <strong>Digital Stamp Verification:</strong> Canonical SHA-256 hash computed over normalized detection metadata, morphometry, hydrodynamic origin ensemble, ranked candidates, and alternative hypotheses.<br>
+        <strong>Model Versions:</strong>
+        {% for mod, ver in model_versions.items() %}
+          {{ mod }}: <code>{{ ver }}</code>{% if not loop.last %} | {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+    {% if verification_qr_b64 %}
+    <div class="qr-container">
+      <img src="{{ verification_qr_b64 }}" alt="Verification QR Code">
+      <div style="font-size: 6pt; color: #5c6c7a; margin-top: 2px;">SCAN TO VERIFY</div>
+    </div>
+    {% endif %}
+  </div>
+
+</body>
+</html>

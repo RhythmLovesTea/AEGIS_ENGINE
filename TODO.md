@@ -628,7 +628,7 @@ This document serves as the master, strictly sequential, atomic task backlog for
 
 ---
 
-### TASK-034: Automated Forensic PDF Legal Dossier Generator with Cryptographic Chain-of-Custody (FR-20, C13)
+### [x] TASK-034: Automated Forensic PDF Legal Dossier Generator with Cryptographic Chain-of-Custody (FR-20, C13) (Completed)
 - **Domain:** Legal Dossier Service
 - **Prerequisites:** TASK-033
 - **Objective:** Implement PDF dossier generator with WeasyPrint/ReportLab, embedding SAR chips, drift skill scores, vessel rankings, and SHA-256 integrity hash.

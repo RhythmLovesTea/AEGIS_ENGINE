@@ -1,0 +1,98 @@
+name: aegis-marine
+
+services:
+  db:
+    image: timescale/timescaledb-ha:pg16-latest
+    container_name: aegis-db
+    restart: unless-stopped
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-aegis_user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-aegis_password}
+      POSTGRES_DB: ${POSTGRES_DB:-aegis_db}
+    volumes:
+      - pg_data:/home/postgres/pgdata/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-aegis_user} -d ${POSTGRES_DB:-aegis_db}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - aegis-network
+
+  redis:
+    image: redis:7-alpine
+    container_name: aegis-redis
+    restart: unless-stopped
+    command: redis-server --appendonly yes
+    ports:
+      - "${REDIS_PORT:-6379}:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - aegis-network
+
+  minio:
+    image: minio/minio:latest
+    container_name: aegis-minio
+    restart: unless-stopped
+    command: server /data --console-address ":9001"
+    ports:
+      - "${MINIO_API_PORT:-9000}:9000"
+      - "${MINIO_CONSOLE_PORT:-9001}:9001"
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER:-aegis_minio_admin}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:-aegis_minio_secret}
+    volumes:
+      - minio_data:/data
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:9000/minio/health/live || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - aegis-network
+
+  minio-init:
+    image: minio/mc:latest
+    container_name: aegis-minio-init
+    depends_on:
+      minio:
+        condition: service_healthy
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER:-aegis_minio_admin}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:-aegis_minio_secret}
+      MINIO_BUCKET: ${MINIO_BUCKET:-aegis-storage}
+    entrypoint: >
+      /bin/sh -c "
+      echo 'Waiting for MinIO...';
+      until /usr/bin/mc alias set local http://minio:9000 $${MINIO_ROOT_USER} $${MINIO_ROOT_PASSWORD}; do
+        sleep 1;
+      done;
+      echo 'Creating bucket $${MINIO_BUCKET}...';
+      /usr/bin/mc mb --ignore-existing local/$${MINIO_BUCKET};
+      echo 'Setting public download policy for public subfolder...';
+      /usr/bin/mc anonymous set download local/$${MINIO_BUCKET}/public || true;
+      echo 'MinIO storage initialized successfully.';
+      exit 0;
+      "
+    networks:
+      - aegis-network
+
+networks:
+  aegis-network:
+    driver: bridge
+
+volumes:
+  pg_data:
+    name: aegis_pg_data
+  redis_data:
+    name: aegis_redis_data
+  minio_data:
+    name: aegis_minio_data

@@ -48,7 +48,8 @@ This document serves as the master, strictly sequential, atomic task backlog for
 
 ---
 
-### TASK-003: Core Infrastructure Orchestration (Docker Compose & Local Storage)
+### [x] TASK-003: Core Infrastructure Orchestration (Docker Compose & Local Storage) (Completed)
+- **Status:** Completed
 - **Domain:** Infrastructure
 - **Prerequisites:** TASK-002
 - **Objective:** Configure containerized infrastructure for PostgreSQL (with PostGIS and TimescaleDB), Redis (Celery broker), and MinIO (S3-compatible object storage).

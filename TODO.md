@@ -32,7 +32,8 @@ This document serves as the master, strictly sequential, atomic task backlog for
 
 ---
 
-### TASK-002: Tooling Configuration & Banned-Language CI Linter (Rule 6 Enforcement)
+### [x] TASK-002: Tooling Configuration & Banned-Language CI Linter (Rule 6 Enforcement) (Completed)
+- **Status:** Completed
 - **Domain:** Quality Assurance / Compliance
 - **Prerequisites:** TASK-001
 - **Objective:** Configure Python and TypeScript linting/formatting and build a pre-commit / CI linter enforcing PRD Rule 6 (banned terms).

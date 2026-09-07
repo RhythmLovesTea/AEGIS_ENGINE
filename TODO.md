@@ -195,7 +195,8 @@ This document serves as the master, strictly sequential, atomic task backlog for
 
 ---
 
-### TASK-011: Semantic Segmentation Model Architecture & Inference Service (DeepLabv3+)
+### [x] TASK-011: Semantic Segmentation Model Architecture & Inference Service (DeepLabv3+) (Completed)
+- **Status:** Completed
 - **Domain:** Tier 1 — Deep Learning Segmentation
 - **Prerequisites:** TASK-010
 - **Objective:** Implement the DeepLabv3+ segmentation model with ASPP backbone and compound loss, with PyTorch inference engine and weight loader.

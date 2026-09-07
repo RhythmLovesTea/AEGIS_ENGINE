@@ -22,6 +22,11 @@ wheels/
 *.manifest
 *.spec
 
+# Model Checkpoints & Weights
+models/checkpoints/*.pt
+models/checkpoints/*.pth
+*.onnx
+
 # Virtual Environments
 .venv/
 venv/

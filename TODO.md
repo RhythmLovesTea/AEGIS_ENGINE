@@ -562,7 +562,7 @@ This document serves as the master, strictly sequential, atomic task backlog for
 
 ---
 
-### TASK-030: Alternative Explanation Engine (FR-18, Rule 5, Feature 7)
+### [x] TASK-030: Alternative Explanation Engine (FR-18, Rule 5, Feature 7) (Completed)
 - **Domain:** Explainability Service
 - **Prerequisites:** TASK-029
 - **Objective:** Score non-vessel hypotheses (natural seep, imaging artifact, non-AIS vessel) to guarantee balanced forensic evaluation.

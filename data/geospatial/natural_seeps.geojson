@@ -1,0 +1,164 @@
+{
+  "type": "FeatureCollection",
+  "name": "Global_and_Regional_Offshore_Natural_Hydrocarbon_Seeps",
+  "crs": {
+    "type": "name",
+    "properties": {
+      "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
+    }
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "id": "SEEP-IND-BH01",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [71.85, 19.35]
+      },
+      "properties": {
+        "seep_id": "SEEP-IND-BH01",
+        "name": "Bombay High Shelf Seep Alpha",
+        "basin": "Mumbai Offshore Basin",
+        "geological_province": "Western Continental Shelf Passive Margin",
+        "activity_status": "active",
+        "water_depth_m": 78.0,
+        "seep_type": "thermogenic_gas_and_light_crude",
+        "known_slick_recurrence": "persistent_annual",
+        "estimated_flux_bbl_day": 15.0
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "SEEP-IND-BH02",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [72.10, 18.70]
+      },
+      "properties": {
+        "seep_id": "SEEP-IND-BH02",
+        "name": "Bombay High South Flank Seep",
+        "basin": "Mumbai Offshore Basin",
+        "geological_province": "Western Continental Shelf Passive Margin",
+        "activity_status": "intermittent",
+        "water_depth_m": 85.0,
+        "seep_type": "thermogenic_condensate",
+        "known_slick_recurrence": "seasonal_monsoon",
+        "estimated_flux_bbl_day": 8.0
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "SEEP-IND-BH03",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [72.30, 18.88]
+      },
+      "properties": {
+        "seep_id": "SEEP-IND-BH03",
+        "name": "Neelam-Heera Structural Fault Seep",
+        "basin": "Mumbai Offshore Basin",
+        "geological_province": "Basaltic Sub-Fault Uplift",
+        "activity_status": "active",
+        "water_depth_m": 62.0,
+        "seep_type": "thermogenic_crude",
+        "known_slick_recurrence": "intermittent_recurrent",
+        "estimated_flux_bbl_day": 12.0
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "SEEP-IND-GK01",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [72.40, 21.05]
+      },
+      "properties": {
+        "seep_id": "SEEP-IND-GK01",
+        "name": "Gulf of Khambhat Inner Seep Zone",
+        "basin": "Cambay Graben Basin",
+        "geological_province": "Tertiary Rift Basin",
+        "activity_status": "active",
+        "water_depth_m": 25.0,
+        "seep_type": "biogenic_gas_and_seep_oil",
+        "known_slick_recurrence": "continuous",
+        "estimated_flux_bbl_day": 5.0
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "SEEP-IND-KT01",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [68.80, 22.90]
+      },
+      "properties": {
+        "seep_id": "SEEP-IND-KT01",
+        "name": "Kachchh Offshore Escarpment Seep",
+        "basin": "Kachchh Offshore Basin",
+        "geological_province": "Mesozoic Rift Shoulder",
+        "activity_status": "dormant",
+        "water_depth_m": 120.0,
+        "seep_type": "heavy_asphalt_tar",
+        "known_slick_recurrence": "rare_episodic",
+        "estimated_flux_bbl_day": 2.0
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "SEEP-IND-RT01",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [72.50, 16.80]
+      },
+      "properties": {
+        "seep_id": "SEEP-IND-RT01",
+        "name": "Ratnagiri Deepwater Slope Seep",
+        "basin": "Konkan-Kerala Basin",
+        "geological_province": "Continental Slope Escarpment",
+        "activity_status": "intermittent",
+        "water_depth_m": 450.0,
+        "seep_type": "thermogenic_gas_hydrate_dissociation",
+        "known_slick_recurrence": "episodic",
+        "estimated_flux_bbl_day": 6.0
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "SEEP-IND-KG01",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [82.20, 16.20]
+      },
+      "properties": {
+        "seep_id": "SEEP-IND-KG01",
+        "name": "Krishna-Godavari Deepwater Seep Cluster",
+        "basin": "Krishna-Godavari Basin",
+        "geological_province": "Deltaic Fan Complex",
+        "activity_status": "active",
+        "water_depth_m": 850.0,
+        "seep_type": "biogenic_gas_and_condensate",
+        "known_slick_recurrence": "persistent_annual",
+        "estimated_flux_bbl_day": 20.0
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "SEEP-ME-PG01",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [56.30, 26.20]
+      },
+      "properties": {
+        "seep_id": "SEEP-ME-PG01",
+        "name": "Strait of Hormuz Fault Seep",
+        "basin": "Hormuz Salt Basin",
+        "geological_province": "Foreland Thrust Belt",
+        "activity_status": "active",
+        "water_depth_m": 95.0,
+        "seep_type": "heavy_crude",
+        "known_slick_recurrence": "continuous",
+        "estimated_flux_bbl_day": 35.0
+      }
+    }
+  ]
+}

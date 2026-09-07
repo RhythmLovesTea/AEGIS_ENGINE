@@ -542,7 +542,7 @@ This document serves as the master, strictly sequential, atomic task backlog for
 
 ## Phase 4: Forensic Explainability, Counterfactual & Dossier Services
 
-### TASK-029: "Why This Vessel?" Structured Evidence Composer (Architecture 4.5, Feature 1)
+### [x] TASK-029: "Why This Vessel?" Structured Evidence Composer (Architecture 4.5, Feature 1) (Completed)
 - **Domain:** Explainability Service
 - **Prerequisites:** TASK-028
 - **Objective:** Build service generating structured, human-readable forensic rationales for any candidate vessel based on persisted sub-scores.

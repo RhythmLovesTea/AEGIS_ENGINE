@@ -233,7 +233,8 @@ This document serves as the master, strictly sequential, atomic task backlog for
 
 ---
 
-### TASK-013: Morphometry, Skeletonization & Principal Axis Extraction
+### [x] TASK-013: Morphometry, Skeletonization & Principal Axis Extraction (Completed)
+- **Status:** Completed
 - **Domain:** Tier 2 — Slick Morphometry
 - **Prerequisites:** TASK-012
 - **Objective:** Extract slick spatial properties including perimeter, area, eccentricity, skeleton, and orientation angle ($\theta_{slick}$).

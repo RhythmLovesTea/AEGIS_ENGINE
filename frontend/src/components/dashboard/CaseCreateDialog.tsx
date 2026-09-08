@@ -105,6 +105,7 @@ export function CaseCreateDialog({
       source_scene_ref: sceneRef.trim() || region.scene,
       region: aoiPolygon,
       created_by: "maritime_investigator",
+      auto_start_pipeline: true,
     };
 
     try {

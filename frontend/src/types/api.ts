@@ -190,6 +190,26 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/cases/{case_id}/run": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Dispatch Full Pipeline Chain
+         * @description Triggers the asynchronous 6-stage Celery pipeline chain (tier1 -> tier2 -> tier3 -> tier4 -> explain -> dossier).
+         */
+        post: operations["run_pipeline_api_v1_cases__case_id__run_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/cases/{case_id}": {
         parameters: {
             query?: never;
@@ -282,6 +302,26 @@ export interface paths {
          * @description Returns evaluated non-vessel hypotheses (natural seeps, radar artifacts, unflagged targets).
          */
         get: operations["get_alternatives_api_v1_cases__case_id__alternatives_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/cases/{case_id}/detection/sar-chip": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Satellite SAR Detection Imagery Chip (256x256)
+         * @description Returns high-contrast calibrated radar backscatter chip with segmented slick polygon overlay.
+         */
+        get: operations["get_sar_chip_api_v1_cases__case_id__detection_sar_chip_get"];
         put?: never;
         post?: never;
         delete?: never;
@@ -498,6 +538,26 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/cases/{case_id}/run": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Dispatch Full Pipeline Chain
+         * @description Triggers the asynchronous 6-stage Celery pipeline chain (tier1 -> tier2 -> tier3 -> tier4 -> explain -> dossier).
+         */
+        post: operations["run_pipeline_cases__case_id__run_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/cases/{case_id}": {
         parameters: {
             query?: never;
@@ -590,6 +650,26 @@ export interface paths {
          * @description Returns evaluated non-vessel hypotheses (natural seeps, radar artifacts, unflagged targets).
          */
         get: operations["get_alternatives_cases__case_id__alternatives_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/cases/{case_id}/detection/sar-chip": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Satellite SAR Detection Imagery Chip (256x256)
+         * @description Returns high-contrast calibrated radar backscatter chip with segmented slick polygon overlay.
+         */
+        get: operations["get_sar_chip_cases__case_id__detection_sar_chip_get"];
         put?: never;
         post?: never;
         delete?: never;
@@ -1110,6 +1190,12 @@ export interface components {
              * @default investigator
              */
             created_by: string;
+            /**
+             * Auto Start Pipeline
+             * @description Whether to immediately dispatch the asynchronous Celery pipeline chain
+             * @default false
+             */
+            auto_start_pipeline: boolean;
         };
         /**
          * CaseDetailResponse
@@ -2666,6 +2752,39 @@ export interface operations {
             };
         };
     };
+    run_pipeline_api_v1_cases__case_id__run_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                case_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
     get_case_api_v1_cases__case_id__get: {
         parameters: {
             query?: never;
@@ -2810,6 +2929,38 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["AlternativeExplanationResponse"][];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_sar_chip_api_v1_cases__case_id__detection_sar_chip_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                case_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Calibrated SAR backscatter chip image */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
+                    "image/svg+xml": unknown;
                 };
             };
             /** @description Validation Error */
@@ -3203,6 +3354,39 @@ export interface operations {
             };
         };
     };
+    run_pipeline_cases__case_id__run_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                case_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
     get_case_cases__case_id__get: {
         parameters: {
             query?: never;
@@ -3347,6 +3531,38 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["AlternativeExplanationResponse"][];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_sar_chip_cases__case_id__detection_sar_chip_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                case_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Calibrated SAR backscatter chip image */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
+                    "image/svg+xml": unknown;
                 };
             };
             /** @description Validation Error */

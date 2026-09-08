@@ -1,0 +1,92 @@
+# =============================================================================
+# AEGIS-Marine: Production Multi-Stage Celery Worker Dockerfile
+# Executes Tier 1, 2, 3, 4 pipelines, explainability, and legal dossier tasks
+# Adheres to: PRD Section 16, Architecture Section 9, Rule 6
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# Stage 1: Build Dependencies & Wheels
+# -----------------------------------------------------------------------------
+FROM python:3.12-slim-bookworm AS builder
+
+WORKDIR /build
+
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PIP_NO_CACHE_DIR=1 \
+    PIP_DISABLE_PIP_VERSION_CHECK=1
+
+# Install system build dependencies and C/C++ libraries for spatial compilation
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    pkg-config \
+    libgdal-dev \
+    libgeos-dev \
+    libproj-dev \
+    libpq-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+# Create virtual environment for build isolation
+RUN python3 -m venv /opt/venv
+ENV PATH="/opt/venv/bin:$PATH"
+
+# Install production Python dependencies
+COPY requirements.txt .
+RUN pip install --upgrade pip setuptools wheel && \
+    pip install -r requirements.txt
+
+# -----------------------------------------------------------------------------
+# Stage 2: Production Worker Runtime
+# -----------------------------------------------------------------------------
+FROM python:3.12-slim-bookworm AS runtime
+
+WORKDIR /app
+
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PATH="/opt/venv/bin:$PATH" \
+    ENVIRONMENT=production
+
+# Install shared geospatial, PDF generation, and monitoring runtime libraries
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    gdal-bin \
+    libgdal32 \
+    libgeos-c1v5 \
+    libproj25 \
+    libpq5 \
+    curl \
+    libcairo2 \
+    libpango-1.0-0 \
+    libpangocairo-1.0-0 \
+    libgdk-pixbuf-2.0-0 \
+    shared-mime-info \
+    fonts-dejavu-core \
+    procps \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy pre-compiled virtual environment from builder stage
+COPY --from=builder /opt/venv /opt/venv
+
+# Create unprivileged production system user
+RUN groupadd -g 1000 aegis && \
+    useradd -u 1000 -g aegis -s /bin/bash -m -d /home/aegis aegis
+
+# Create required runtime storage directories with proper permissions
+RUN mkdir -p /app/data/dossiers /app/data/sar /app/data/ais /app/data/metocean /app/models/checkpoints && \
+    chown -R aegis:aegis /app
+
+# Copy application source code, models, and static assets
+COPY --chown=aegis:aegis backend /app/backend
+COPY --chown=aegis:aegis models /app/models
+COPY --chown=aegis:aegis data /app/data
+COPY --chown=aegis:aegis pyproject.toml /app/pyproject.toml
+
+# Switch to non-root user
+USER aegis
+
+# Celery Worker Healthcheck via inspect ping
+HEALTHCHECK --interval=30s --timeout=10s --start-period=30s --retries=3 \
+    CMD python3 -m celery -A backend.core.celery_app inspect ping -d "celery@${HOSTNAME}" || exit 1
+
+# Production Celery Worker Entrypoint
+CMD ["celery", "-A", "backend.core.celery_app", "worker", "--loglevel=INFO", "-Q", "queue_tier1,queue_tier2,queue_tier3,queue_tier4,queue_default", "-c", "4", "--prefetch-multiplier=1"]

@@ -1,0 +1,251 @@
+name: aegis-marine-prod
+
+services:
+  # ---------------------------------------------------------------------------
+  # 1. Primary Relational & Geospatial Timescale Database
+  # ---------------------------------------------------------------------------
+  db:
+    image: timescale/timescaledb-ha:pg16-latest
+    container_name: aegis-prod-db
+    restart: always
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-aegis_user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-aegis_password}
+      POSTGRES_DB: ${POSTGRES_DB:-aegis_db}
+    volumes:
+      - pg_prod_data:/home/postgres/pgdata/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-aegis_user} -d ${POSTGRES_DB:-aegis_db}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    deploy:
+      resources:
+        limits:
+          cpus: "2.0"
+          memory: 2048M
+    networks:
+      - aegis-prod-network
+
+  # ---------------------------------------------------------------------------
+  # 2. Redis Cache & Celery Task Broker
+  # ---------------------------------------------------------------------------
+  redis:
+    image: redis:7-alpine
+    container_name: aegis-prod-redis
+    restart: always
+    command: redis-server --appendonly yes
+    ports:
+      - "${REDIS_PORT:-6379}:6379"
+    volumes:
+      - redis_prod_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
+    deploy:
+      resources:
+        limits:
+          cpus: "1.0"
+          memory: 1024M
+    networks:
+      - aegis-prod-network
+
+  # ---------------------------------------------------------------------------
+  # 3. MinIO S3-Compatible Raster & Artifact Object Storage
+  # ---------------------------------------------------------------------------
+  minio:
+    image: minio/minio:latest
+    container_name: aegis-prod-minio
+    restart: always
+    command: server /data --console-address ":9001"
+    ports:
+      - "${MINIO_API_PORT:-9000}:9000"
+      - "${MINIO_CONSOLE_PORT:-9001}:9001"
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER:-aegis_minio_admin}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:-aegis_minio_secret}
+    volumes:
+      - minio_prod_data:/data
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:9000/minio/health/live || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    deploy:
+      resources:
+        limits:
+          cpus: "1.0"
+          memory: 1024M
+    networks:
+      - aegis-prod-network
+
+  # ---------------------------------------------------------------------------
+  # 4. MinIO Bucket Provisioner & Policy Initializer
+  # ---------------------------------------------------------------------------
+  minio-init:
+    image: minio/mc:latest
+    container_name: aegis-prod-minio-init
+    depends_on:
+      minio:
+        condition: service_healthy
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER:-aegis_minio_admin}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:-aegis_minio_secret}
+      MINIO_BUCKET: ${MINIO_BUCKET:-aegis-storage}
+    entrypoint: >
+      /bin/sh -c "
+      echo 'Waiting for MinIO service...';
+      until /usr/bin/mc alias set local http://minio:9000 $${MINIO_ROOT_USER} $${MINIO_ROOT_PASSWORD}; do
+        sleep 1;
+      done;
+      echo 'Creating bucket $${MINIO_BUCKET}...';
+      /usr/bin/mc mb --ignore-existing local/$${MINIO_BUCKET};
+      echo 'Setting public download policy for shared artifacts...';
+      /usr/bin/mc anonymous set download local/$${MINIO_BUCKET}/public || true;
+      echo 'MinIO storage initialized successfully.';
+      exit 0;
+      "
+    networks:
+      - aegis-prod-network
+
+  # ---------------------------------------------------------------------------
+  # 5. FastAPI Backend Gateway & REST API
+  # ---------------------------------------------------------------------------
+  api:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.backend
+    container_name: aegis-prod-api
+    restart: always
+    ports:
+      - "${API_PORT:-8000}:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      minio:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql://${POSTGRES_USER:-aegis_user}:${POSTGRES_PASSWORD:-aegis_password}@db:5432/${POSTGRES_DB:-aegis_db}
+      REDIS_URL: redis://redis:6379/0
+      MINIO_ENDPOINT: minio:9000
+      MINIO_ACCESS_KEY: ${MINIO_ROOT_USER:-aegis_minio_admin}
+      MINIO_SECRET_KEY: ${MINIO_ROOT_PASSWORD:-aegis_minio_secret}
+      MINIO_BUCKET: ${MINIO_BUCKET:-aegis-storage}
+      MINIO_SECURE: "false"
+      SECRET_KEY: ${SECRET_KEY:-aegis_production_secret_key_change_me}
+      ENVIRONMENT: production
+    volumes:
+      - dossier_prod_data:/app/data/dossiers
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8000/health || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
+    deploy:
+      resources:
+        limits:
+          cpus: "2.0"
+          memory: 2048M
+    networks:
+      - aegis-prod-network
+
+  # ---------------------------------------------------------------------------
+  # 6. Celery Asynchronous Workers (Tiers 1-4, Explainability, Dossier)
+  # ---------------------------------------------------------------------------
+  worker:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.worker
+    container_name: aegis-prod-worker
+    restart: always
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      minio:
+        condition: service_healthy
+      api:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql://${POSTGRES_USER:-aegis_user}:${POSTGRES_PASSWORD:-aegis_password}@db:5432/${POSTGRES_DB:-aegis_db}
+      REDIS_URL: redis://redis:6379/0
+      MINIO_ENDPOINT: minio:9000
+      MINIO_ACCESS_KEY: ${MINIO_ROOT_USER:-aegis_minio_admin}
+      MINIO_SECRET_KEY: ${MINIO_ROOT_PASSWORD:-aegis_minio_secret}
+      MINIO_BUCKET: ${MINIO_BUCKET:-aegis-storage}
+      MINIO_SECURE: "false"
+      SECRET_KEY: ${SECRET_KEY:-aegis_production_secret_key_change_me}
+      ENVIRONMENT: production
+    volumes:
+      - dossier_prod_data:/app/data/dossiers
+    healthcheck:
+      test: ["CMD-SHELL", "python3 -m celery -A backend.core.celery_app inspect ping -d celery@$${HOSTNAME} || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    deploy:
+      resources:
+        limits:
+          cpus: "4.0"
+          memory: 4096M
+    networks:
+      - aegis-prod-network
+
+  # ---------------------------------------------------------------------------
+  # 7. Next.js 15 Standalone Web Frontend
+  # ---------------------------------------------------------------------------
+  frontend:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.frontend
+    container_name: aegis-prod-frontend
+    restart: always
+    ports:
+      - "${FRONTEND_PORT:-3000}:3000"
+    depends_on:
+      api:
+        condition: service_healthy
+    environment:
+      NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-http://localhost:8000}
+      PORT: 3000
+      HOSTNAME: "0.0.0.0"
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:3000/api/health || exit 1"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+    deploy:
+      resources:
+        limits:
+          cpus: "1.5"
+          memory: 1536M
+    networks:
+      - aegis-prod-network
+
+networks:
+  aegis-prod-network:
+    name: aegis-prod-network
+    driver: bridge
+
+volumes:
+  pg_prod_data:
+    name: aegis_pg_prod_data
+  redis_prod_data:
+    name: aegis_redis_prod_data
+  minio_prod_data:
+    name: aegis_minio_prod_data
+  dossier_prod_data:
+    name: aegis_dossier_prod_data

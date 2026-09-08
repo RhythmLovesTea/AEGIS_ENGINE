@@ -20,6 +20,7 @@ import type {
   WhatIfScenarioResponse,
   WhatIfScenarioSummary,
   ReplayStatePayload,
+  EvidenceBundlePayload,
 } from "@/types";
 
 export class ApiClientError extends Error {
@@ -221,6 +222,20 @@ export class ApiClient {
 
   public getSarChipUrl(caseId: string): string {
     return this.buildUrl(`/cases/${caseId}/detection/sar-chip`);
+  }
+
+  // ---------------------------------------------------------------------------
+  // Interactive Evidence Graph & Timeline (Feature 11 / P5, TASK-049)
+  // ---------------------------------------------------------------------------
+
+  public async getEvidenceGraph(
+    caseId: string,
+    mmsi?: number
+  ): Promise<EvidenceBundlePayload> {
+    return this.request<EvidenceBundlePayload>(`/cases/${caseId}/evidence-graph`, {
+      method: "GET",
+      params: mmsi !== undefined ? { mmsi } : undefined,
+    });
   }
 
   // ---------------------------------------------------------------------------

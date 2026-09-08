@@ -92,6 +92,13 @@ export interface RadarChartDataPoint {
 export type Counterfactual = Schemas["CounterfactualResult"];
 export type CounterfactualResult = Schemas["CounterfactualResult"];
 export type EvidenceGraph = Schemas["EvidenceGraphPayload"];
+export type EvidenceGraphPayload = Schemas["EvidenceGraphPayload"];
+export type GraphNode = Schemas["GraphNode"];
+export type GraphEdge = Schemas["GraphEdge"];
+export type EvidenceBundlePayload = Schemas["EvidenceBundlePayload"];
+export type EvidenceBundle = Schemas["EvidenceBundlePayload"];
+export type EvidenceTimelinePayload = Schemas["EvidenceTimelinePayload"];
+export type EvidenceTimelineItem = Schemas["EvidenceTimelineItem"];
 export type ReplayState = Schemas["ReplayStatePayload"];
 export type ReplayStatePayload = Schemas["ReplayStatePayload"];
 export type VesselReplayState = Schemas["VesselReplayState"];

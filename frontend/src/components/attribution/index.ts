@@ -25,6 +25,12 @@ export {
   type CounterfactualModalProps,
   SYNTHETIC_COUNTERFACTUAL,
 } from "./CounterfactualModal";
+export {
+  EvidenceGraphView,
+  type EvidenceGraphViewProps,
+  SYNTHETIC_EVIDENCE_GRAPH,
+} from "./EvidenceGraphView";
+
 
 
 

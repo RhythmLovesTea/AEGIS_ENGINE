@@ -888,7 +888,7 @@ This document serves as the master, strictly sequential, atomic task backlog for
 
 ---
 
-### TASK-049: Interactive Evidence Graph Component (Feature 11 / P5)
+### [x] TASK-049: Interactive Evidence Graph Component (Feature 11 / P5) (Completed)
 - **Domain:** Frontend UI / Evidence Graph
 - **Prerequisites:** TASK-048
 - **Objective:** Build interactive node-edge graph visualization mapping evidence relationships from satellite scene to candidate vessel.

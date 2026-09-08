@@ -15,6 +15,7 @@ import {
   Anchor,
   Map as MapIcon,
   Scale,
+  Network,
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -58,6 +59,7 @@ import {
   ExplainabilityDrawer,
   AlternativeExplanationsPanel,
   CounterfactualModal,
+  EvidenceGraphView,
 } from "@/components/attribution";
 import type { VesselCandidate } from "@/types";
 
@@ -190,6 +192,10 @@ export default function ForensicWarRoomPage() {
               <Scale className="h-4 w-4" />
               Alternative Hypotheses (Rule 5)
             </TabsTrigger>
+            <TabsTrigger value="graph" className="gap-2">
+              <Network className="h-4 w-4" />
+              Evidence Graph (DAG)
+            </TabsTrigger>
             <TabsTrigger value="hindcast" className="gap-2">
               <Compass className="h-4 w-4" />
               Hindcast & Dispersion
@@ -242,15 +248,26 @@ export default function ForensicWarRoomPage() {
                   Natural Seep (12.5%), SAR Lookalike (6.0%), Unregistered/Dark Target (40.0%).
                 </p>
               </div>
-              <Button
-                variant="secondary"
-                size="sm"
-                onClick={() => setActiveTab("alternatives")}
-                className="gap-1.5 text-xs text-brand-green hover:text-white shrink-0"
-              >
-                <Scale className="h-3.5 w-3.5" />
-                <span>Compare Alternative Explanations</span>
-              </Button>
+              <div className="flex flex-wrap items-center gap-2">
+                <Button
+                  variant="secondary"
+                  size="sm"
+                  onClick={() => setActiveTab("graph")}
+                  className="gap-1.5 text-xs text-sky-400 hover:text-white shrink-0"
+                >
+                  <Network className="h-3.5 w-3.5" />
+                  <span>Evidence Graph (DAG)</span>
+                </Button>
+                <Button
+                  variant="secondary"
+                  size="sm"
+                  onClick={() => setActiveTab("alternatives")}
+                  className="gap-1.5 text-xs text-brand-green hover:text-white shrink-0"
+                >
+                  <Scale className="h-3.5 w-3.5" />
+                  <span>Compare Alternative Explanations</span>
+                </Button>
+              </div>
             </div>
 
             <VesselRankingList
@@ -273,6 +290,17 @@ export default function ForensicWarRoomPage() {
               caseId="case-2026-0814-in-bom"
               topCandidateScore={88.4}
               topCandidateName="MT PACIFIC TRADER"
+            />
+          </TabsContent>
+
+          {/* Causal Evidence Graph Tab (TASK-049 / Feature 11 / P5) */}
+          <TabsContent value="graph" className="space-y-6">
+            <EvidenceGraphView
+              caseId="case-2026-0814-in-bom"
+              selectedMmsi={selectedVesselMmsi}
+              onFocusCoordinate={(_coords) => {
+                setActiveTab("map");
+              }}
             />
           </TabsContent>
 

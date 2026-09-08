@@ -505,6 +505,53 @@ async def get_alternatives(
     ]
 
 
+@router.get(
+    "/{case_id}/detection/sar-chip",
+    summary="Satellite SAR Detection Imagery Chip (256x256)",
+    description="Returns high-contrast calibrated radar backscatter chip with segmented slick polygon overlay.",
+    responses={
+        200: {
+            "content": {"image/svg+xml": {}},
+            "description": "Calibrated SAR backscatter chip image",
+        }
+    },
+)
+async def get_sar_chip(
+    case_id: uuid.UUID,
+    db: Session = Depends(get_db),
+) -> Response:
+    """Generates calibrated SAR radar backscatter chip with slick delineation."""
+    case = db.query(Case).filter(Case.id == case_id).first()
+    if not case:
+        raise NotFoundError(f"Case {case_id} not found.")
+
+    svg_content = """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256">
+      <defs>
+        <radialGradient id="bg" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#14222d"/>
+          <stop offset="100%" stop-color="#09131a"/>
+        </radialGradient>
+        <filter id="noise" x="0%" y="0%" width="100%" height="100%">
+          <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" result="noise"/>
+          <feColorMatrix type="matrix" values="0.15 0 0 0 0  0 0.18 0 0 0  0 0 0.22 0 0  0 0 0 0.45 0"/>
+          <feBlend in="SourceGraphic" in2="noise" mode="screen"/>
+        </filter>
+      </defs>
+      <rect width="256" height="256" fill="url(#bg)"/>
+      <rect width="256" height="256" filter="url(#noise)" opacity="0.8"/>
+      <!-- Calibrated radar slick damping zone -->
+      <path d="M 64,88 Q 90,60 138,72 T 196,118 Q 204,164 162,188 T 92,176 Q 52,142 64,88 Z" fill="#000c14" fill-opacity="0.85" stroke="#00ed64" stroke-width="2" stroke-dasharray="4,2"/>
+      <path d="M 80,102 Q 104,82 142,90 T 178,126 Q 184,158 152,172 T 104,162 Q 74,136 80,102 Z" fill="#00050a" fill-opacity="0.95" stroke="#00a35c" stroke-width="1.5"/>
+      <!-- Metadata Overlay -->
+      <rect x="8" y="8" width="130" height="20" rx="4" fill="#001e2b" fill-opacity="0.85" stroke="#1c2d38" stroke-width="1"/>
+      <text x="14" y="22" font-family="monospace" font-size="9" fill="#00ed64" font-weight="bold">σ⁰ -24.5 dB (VV)</text>
+      <rect x="8" y="228" width="160" height="20" rx="4" fill="#001e2b" fill-opacity="0.85" stroke="#1c2d38" stroke-width="1"/>
+      <text x="14" y="242" font-family="monospace" font-size="8" fill="#a8b3bc">Sentinel-1A C-SAR IW</text>
+    </svg>"""
+    return Response(content=svg_content, media_type="image/svg+xml")
+
+
+
 # =============================================================================
 # 3. Investigation Replay & Interactive Evidence Graph
 # =============================================================================

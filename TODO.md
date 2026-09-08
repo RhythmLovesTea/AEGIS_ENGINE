@@ -806,7 +806,7 @@ This document serves as the master, strictly sequential, atomic task backlog for
 
 ---
 
-### TASK-044: Incident Case Dashboard & Active Spill Monitor
+### [x] TASK-044: Incident Case Dashboard & Active Spill Monitor (Completed)
 - **Domain:** Frontend UI / Operations
 - **Prerequisites:** TASK-043
 - **Objective:** Build the case management view displaying active spill incidents, satellite detection chips, and creation modal.

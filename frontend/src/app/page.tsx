@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import Link from "next/link";
 import dynamic from "next/dynamic";
 import {
   Shield,
@@ -91,10 +92,18 @@ export default function ForensicWarRoomPage() {
               <span className="mr-1.5 inline-block h-2 w-2 rounded-full bg-brand-green animate-pulse" />
               Surveillance Grid Active
             </Badge>
-            <Button variant="default" size="sm">
-              <Activity className="h-4 w-4" />
-              New Incident
-            </Button>
+            <Link href="/cases">
+              <Button variant="secondary" size="sm" className="gap-1.5">
+                <Radar className="h-4 w-4 text-brand-green" />
+                <span>Incident Cases</span>
+              </Button>
+            </Link>
+            <Link href="/cases">
+              <Button variant="default" size="sm" className="gap-1.5">
+                <Activity className="h-4 w-4" />
+                <span>New Incident</span>
+              </Button>
+            </Link>
           </div>
         </div>
       </header>

@@ -838,7 +838,7 @@ This document serves as the master, strictly sequential, atomic task backlog for
 
 ---
 
-### TASK-046: "Why This Vessel?" Explainability Drawer & AHP Radar Chart (Rule 2, Feature 1)
+### [x] TASK-046: "Why This Vessel?" Explainability Drawer & AHP Radar Chart (Rule 2, Feature 1) (Completed)
 - **Domain:** Frontend UI / Explainability
 - **Prerequisites:** TASK-045
 - **Objective:** Build the forensic explainability drawer displaying the 5 persisted sub-scores, evidence breakdown, and AHP radar chart.

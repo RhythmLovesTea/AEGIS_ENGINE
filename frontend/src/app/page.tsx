@@ -52,12 +52,15 @@ import {
   type LiveVesselRanking,
   computeDynamicRankings,
 } from "@/components/investigation";
-import { VesselRankingList } from "@/components/attribution";
+import { VesselRankingList, ExplainabilityDrawer } from "@/components/attribution";
+import type { VesselCandidate } from "@/types";
 
 export default function ForensicWarRoomPage() {
   const [driftFactor, setDriftFactor] = React.useState<number[]>([0.032]);
   const [activeTab, setActiveTab] = React.useState<string>("map");
   const [selectedVesselMmsi, setSelectedVesselMmsi] = React.useState<number | null>(419001234);
+  const [isExplainDrawerOpen, setIsExplainDrawerOpen] = React.useState<boolean>(false);
+  const [explainingVessel, setExplainingVessel] = React.useState<VesselCandidate | null>(null);
 
   // Investigation Replay & Temporal Scrubber State (TASK-043 / D4)
   const [simulationSeconds, setSimulationSeconds] = React.useState<number>(540); // default to midpoint CPA
@@ -221,6 +224,10 @@ export default function ForensicWarRoomPage() {
                 setSelectedVesselMmsi(cand.mmsi);
                 setActiveTab("map");
               }}
+              onOpenExplainability={(cand) => {
+                setExplainingVessel(cand);
+                setIsExplainDrawerOpen(true);
+              }}
             />
           </TabsContent>
 
@@ -325,6 +332,18 @@ export default function ForensicWarRoomPage() {
           AEGIS-Marine Maritime Forensic Intelligence Platform &copy; 2026. Strictly adhering to Rule 6 terminology standards.
         </p>
       </footer>
+
+      {/* Forensic Explainability Drawer (TASK-046 / Feature 1 / Rule 2) */}
+      <ExplainabilityDrawer
+        open={isExplainDrawerOpen}
+        onOpenChange={setIsExplainDrawerOpen}
+        candidate={explainingVessel}
+        caseId="case-2026-0814-in-bom"
+        onInspectTrack={(cand) => {
+          setSelectedVesselMmsi(cand.mmsi);
+          setActiveTab("map");
+        }}
+      />
     </div>
   );
 }

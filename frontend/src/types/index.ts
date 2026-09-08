@@ -40,7 +40,26 @@ export type AlternativeExplanation = Schemas["AlternativeExplanationResponse"];
 // Evidence, Graph & Explainability Models (D1, FR-21)
 // -----------------------------------------------------------------------------
 export type WhyThisVessel = Schemas["WhyThisVesselPayload"];
+export type WhyThisVesselPayload = Schemas["WhyThisVesselPayload"];
+export type SpatialBreakdown = Schemas["SpatialBreakdown"];
+export type TemporalBreakdown = Schemas["TemporalBreakdown"];
+export type KinematicBreakdown = Schemas["KinematicBreakdown"];
+export type AnomalyBreakdown = Schemas["AnomalyBreakdown"];
+export type TypeBreakdown = Schemas["TypeBreakdown"];
+export type BarChartItem = Schemas["BarChartItem"];
+export type EvidenceChecklistItem = Schemas["EvidenceChecklistItem"];
+
+export interface RadarChartDataPoint {
+  axis: string;
+  key: string;
+  value: number;
+  weight: number;
+  weighted_score: number;
+  fleet_benchmark: number;
+}
+
 export type Counterfactual = Schemas["CounterfactualResult"];
+export type CounterfactualResult = Schemas["CounterfactualResult"];
 export type EvidenceGraph = Schemas["EvidenceGraphPayload"];
 export type ReplayState = Schemas["ReplayStatePayload"];
 export type ReplayStatePayload = Schemas["ReplayStatePayload"];

@@ -7,3 +7,12 @@ export {
   type VesselRankingListProps,
   SYNTHETIC_CANDIDATES,
 } from "./VesselRankingList";
+export {
+  AHPRadarChart,
+  type AHPRadarChartProps,
+} from "./AHPRadarChart";
+export {
+  ExplainabilityDrawer,
+  type ExplainabilityDrawerProps,
+} from "./ExplainabilityDrawer";
+

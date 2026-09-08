@@ -1,5 +1,9 @@
 """AEGIS-Marine: Shared Data Contracts & Pydantic Schemas."""
 
+from backend.app.schemas.audit import (
+    AuditLogListResponse,
+    AuditLogResponse,
+)
 from backend.app.schemas.case import (
     CaseCreateRequest,
     CaseDetailResponse,
@@ -138,4 +142,6 @@ __all__ = [
     "BaselineComparisonSummary",
     "WhatIfScenarioResponse",
     "WhatIfScenarioSummary",
+    "AuditLogResponse",
+    "AuditLogListResponse",
 ]

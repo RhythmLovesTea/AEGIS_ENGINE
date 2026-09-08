@@ -12,13 +12,13 @@ from sqlalchemy import text
 from sqlalchemy.orm import Session
 
 from backend.app.schemas.vessel import AHPConfigResponse
+from backend.core.audit import AuditLoggingMiddleware, admin_audit_router
 from backend.core.config import settings
 from backend.core.database import get_db
 from backend.core.errors import assert_no_banned_terms, register_exception_handlers
 from backend.core.security import (
     CurrentUser,
     Role,
-    get_current_user,
     require_roles,
 )
 from backend.services.tier4_correlation.ahp_manager import AHPWeightManager
@@ -49,6 +49,7 @@ def create_app() -> FastAPI:
         allow_headers=["*"],
         expose_headers=["Content-Type", "Content-Disposition", "WWW-Authenticate"],
     )
+    app.add_middleware(AuditLoggingMiddleware)
 
     # 2. Register RFC 7807 Global Problem Details Exception Handlers
     register_exception_handlers(app)
@@ -189,6 +190,7 @@ def create_app() -> FastAPI:
     app.include_router(api_router, prefix=settings.API_V1_STR)
     # Also mount cases at root level per Architecture Section 7 table
     app.include_router(cases_root_router)
+    app.include_router(admin_audit_router)
     return app
 
 

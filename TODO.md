@@ -709,7 +709,7 @@ This document serves as the master, strictly sequential, atomic task backlog for
 
 ---
 
-### TASK-038: Audit Logging System (rules.md Section 5)
+### [x] TASK-038: Audit Logging System (rules.md Section 5) (Completed)
 - **Domain:** Security / Auditability
 - **Prerequisites:** TASK-037
 - **Objective:** Build audit logging middleware recording every case mutation, parameter override, and dossier export.

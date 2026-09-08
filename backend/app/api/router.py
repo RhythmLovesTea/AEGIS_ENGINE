@@ -7,6 +7,7 @@ from fastapi import APIRouter
 from backend.app.api.ahp import router as ahp_router
 from backend.app.api.auth import router as auth_router
 from backend.app.api.cases import router as cases_router
+from backend.core.audit import admin_audit_router
 
 api_router = APIRouter()
 
@@ -14,3 +15,4 @@ api_router = APIRouter()
 api_router.include_router(cases_router)
 api_router.include_router(auth_router)
 api_router.include_router(ahp_router)
+api_router.include_router(admin_audit_router)

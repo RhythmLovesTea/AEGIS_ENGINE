@@ -857,7 +857,7 @@ This document serves as the master, strictly sequential, atomic task backlog for
 
 ---
 
-### TASK-047: Alternative Hypotheses & Lookalike Comparison Panel (Rule 5, Feature 7)
+### [x] TASK-047: Alternative Hypotheses & Lookalike Comparison Panel (Rule 5, Feature 7) (Completed)
 - **Domain:** Frontend UI / Alternative Explanations
 - **Prerequisites:** TASK-046
 - **Objective:** Build the alternative explanations panel presenting non-vessel hypothesis scores alongside candidate vessels.

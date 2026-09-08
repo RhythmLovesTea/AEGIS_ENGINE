@@ -15,4 +15,10 @@ export {
   ExplainabilityDrawer,
   type ExplainabilityDrawerProps,
 } from "./ExplainabilityDrawer";
+export {
+  AlternativeExplanationsPanel,
+  type AlternativeExplanationsPanelProps,
+  SYNTHETIC_ALTERNATIVES,
+} from "./AlternativeExplanationsPanel";
+
 

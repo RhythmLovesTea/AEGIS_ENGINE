@@ -36,6 +36,37 @@ export type SubScores = Schemas["SubScores"];
 export type AISCoverage = Schemas["AISCoverageEnum"];
 export type AlternativeExplanation = Schemas["AlternativeExplanationResponse"];
 
+export interface NaturalSeepEvidence {
+  nearest_seep_id?: string;
+  nearest_seep_name?: string;
+  basin?: string;
+  distance_km?: number;
+  bearing_deg?: number;
+  water_depth_m?: number;
+  seep_type?: string;
+  activity_status?: string;
+  target_coordinates?: [number, number];
+  rationale?: string;
+}
+
+export interface ImagingArtifactEvidence {
+  lookalike_risk?: number;
+  incidence_angle_deg?: number;
+  wind_speed_ms?: number;
+  sensor?: string;
+  angle_factor?: number;
+  wind_factor?: number;
+  rationale?: string;
+}
+
+export interface NonAISVesselEvidence {
+  candidate_count?: number;
+  dark_gap_count?: number;
+  unidentified_radar_contacts?: number;
+  regional_ais_coverage?: string;
+  rationale?: string;
+}
+
 // -----------------------------------------------------------------------------
 // Evidence, Graph & Explainability Models (D1, FR-21)
 // -----------------------------------------------------------------------------

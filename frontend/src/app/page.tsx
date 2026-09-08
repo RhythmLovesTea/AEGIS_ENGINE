@@ -14,6 +14,7 @@ import {
   Radar,
   Anchor,
   Map as MapIcon,
+  Scale,
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -52,7 +53,11 @@ import {
   type LiveVesselRanking,
   computeDynamicRankings,
 } from "@/components/investigation";
-import { VesselRankingList, ExplainabilityDrawer } from "@/components/attribution";
+import {
+  VesselRankingList,
+  ExplainabilityDrawer,
+  AlternativeExplanationsPanel,
+} from "@/components/attribution";
 import type { VesselCandidate } from "@/types";
 
 export default function ForensicWarRoomPage() {
@@ -178,6 +183,10 @@ export default function ForensicWarRoomPage() {
               <Anchor className="h-4 w-4" />
               Candidate Vessels
             </TabsTrigger>
+            <TabsTrigger value="alternatives" className="gap-2">
+              <Scale className="h-4 w-4" />
+              Alternative Hypotheses (Rule 5)
+            </TabsTrigger>
             <TabsTrigger value="hindcast" className="gap-2">
               <Compass className="h-4 w-4" />
               Hindcast & Dispersion
@@ -217,6 +226,30 @@ export default function ForensicWarRoomPage() {
 
           {/* Candidate Vessels Tab (TASK-045 / Rules 1, 3, 4, 6) */}
           <TabsContent value="candidates" className="space-y-6">
+            {/* Rule 5 Multi-Hypothesis Quick Switch Banner */}
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 rounded-xl border border-hairline-dark bg-brand-teal/20 p-4">
+              <div className="space-y-0.5">
+                <div className="flex items-center gap-2">
+                  <Badge variant="purple" className="text-[10px]">Product Rule 5</Badge>
+                  <span className="text-xs font-semibold text-white">
+                    3 Non-Vessel Alternative Hypotheses Evaluated
+                  </span>
+                </div>
+                <p className="text-[11px] text-on-dark-muted">
+                  Natural Seep (12.5%), SAR Lookalike (6.0%), Unregistered/Dark Target (40.0%).
+                </p>
+              </div>
+              <Button
+                variant="secondary"
+                size="sm"
+                onClick={() => setActiveTab("alternatives")}
+                className="gap-1.5 text-xs text-brand-green hover:text-white shrink-0"
+              >
+                <Scale className="h-3.5 w-3.5" />
+                <span>Compare Alternative Explanations</span>
+              </Button>
+            </div>
+
             <VesselRankingList
               selectedMmsi={selectedVesselMmsi}
               onSelectCandidate={(cand) => setSelectedVesselMmsi(cand.mmsi)}
@@ -228,6 +261,15 @@ export default function ForensicWarRoomPage() {
                 setExplainingVessel(cand);
                 setIsExplainDrawerOpen(true);
               }}
+            />
+          </TabsContent>
+
+          {/* Alternative Hypotheses & Lookalikes Tab (TASK-047 / Rule 5, Feature 7) */}
+          <TabsContent value="alternatives" className="space-y-6">
+            <AlternativeExplanationsPanel
+              caseId="case-2026-0814-in-bom"
+              topCandidateScore={88.4}
+              topCandidateName="MT PACIFIC TRADER"
             />
           </TabsContent>
 

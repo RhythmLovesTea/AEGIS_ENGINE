@@ -115,23 +115,6 @@ def create_app() -> FastAPI:
     # 4. API v1 Router with RBAC Protected Endpoints
     api_v1_router = APIRouter(prefix=settings.API_V1_STR)
 
-    @api_v1_router.get(
-        "/auth/me",
-        tags=["Authentication & Identity"],
-        summary="Current Authenticated User Profile",
-    )
-    async def get_profile(
-        current_user: CurrentUser = Depends(get_current_user),
-    ) -> dict[str, Any]:
-        """Returns identity, active roles, and resolved permissions for current token."""
-        return {
-            "user_id": current_user.user_id,
-            "email": current_user.email,
-            "name": current_user.name,
-            "roles": current_user.roles,
-            "permissions": sorted(current_user.permissions),
-        }
-
     # Protected Endpoints for RBAC Verification (Architecture Section 10)
     @api_v1_router.post(
         "/cases/test-create",
@@ -198,7 +181,14 @@ def create_app() -> FastAPI:
         assert_no_banned_terms(msg)
         return {"message": msg, "user": user.user_id, "roles": user.roles}
 
+    # Include comprehensive API router
+    from backend.app.api.cases import router as cases_root_router
+    from backend.app.api.router import api_router
+
     app.include_router(api_v1_router)
+    app.include_router(api_router, prefix=settings.API_V1_STR)
+    # Also mount cases at root level per Architecture Section 7 table
+    app.include_router(cases_root_router)
     return app
 
 

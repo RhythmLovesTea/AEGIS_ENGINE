@@ -171,12 +171,20 @@ class CounterfactualSimulator:
         if "cpa_coords" in details and details["cpa_coords"]:
             seed_coords = tuple(details["cpa_coords"])
         elif origin and origin.centroid:
-            pt = to_shape(origin.centroid)
+            pt = (
+                origin.centroid
+                if hasattr(origin.centroid, "geom_type")
+                else to_shape(origin.centroid)
+            )
             seed_coords = (float(pt.x), float(pt.y))
         else:
             seed_coords = (72.290, 18.865)
 
-        observed_poly_shapely = to_shape(detection.polygon)
+        observed_poly_shapely = (
+            detection.polygon
+            if hasattr(detection.polygon, "geom_type")
+            else to_shape(detection.polygon)
+        )
 
         return self.simulate_candidate(
             case_id=case_uuid,

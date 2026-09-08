@@ -631,7 +631,11 @@ class ReplayService:
                 .first()
             )
             if origin and origin.centroid:
-                shape_pt = to_shape(origin.centroid)
+                shape_pt = (
+                    origin.centroid
+                    if hasattr(origin.centroid, "geom_type")
+                    else to_shape(origin.centroid)
+                )
                 return (float(shape_pt.x), float(shape_pt.y))
         except Exception:
             pass
@@ -649,7 +653,9 @@ class ReplayService:
                 .first()
             )
             if det and det.centroid:
-                shape_pt = to_shape(det.centroid)
+                shape_pt = (
+                    det.centroid if hasattr(det.centroid, "geom_type") else to_shape(det.centroid)
+                )
                 return (float(shape_pt.x), float(shape_pt.y))
         except Exception:
             pass

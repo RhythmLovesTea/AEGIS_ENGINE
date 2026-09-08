@@ -467,7 +467,11 @@ class AlternativeExplanationEngine:
             .first()
         )
         if origin and origin.centroid:
-            pt = to_shape(origin.centroid)
+            pt = (
+                origin.centroid
+                if hasattr(origin.centroid, "geom_type")
+                else to_shape(origin.centroid)
+            )
             origin_coords = (float(pt.x), float(pt.y))
         else:
             # Fallback to default Bombay High coordinates

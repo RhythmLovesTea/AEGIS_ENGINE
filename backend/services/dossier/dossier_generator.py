@@ -69,14 +69,31 @@ def assert_no_banned_terms(text: str, context_label: str = "text") -> None:
 def _to_dict(obj: Any) -> dict[str, Any]:
     """Helper to convert Pydantic models or entities to dictionaries."""
     if hasattr(obj, "model_dump"):
-        return obj.model_dump()
+        res = obj.model_dump()
     elif hasattr(obj, "dict"):
-        return obj.dict()
+        res = obj.dict()
     elif isinstance(obj, dict):
-        return obj.copy()
+        res = obj.copy()
     elif hasattr(obj, "__dict__"):
-        return {k: v for k, v in obj.__dict__.items() if not k.startswith("_")}
-    return dict(obj)
+        res = {k: v for k, v in obj.__dict__.items() if not k.startswith("_")}
+    else:
+        res = dict(obj)
+
+    for k, v in list(res.items()):
+        if v is not None:
+            if hasattr(v, "geom_type"):
+                from shapely.geometry import mapping
+
+                res[k] = mapping(v)
+            elif hasattr(v, "data"):
+                try:
+                    from geoalchemy2.shape import to_shape
+                    from shapely.geometry import mapping
+
+                    res[k] = mapping(to_shape(v))
+                except Exception:
+                    pass
+    return res
 
 
 class DossierGenerator:
@@ -111,6 +128,24 @@ class DossierGenerator:
         generated_at: datetime,
     ) -> str:
         """Computes deterministic SHA-256 digest over normalized case inputs and outputs."""
+        orig_centroid_raw = origin_data.get("centroid", {})
+        if hasattr(orig_centroid_raw, "geom_type"):
+            from shapely.geometry import mapping
+
+            orig_centroid_dict = mapping(orig_centroid_raw)
+        elif hasattr(orig_centroid_raw, "data"):
+            try:
+                from geoalchemy2.shape import to_shape
+                from shapely.geometry import mapping
+
+                orig_centroid_dict = mapping(to_shape(orig_centroid_raw))
+            except Exception:
+                orig_centroid_dict = {"type": "Point", "coordinates": [0.0, 0.0]}
+        elif isinstance(orig_centroid_raw, dict):
+            orig_centroid_dict = orig_centroid_raw
+        else:
+            orig_centroid_dict = {"type": "Point", "coordinates": [0.0, 0.0]}
+
         canonical_payload = {
             "case_id": str(case_id),
             "generated_at": generated_at.isoformat(),
@@ -135,7 +170,7 @@ class DossierGenerator:
                 "age_confidence": round(float(characterization_data.get("age_confidence", 0.0)), 2),
             },
             "origin": {
-                "centroid": origin_data.get("centroid", {}),
+                "centroid": orig_centroid_dict,
                 "time_window_start": str(origin_data.get("time_window_start", "")),
                 "time_window_end": str(origin_data.get("time_window_end", "")),
                 "confidence_pct": round(float(origin_data.get("confidence_pct", 0.0)), 2),
@@ -243,20 +278,38 @@ class DossierGenerator:
 
         # Extract centroid coordinates
         det_centroid = detection_data.get("centroid", {})
-        det_coords = (
-            det_centroid.get("coordinates", [0.0, 0.0])
-            if isinstance(det_centroid, dict)
-            else [0.0, 0.0]
-        )
-        det_lon, det_lat = det_coords[0], det_coords[1]
+        if hasattr(det_centroid, "geom_type"):
+            det_lon, det_lat = float(det_centroid.x), float(det_centroid.y)
+        elif hasattr(det_centroid, "data"):
+            try:
+                from geoalchemy2.shape import to_shape
+
+                s = to_shape(det_centroid)
+                det_lon, det_lat = float(s.x), float(s.y)
+            except Exception:
+                det_lon, det_lat = 0.0, 0.0
+        elif isinstance(det_centroid, dict):
+            det_coords = det_centroid.get("coordinates", [0.0, 0.0])
+            det_lon, det_lat = float(det_coords[0]), float(det_coords[1])
+        else:
+            det_lon, det_lat = 0.0, 0.0
 
         orig_centroid = origin_data.get("centroid", {})
-        orig_coords = (
-            orig_centroid.get("coordinates", [0.0, 0.0])
-            if isinstance(orig_centroid, dict)
-            else [0.0, 0.0]
-        )
-        orig_lon, orig_lat = orig_coords[0], orig_coords[1]
+        if hasattr(orig_centroid, "geom_type"):
+            orig_lon, orig_lat = float(orig_centroid.x), float(orig_centroid.y)
+        elif hasattr(orig_centroid, "data"):
+            try:
+                from geoalchemy2.shape import to_shape
+
+                s = to_shape(orig_centroid)
+                orig_lon, orig_lat = float(s.x), float(s.y)
+            except Exception:
+                orig_lon, orig_lat = 0.0, 0.0
+        elif isinstance(orig_centroid, dict):
+            orig_coords = orig_centroid.get("coordinates", [0.0, 0.0])
+            orig_lon, orig_lat = float(orig_coords[0]), float(orig_coords[1])
+        else:
+            orig_lon, orig_lat = 0.0, 0.0
 
         area_m2 = float(detection_data.get("area_m2", 0.0))
         area_km2 = round(area_m2 / 1e6, 3)

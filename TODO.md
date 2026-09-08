@@ -672,7 +672,7 @@ This document serves as the master, strictly sequential, atomic task backlog for
 
 ---
 
-### TASK-036: Complete REST & WebSocket API Endpoints (Architecture Section 7)
+### [x] TASK-036: Complete REST & WebSocket API Endpoints (Architecture Section 7) (Completed)
 - **Domain:** API Gateway
 - **Prerequisites:** TASK-035
 - **Objective:** Implement all REST endpoints and WebSocket channels defined in Architecture Document Section 7.

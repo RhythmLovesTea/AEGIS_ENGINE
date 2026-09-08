@@ -44,7 +44,7 @@ class DossierResult(BaseSchema):
     verification_qr_b64: str | None = Field(
         default=None, description="Base64 data URI PNG containing chain-of-custody QR code"
     )
-    pdf_bytes: bytes | None = Field(default=None, description="Raw binary PDF bytes")
+    pdf_bytes: bytes | None = Field(default=None, exclude=True, description="Raw binary PDF bytes")
 
 
 class DossierResponse(BaseSchema):

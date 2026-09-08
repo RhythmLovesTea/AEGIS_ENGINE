@@ -378,7 +378,11 @@ class WhyThisVesselComposer:
         origin_coords: tuple[float, float] | None = None
         cpa_coords: tuple[float, float] | None = None
         if origin and origin.centroid:
-            pt = to_shape(origin.centroid)
+            pt = (
+                origin.centroid
+                if hasattr(origin.centroid, "geom_type")
+                else to_shape(origin.centroid)
+            )
             origin_coords = (float(pt.x), float(pt.y))
 
         if "cpa_coords" in details and details["cpa_coords"]:

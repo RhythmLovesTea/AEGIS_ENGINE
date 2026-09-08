@@ -873,7 +873,7 @@ This document serves as the master, strictly sequential, atomic task backlog for
 
 ---
 
-### TASK-048: Interactive Counterfactual Comparison View (Feature 2 / D2)
+### [x] TASK-048: Interactive Counterfactual Comparison View (Feature 2 / D2) (Completed)
 - **Domain:** Frontend UI / Counterfactual
 - **Prerequisites:** TASK-047
 - **Objective:** Build the counterfactual comparison modal showing side-by-side observed slick vs forward simulated vessel release.

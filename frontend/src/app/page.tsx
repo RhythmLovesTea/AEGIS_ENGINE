@@ -57,6 +57,7 @@ import {
   VesselRankingList,
   ExplainabilityDrawer,
   AlternativeExplanationsPanel,
+  CounterfactualModal,
 } from "@/components/attribution";
 import type { VesselCandidate } from "@/types";
 
@@ -66,6 +67,8 @@ export default function ForensicWarRoomPage() {
   const [selectedVesselMmsi, setSelectedVesselMmsi] = React.useState<number | null>(419001234);
   const [isExplainDrawerOpen, setIsExplainDrawerOpen] = React.useState<boolean>(false);
   const [explainingVessel, setExplainingVessel] = React.useState<VesselCandidate | null>(null);
+  const [isCounterfactualModalOpen, setIsCounterfactualModalOpen] = React.useState<boolean>(false);
+  const [counterfactualCandidate, setCounterfactualCandidate] = React.useState<VesselCandidate | null>(null);
 
   // Investigation Replay & Temporal Scrubber State (TASK-043 / D4)
   const [simulationSeconds, setSimulationSeconds] = React.useState<number>(540); // default to midpoint CPA
@@ -385,6 +388,18 @@ export default function ForensicWarRoomPage() {
           setSelectedVesselMmsi(cand.mmsi);
           setActiveTab("map");
         }}
+        onOpenCounterfactual={(cand) => {
+          setCounterfactualCandidate(cand);
+          setIsCounterfactualModalOpen(true);
+        }}
+      />
+
+      {/* Interactive Counterfactual Comparison View (TASK-048 / Feature 2 / D2) */}
+      <CounterfactualModal
+        open={isCounterfactualModalOpen}
+        onOpenChange={setIsCounterfactualModalOpen}
+        candidate={counterfactualCandidate}
+        caseId="case-2026-0814-in-bom"
       />
     </div>
   );

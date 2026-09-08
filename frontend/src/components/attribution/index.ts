@@ -20,5 +20,11 @@ export {
   type AlternativeExplanationsPanelProps,
   SYNTHETIC_ALTERNATIVES,
 } from "./AlternativeExplanationsPanel";
+export {
+  CounterfactualModal,
+  type CounterfactualModalProps,
+  SYNTHETIC_COUNTERFACTUAL,
+} from "./CounterfactualModal";
+
 
 

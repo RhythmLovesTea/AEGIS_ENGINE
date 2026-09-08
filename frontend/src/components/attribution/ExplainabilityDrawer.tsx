@@ -16,6 +16,7 @@ import {
   Activity,
   Layers,
   Info,
+  Sparkles,
 } from "lucide-react";
 
 import {
@@ -45,6 +46,7 @@ export interface ExplainabilityDrawerProps {
   candidate: VesselCandidate | null;
   caseId?: string;
   onInspectTrack?: (candidate: VesselCandidate) => void;
+  onOpenCounterfactual?: (candidate: VesselCandidate) => void;
 }
 
 /**
@@ -231,6 +233,7 @@ export function ExplainabilityDrawer({
   candidate,
   caseId = "case-2026-0814-in-bom",
   onInspectTrack,
+  onOpenCounterfactual,
 }: ExplainabilityDrawerProps) {
   const [explanationData, setExplanationData] = React.useState<WhyThisVesselPayload | null>(null);
   const [loading, setLoading] = React.useState<boolean>(false);
@@ -818,6 +821,18 @@ export function ExplainabilityDrawer({
                         Congruent with observed slick envelope
                       </Badge>
                     </div>
+
+                    {onOpenCounterfactual && (
+                      <Button
+                        variant="default"
+                        size="sm"
+                        onClick={() => onOpenCounterfactual(candidate)}
+                        className="w-full gap-2 text-xs font-semibold mt-2"
+                      >
+                        <Sparkles className="h-3.5 w-3.5" />
+                        <span>Interactive Counterfactual Comparison View (D2)</span>
+                      </Button>
+                    )}
                   </div>
                 )}
               </div>

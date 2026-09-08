@@ -40,8 +40,10 @@ export type AlternativeExplanation = Schemas["AlternativeExplanationResponse"];
 export type WhyThisVessel = Schemas["WhyThisVesselPayload"];
 export type Counterfactual = Schemas["CounterfactualResult"];
 export type EvidenceGraph = Schemas["EvidenceGraphPayload"];
-export type EvidenceTimeline = Schemas["EvidenceTimelinePayload"];
 export type ReplayState = Schemas["ReplayStatePayload"];
+export type ReplayStatePayload = Schemas["ReplayStatePayload"];
+export type VesselReplayState = Schemas["VesselReplayState"];
+export type ParticleEnsembleState = Schemas["ParticleEnsembleState"];
 
 // -----------------------------------------------------------------------------
 // "What-If" Simulation & Parameter Overrides (FR-19, TASK-037)

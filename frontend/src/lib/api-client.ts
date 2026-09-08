@@ -19,6 +19,7 @@ import type {
   WhatIfRequest,
   WhatIfScenarioResponse,
   WhatIfScenarioSummary,
+  ReplayStatePayload,
 } from "@/types";
 
 export class ApiClientError extends Error {
@@ -201,6 +202,20 @@ export class ApiClient {
   public async getCaseStatus(caseId: string): Promise<CaseStatusResponse> {
     return this.request<CaseStatusResponse>(`/cases/${caseId}/status`, {
       method: "GET",
+    });
+  }
+
+  // ---------------------------------------------------------------------------
+  // Investigation Replay & Time-Slice State (Feature 4 / D4, TASK-043)
+  // ---------------------------------------------------------------------------
+
+  public async getReplayState(
+    caseId: string,
+    timestamp?: string
+  ): Promise<ReplayStatePayload> {
+    return this.request<ReplayStatePayload>(`/cases/${caseId}/replay`, {
+      method: "GET",
+      params: timestamp ? { t: timestamp } : undefined,
     });
   }
 

@@ -18,6 +18,8 @@ export interface AdvectionParticle {
   position: [number, number]; // [longitude, latitude]
   ageHours: number; // 0.0 (origin release) to maxAge (slick observation)
   density: number; // 0.0 to 1.0 normalized local concentration
+  originPosition?: [number, number]; // [longitude, latitude] at release envelope (t_0)
+  finalPosition?: [number, number]; // [longitude, latitude] at observed slick (t_obs)
 }
 
 export interface CandidateVesselTrip {
@@ -83,6 +85,10 @@ export function generateSyntheticAdvectionParticles(
     const lng = baseLng + randNorm1 * dispersionRadius;
     const lat = baseLat + randNorm2 * (dispersionRadius * 0.7);
 
+    // Particle origin position (compact covariance envelope at t_0 release)
+    const originLng = origin[0] + randNorm1 * 0.012;
+    const originLat = origin[1] + randNorm2 * (0.012 * 0.7);
+
     // Particle age in hours (e.g. 0 to 12h hindcast)
     const ageHours = (1.0 - t) * 12.0;
     const density = Math.exp(-((randNorm1 * randNorm1 + randNorm2 * randNorm2) / 2.0));
@@ -90,6 +96,8 @@ export function generateSyntheticAdvectionParticles(
     particles[i] = {
       id: i,
       position: [lng, lat],
+      originPosition: [originLng, originLat],
+      finalPosition: [lng, lat],
       ageHours,
       density,
     };
@@ -358,26 +366,37 @@ export function DeckOverlay({
       );
     }
 
-    // 3. ScatterplotLayer: 10,000+ Advection Particles (GPU Instanced)
+    // 3. ScatterplotLayer: 10,000+ Advection Particles (GPU Instanced & Dynamically Interpolated)
     if (showParticles && resolvedParticles.length > 0) {
+      const activeProgress = Math.min(1, Math.max(0, activeTime / 1080));
+
       layerList.push(
         new ScatterplotLayer<AdvectionParticle>({
           id: "advection-particles",
           data: resolvedParticles,
-          getPosition: (d) => d.position,
+          getPosition: (d) => {
+            if (d.originPosition && d.finalPosition) {
+              return [
+                (1 - activeProgress) * d.originPosition[0] + activeProgress * d.finalPosition[0],
+                (1 - activeProgress) * d.originPosition[1] + activeProgress * d.finalPosition[1],
+              ];
+            }
+            return d.position;
+          },
           getRadius: 24,
           radiusMinPixels: 2,
           radiusMaxPixels: 8,
-          getFillColor: (d) => {
-            // Color ramp: Bright green for fresh, deep cyan/indigo for older
-            if (d.ageHours < 3.0) return [0, 237, 100, 210]; // #00ed64
-            if (d.ageHours < 7.0) return [0, 163, 92, 175]; // #00a35c
-            return [61, 79, 159, 130]; // #3d4f9f
+          getFillColor: () => {
+            const effectiveAge = (1.0 - activeProgress) * 12.0;
+            if (effectiveAge < 3.0) return [0, 237, 100, 210]; // #00ed64 (brand green near observation)
+            if (effectiveAge < 7.0) return [0, 163, 92, 175]; // #00a35c (mid green)
+            return [250, 110, 57, 180]; // #fa6e39 (accent orange near release origin)
           },
           stroked: false,
           pickable: false,
           updateTriggers: {
-            getFillColor: [resolvedParticles.length],
+            getPosition: [activeProgress],
+            getFillColor: [activeProgress],
           },
         })
       );

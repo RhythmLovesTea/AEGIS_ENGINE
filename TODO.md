@@ -791,7 +791,7 @@ This document serves as the master, strictly sequential, atomic task backlog for
 
 ---
 
-### TASK-043: Interactive Replay Time-Scrubber & Playback Controls (D4)
+### [x] TASK-043: Interactive Replay Time-Scrubber & Playback Controls (D4) (Completed)
 - **Domain:** Frontend UI / Investigation Replay
 - **Prerequisites:** TASK-042
 - **Objective:** Build the temporal playback scrubber driving particle reverse convergence and vessel track advancement.

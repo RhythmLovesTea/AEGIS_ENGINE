@@ -695,7 +695,7 @@ This document serves as the master, strictly sequential, atomic task backlog for
 
 ---
 
-### TASK-037: "What-If" Scenario Simulation Engine & Partial Task Re-Execution (P3)
+### [x] TASK-037: "What-If" Scenario Simulation Engine & Partial Task Re-Execution (P3) (Completed)
 - **Domain:** Backend Case Orchestration
 - **Prerequisites:** TASK-036
 - **Objective:** Implement `POST /cases/{id}/whatif` to re-execute hindcasting and attribution under overridden parameters without re-running Tier 1 segmentation.

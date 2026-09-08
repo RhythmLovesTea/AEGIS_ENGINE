@@ -36,6 +36,10 @@ class CaseCreateRequest(BaseSchema):
 class WhatIfRequest(BaseSchema):
     """What-If scenario parameter override payload (Feature 3 / P3)."""
 
+    scenario_name: Optional[str] = Field(
+        default=None,
+        description="Optional human-readable label for this what-if scenario run",
+    )
     t_age_override_hours: Optional[float] = Field(
         default=None,
         ge=0.0,
@@ -47,6 +51,12 @@ class WhatIfRequest(BaseSchema):
         le=0.06,
         description="Override wind-drift factor c_w (nominal 0.030)",
     )
+    horizontal_diffusivity: Optional[float] = Field(
+        default=None,
+        ge=0.0,
+        le=50.0,
+        description="Override horizontal eddy diffusivity Kh in m^2/s (nominal 2.0)",
+    )
     origin_search_sigma: Optional[float] = Field(
         default=None,
         ge=1.0,
@@ -56,6 +66,10 @@ class WhatIfRequest(BaseSchema):
     custom_ahp_weights: Optional[Dict[str, float]] = Field(
         default=None,
         description="Custom AHP weights for {spatial, temporal, kinematic, anomaly, type}",
+    )
+    persist_scenario: bool = Field(
+        default=True,
+        description="Whether to cache this scenario under child scenario keys",
     )
 
 

@@ -30,6 +30,7 @@ from backend.app.models.entities import (
 from backend.app.schemas.case import (
     CaseCreateRequest,
     CaseDetailResponse,
+    WhatIfRequest,
 )
 from backend.app.schemas.characterization import SlickCharacterizationResponse
 from backend.app.schemas.common import CaseStatusEnum
@@ -47,6 +48,10 @@ from backend.app.schemas.hindcast import (
     OriginEstimateResponse,
 )
 from backend.app.schemas.vessel import VesselCandidateResponse
+from backend.app.schemas.what_if import (
+    WhatIfScenarioResponse,
+    WhatIfScenarioSummary,
+)
 from backend.core.database import get_db
 from backend.core.errors import NotFoundError
 from backend.core.security import (
@@ -61,6 +66,7 @@ from backend.services.explainability.counterfactual_simulator import Counterfact
 from backend.services.explainability.evidence_graph import EvidenceGraphBuilder
 from backend.services.explainability.replay_service import get_replay_state
 from backend.services.explainability.why_this_vessel import WhyThisVesselComposer
+from backend.services.orchestration import get_what_if_service
 
 logger = logging.getLogger("aegis.api.cases")
 
@@ -716,7 +722,91 @@ async def download_dossier(
 
 
 # =============================================================================
-# 5. WebSocket Live Case-Progress Stream
+# 5. "What-If" Scenario Simulation & Partial Task Re-Execution (Feature 3 / P3)
+# =============================================================================
+
+
+@router.post(
+    "/{case_id}/whatif",
+    response_model=WhatIfScenarioResponse,
+    summary="Run What-If Scenario Simulation (Feature 3 / P3)",
+    description=(
+        "Re-executes the Tier 3 hindcast and Tier 4 attribution pipeline under "
+        "altered parameter hypotheses without re-running Tier 1 segmentation."
+    ),
+)
+async def run_what_if_scenario(
+    case_id: uuid.UUID,
+    request_data: WhatIfRequest,
+    db: Session = Depends(get_db),
+    current_user: CurrentUser = Depends(
+        require_roles([Role.INVESTIGATOR, Role.ANALYST, Role.ADMIN])
+    ),
+) -> WhatIfScenarioResponse:
+    """Executes a What-If scenario simulation with custom parameter overrides."""
+    case = db.query(Case).filter(Case.id == case_id).first()
+    if not case:
+        raise NotFoundError(f"Case {case_id} not found.")
+
+    service = get_what_if_service()
+    return service.run_scenario(
+        case_id=case_id,
+        request=request_data,
+        db_session=db,
+        user_id=str(current_user.user_id),
+    )
+
+
+@router.get(
+    "/{case_id}/scenarios",
+    response_model=list[WhatIfScenarioSummary],
+    summary="List Cached What-If Scenarios",
+    description="Lists summary records for all cached What-If simulation scenarios for a case.",
+)
+async def list_what_if_scenarios(
+    case_id: uuid.UUID,
+    db: Session = Depends(get_db),
+    _current_user: CurrentUser = Depends(
+        require_roles([Role.INVESTIGATOR, Role.ANALYST, Role.LEGAL_REVIEWER, Role.ADMIN])
+    ),
+) -> list[WhatIfScenarioSummary]:
+    """Lists summary records for all cached What-If scenarios for the given case."""
+    case = db.query(Case).filter(Case.id == case_id).first()
+    if not case:
+        raise NotFoundError(f"Case {case_id} not found.")
+
+    service = get_what_if_service()
+    return service.list_scenarios(case_id=case_id)
+
+
+@router.get(
+    "/{case_id}/scenarios/{scenario_id}",
+    response_model=WhatIfScenarioResponse,
+    summary="Get Detailed What-If Scenario Payload",
+    description="Retrieves the full result payload for a specific cached What-If scenario.",
+)
+async def get_what_if_scenario(
+    case_id: uuid.UUID,
+    scenario_id: str,
+    db: Session = Depends(get_db),
+    _current_user: CurrentUser = Depends(
+        require_roles([Role.INVESTIGATOR, Role.ANALYST, Role.LEGAL_REVIEWER, Role.ADMIN])
+    ),
+) -> WhatIfScenarioResponse:
+    """Retrieves full details for a previously simulated What-If scenario."""
+    case = db.query(Case).filter(Case.id == case_id).first()
+    if not case:
+        raise NotFoundError(f"Case {case_id} not found.")
+
+    service = get_what_if_service()
+    scenario = service.get_scenario(case_id=case_id, scenario_id=scenario_id)
+    if not scenario:
+        raise NotFoundError(f"What-If scenario '{scenario_id}' not found for case '{case_id}'.")
+    return scenario
+
+
+# =============================================================================
+# 6. WebSocket Live Case-Progress Stream
 # =============================================================================
 
 

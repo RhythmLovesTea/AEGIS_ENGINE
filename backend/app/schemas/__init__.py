@@ -70,6 +70,13 @@ from backend.app.schemas.vessel import (
     VesselCandidateCreate,
     VesselCandidateResponse,
 )
+from backend.app.schemas.what_if import (
+    BaselineComparisonSummary,
+    CandidateRankShift,
+    ScenarioParameterDelta,
+    WhatIfScenarioResponse,
+    WhatIfScenarioSummary,
+)
 
 __all__ = [
     "BaseSchema",
@@ -126,4 +133,9 @@ __all__ = [
     "DossierGenerateRequest",
     "DossierResult",
     "DossierResponse",
+    "ScenarioParameterDelta",
+    "CandidateRankShift",
+    "BaselineComparisonSummary",
+    "WhatIfScenarioResponse",
+    "WhatIfScenarioSummary",
 ]

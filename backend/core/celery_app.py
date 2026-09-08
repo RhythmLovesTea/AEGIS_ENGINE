@@ -145,5 +145,6 @@ celery_app.conf.update(
         "backend.workers.tasks.tier1_tasks",
         "backend.workers.tasks.tier2_tasks",
         "backend.workers.tasks.tier3_tasks",
+        "backend.workers.tasks.tier4_tasks",
     ],
 )

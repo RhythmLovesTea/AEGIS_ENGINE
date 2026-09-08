@@ -66,7 +66,6 @@ from backend.services.explainability.counterfactual_simulator import Counterfact
 from backend.services.explainability.evidence_graph import EvidenceGraphBuilder
 from backend.services.explainability.replay_service import get_replay_state
 from backend.services.explainability.why_this_vessel import WhyThisVesselComposer
-from backend.services.orchestration import get_what_if_service
 
 logger = logging.getLogger("aegis.api.cases")
 
@@ -299,7 +298,50 @@ async def create_case(
     db.commit()
     db.refresh(new_case)
 
+    # If auto_start_pipeline is requested, dispatch the asynchronous Celery chain
+    if getattr(payload, "auto_start_pipeline", False):
+        try:
+            from backend.workers.tasks.pipeline_tasks import build_full_pipeline_chain
+
+            chain_task = build_full_pipeline_chain(
+                case_id=str(new_case.id), scene_ref=payload.source_scene_ref
+            )
+            chain_task.apply_async()
+            logger.info("Dispatched full Celery pipeline chain for case %s", new_case.id)
+        except Exception as exc:
+            logger.warning("Could not dispatch Celery pipeline chain: %s", exc)
+
     return serialize_case_aggregate(new_case)
+
+
+@router.post(
+    "/{case_id}/run",
+    summary="Dispatch Full Pipeline Chain",
+    description="Triggers the asynchronous 6-stage Celery pipeline chain (tier1 -> tier2 -> tier3 -> tier4 -> explain -> dossier).",
+)
+async def run_pipeline(
+    case_id: uuid.UUID,
+    db: Session = Depends(get_db),
+    _current_user: CurrentUser = Depends(
+        require_roles([Role.INVESTIGATOR, Role.ANALYST, Role.ADMIN])
+    ),
+) -> dict[str, Any]:
+    """Dispatches asynchronous Celery chain for full pipeline processing."""
+    case = db.query(Case).filter(Case.id == case_id).first()
+    if not case:
+        raise NotFoundError(f"Case {case_id} not found.")
+
+    from backend.workers.tasks.pipeline_tasks import build_full_pipeline_chain
+
+    chain_task = build_full_pipeline_chain(case_id=str(case.id), scene_ref=case.source_scene_ref)
+    async_result = chain_task.apply_async()
+
+    return {
+        "status": "dispatched",
+        "case_id": str(case_id),
+        "chain_task_id": async_result.id,
+        "stages": ["tier1", "tier2", "tier3", "tier4", "explain", "dossier"],
+    }
 
 
 @router.get(
@@ -795,6 +837,7 @@ async def run_what_if_scenario(
     if not case:
         raise NotFoundError(f"Case {case_id} not found.")
 
+    from backend.services.orchestration.what_if_service import get_what_if_service
     service = get_what_if_service()
     return service.run_scenario(
         case_id=case_id,
@@ -822,6 +865,7 @@ async def list_what_if_scenarios(
     if not case:
         raise NotFoundError(f"Case {case_id} not found.")
 
+    from backend.services.orchestration.what_if_service import get_what_if_service
     service = get_what_if_service()
     return service.list_scenarios(case_id=case_id)
 
@@ -845,6 +889,7 @@ async def get_what_if_scenario(
     if not case:
         raise NotFoundError(f"Case {case_id} not found.")
 
+    from backend.services.orchestration.what_if_service import get_what_if_service
     service = get_what_if_service()
     scenario = service.get_scenario(case_id=case_id, scenario_id=scenario_id)
     if not scenario:

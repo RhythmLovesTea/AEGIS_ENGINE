@@ -399,7 +399,11 @@ def run_inference_on_geotiff(
     return geojson_out
 
 
-def create_mock_test_tile(output_path: Path) -> Path:
+def create_mock_test_tile(
+    output_path: Path,
+    center_lon: float = 72.0,
+    center_lat: float = 19.0,
+) -> Path:
     """Create a realistic synthetic test GeoTIFF containing a dark slick signature."""
     output_path.parent.mkdir(parents=True, exist_ok=True)
     height, width = 512, 512
@@ -418,9 +422,11 @@ def create_mock_test_tile(output_path: Path) -> Path:
     # Apply damping to slick pixels
     sea_clutter[slick_mask] = rng.normal(loc=-15.5, scale=0.8, size=np.sum(slick_mask))
 
-    # Affine transform centered around Bombay High [72.0, 19.0]
+    # Affine transform centered around [center_lon, center_lat]
     res_deg = 0.0001  # ~10m resolution
-    transform = Affine.translation(72.0, 19.0) @ Affine.scale(res_deg, -res_deg)
+    top_left_lon = center_lon - (width / 2.0) * res_deg
+    top_left_lat = center_lat + (height / 2.0) * res_deg
+    transform = Affine.translation(top_left_lon, top_left_lat) @ Affine.scale(res_deg, -res_deg)
 
     with rasterio.open(
         output_path,

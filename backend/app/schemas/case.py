@@ -31,6 +31,10 @@ class CaseCreateRequest(BaseSchema):
         description="Copernicus CDSE product reference or local file path",
     )
     created_by: str = Field(default="investigator", description="Investigator username/ID")
+    auto_start_pipeline: bool = Field(
+        default=False,
+        description="Whether to immediately dispatch the asynchronous Celery pipeline chain",
+    )
 
 
 class WhatIfRequest(BaseSchema):

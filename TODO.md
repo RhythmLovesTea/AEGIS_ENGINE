@@ -936,7 +936,7 @@ This document serves as the master, strictly sequential, atomic task backlog for
 
 ## Phase 7: End-to-End Integration, Historical Validation & Packaging
 
-### TASK-052: Full Pipeline End-to-End Integration Test on Benchmark Historical Spills
+### [x] TASK-052: Full Pipeline End-to-End Integration Test on Benchmark Historical Spills (Completed)
 - **Domain:** System Testing / Empirical Validation
 - **Prerequisites:** TASK-051
 - **Objective:** Execute full end-to-end integration tests on synthetic and historical benchmark scenes (e.g., CSIRO/DARTIS benchmark data).

@@ -747,7 +747,7 @@ This document serves as the master, strictly sequential, atomic task backlog for
 
 ---
 
-### TASK-040: OpenAPI Type Generation & Typed API Client
+### [x] TASK-040: OpenAPI Type Generation & Typed API Client (Completed)
 - **Domain:** Frontend Core / Data Contracts
 - **Prerequisites:** TASK-039
 - **Objective:** Automatically generate TypeScript interfaces from FastAPI's OpenAPI specification to guarantee end-to-end contract type safety.

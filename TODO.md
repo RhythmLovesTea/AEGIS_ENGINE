@@ -726,7 +726,7 @@ This document serves as the master, strictly sequential, atomic task backlog for
 
 ## Phase 6: Frontend — Geospatial War Room & Interactive Forensic UI
 
-### TASK-039: Next.js 15 App Router Scaffolding, Design System Tokens & Tailwind Configuration
+### [x] TASK-039: Next.js 15 App Router Scaffolding, Design System Tokens & Tailwind Configuration (Completed)
 - **Domain:** Frontend Infrastructure
 - **Prerequisites:** TASK-038
 - **Objective:** Initialize the Next.js 15 App Router frontend and configure the theme, fonts, and CSS custom properties strictly adhering to `DESIGN.md`.

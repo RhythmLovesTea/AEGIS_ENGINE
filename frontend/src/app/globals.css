@@ -1,0 +1,93 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 198 100% 8%; /* #001e2b dark nautical default */
+    --foreground: 0 0% 100%; /* #ffffff */
+
+    --card: 198 60% 12%;
+    --card-foreground: 0 0% 100%;
+
+    --popover: 198 100% 8%;
+    --popover-foreground: 0 0% 100%;
+
+    --primary: 145 100% 46%; /* #00ed64 brand-green */
+    --primary-foreground: 198 100% 8%; /* #001e2b on-primary */
+
+    --secondary: 198 33% 16%; /* #1c2d38 charcoal */
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 198 33% 16%; /* #1c2d38 hairline-dark */
+    --muted-foreground: 206 13% 70%; /* #a8b3bc on-dark-muted */
+
+    --accent: 194 100% 15%; /* #003d4f brand-teal */
+    --accent-foreground: 145 100% 46%; /* #00ed64 brand-green */
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 198 33% 18%; /* #1c2d38 hairline-dark */
+    --input: 198 33% 20%;
+    --ring: 145 100% 46%;
+
+    --radius: 0.5rem;
+  }
+
+  .light {
+    --background: 0 0% 100%; /* #ffffff */
+    --foreground: 198 100% 8%; /* #001e2b */
+
+    --card: 160 20% 98%; /* #f9fbfa */
+    --card-foreground: 198 100% 8%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 198 100% 8%;
+
+    --primary: 145 100% 46%; /* #00ed64 */
+    --primary-foreground: 198 100% 8%;
+
+    --secondary: 164 100% 20%; /* #00684a */
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 206 17% 93%; /* #e1e5e8 */
+    --muted-foreground: 207 14% 42%; /* #5c6c7a */
+
+    --accent: 142 66% 85%; /* #c3f0d2 */
+    --accent-foreground: 164 100% 20%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 206 17% 90%; /* #e1e5e8 */
+    --input: 207 19% 80%; /* #c1ccd6 */
+    --ring: 145 100% 46%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+/* Custom forensic UI scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #001e2b;
+}
+::-webkit-scrollbar-thumb {
+  background: #1c2d38;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #00a35c;
+}

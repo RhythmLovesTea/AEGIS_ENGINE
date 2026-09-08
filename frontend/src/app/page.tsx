@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import dynamic from "next/dynamic";
 import {
   Shield,
   Activity,
@@ -11,6 +12,7 @@ import {
   Layers,
   Radar,
   Anchor,
+  Map as MapIcon,
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -18,6 +20,18 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Slider } from "@/components/ui/slider";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+
+const MarineMap = dynamic(
+  () => import("@/components/map").then((mod) => mod.MarineMap),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="flex h-[550px] w-full items-center justify-center rounded-xl border border-hairline-dark bg-brand-teal-deep text-on-dark-muted font-mono text-sm animate-pulse">
+        Initializing Dark Marine Cartography Canvas...
+      </div>
+    ),
+  }
+);
 import {
   Dialog,
   DialogContent,
@@ -126,8 +140,12 @@ export default function ForensicWarRoomPage() {
         </div>
 
         {/* War Room Layout: Interactive Tabs & Primitives */}
-        <Tabs defaultValue="candidates" className="w-full space-y-6">
+        <Tabs defaultValue="map" className="w-full space-y-6">
           <TabsList className="border border-hairline-dark bg-brand-teal-deep/90">
+            <TabsTrigger value="map" className="gap-2">
+              <MapIcon className="h-4 w-4" />
+              Geospatial Map Canvas
+            </TabsTrigger>
             <TabsTrigger value="candidates" className="gap-2">
               <Anchor className="h-4 w-4" />
               Candidate Vessels
@@ -141,6 +159,16 @@ export default function ForensicWarRoomPage() {
               Sensor Layers
             </TabsTrigger>
           </TabsList>
+
+          {/* Geospatial Map Canvas Tab */}
+          <TabsContent value="map" className="space-y-4">
+            <MarineMap
+              initialCenter={[72.8258, 18.925]}
+              initialZoom={8.5}
+              boundingBox={[71.8, 18.2, 73.4, 19.8]}
+              className="h-[620px] w-full shadow-2xl"
+            />
+          </TabsContent>
 
           {/* Candidate Vessels Tab */}
           <TabsContent value="candidates" className="space-y-6">

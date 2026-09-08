@@ -761,7 +761,7 @@ This document serves as the master, strictly sequential, atomic task backlog for
 
 ---
 
-### TASK-041: MapLibre GL Base Map Container with Dark Marine Canvas
+### [x] TASK-041: MapLibre GL Base Map Container with Dark Marine Canvas (Completed)
 - **Domain:** Frontend Geospatial
 - **Prerequisites:** TASK-040
 - **Objective:** Build the interactive base map component styled with dark marine cartography conforming to `DESIGN.md`.

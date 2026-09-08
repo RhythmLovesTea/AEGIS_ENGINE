@@ -17,6 +17,20 @@ export interface ViewportState {
   pitch: number;
 }
 
+export interface MapContextType {
+  map: Map | null;
+  viewport: ViewportState;
+}
+
+export const MapContext = React.createContext<MapContextType>({
+  map: null,
+  viewport: { longitude: 72.8258, latitude: 18.925, zoom: 8.5, bearing: 0, pitch: 25 },
+});
+
+export function useMarineMap(): MapContextType {
+  return React.useContext(MapContext);
+}
+
 export interface MarineMapProps {
   initialCenter?: [number, number]; // [lng, lat]
   initialZoom?: number;
@@ -36,6 +50,14 @@ export function MarineMap({
 }: MarineMapProps) {
   const mapContainerRef = React.useRef<HTMLDivElement | null>(null);
   const mapInstanceRef = React.useRef<Map | null>(null);
+  const [mapInstance, setMapInstance] = React.useState<Map | null>(null);
+  const [viewport, setViewport] = React.useState<ViewportState>({
+    longitude: initialCenter[0],
+    latitude: initialCenter[1],
+    zoom: initialZoom,
+    bearing: 0,
+    pitch: 25,
+  });
 
   const [mouseCoords, setMouseCoords] = React.useState<{ lng: number; lat: number } | null>(null);
   const [currentZoom, setCurrentZoom] = React.useState<number>(initialZoom);
@@ -105,22 +127,26 @@ export function MarineMap({
       const bearing = map.getBearing();
       const pitch = map.getPitch();
 
+      const newViewport = {
+        longitude: center.lng,
+        latitude: center.lat,
+        zoom,
+        bearing,
+        pitch,
+      };
+
       setCurrentZoom(Number(zoom.toFixed(1)));
       setCurrentBearing(Math.round(bearing));
+      setViewport(newViewport);
 
       if (onViewportChange) {
-        onViewportChange({
-          longitude: center.lng,
-          latitude: center.lat,
-          zoom,
-          bearing,
-          pitch,
-        });
+        onViewportChange(newViewport);
       }
     });
 
     // Auto-fit bounding box on initial load if provided
     map.on("load", () => {
+      setMapInstance(map);
       if (boundingBox) {
         map.fitBounds(
           [
@@ -210,54 +236,56 @@ export function MarineMap({
   };
 
   return (
-    <div className={`relative overflow-hidden rounded-xl border border-hairline-dark bg-brand-teal-deep ${className}`}>
-      {/* MapLibre Canvas Host Container */}
-      <div ref={mapContainerRef} className="h-full w-full" />
+    <MapContext.Provider value={{ map: mapInstance, viewport }}>
+      <div className={`relative overflow-hidden rounded-xl border border-hairline-dark bg-brand-teal-deep ${className}`}>
+        {/* MapLibre Canvas Host Container */}
+        <div ref={mapContainerRef} className="h-full w-full" />
 
-      {/* Floating Layer Control Switcher (Top Left) */}
-      <div className="absolute left-4 top-4 z-10 max-w-xs">
-        <LayerControlPanel layers={layers} onToggleLayer={handleToggleLayer} />
-      </div>
-
-      {/* Floating Quick Action Buttons (Top Right, below standard map controls) */}
-      <div className="absolute right-4 top-28 z-10 flex flex-col gap-2">
-        <Button
-          variant="secondary"
-          size="icon"
-          onClick={handleResetBearing}
-          title="Reset Heading to True North"
-          className="h-9 w-9 bg-brand-teal-deep/90 border-hairline-dark backdrop-blur"
-        >
-          <Compass className="h-4 w-4 text-brand-green" />
-        </Button>
-        <Button
-          variant="secondary"
-          size="icon"
-          onClick={handleFitIncidentEnvelope}
-          title="Fit to Incident Envelope"
-          className="h-9 w-9 bg-brand-teal-deep/90 border-hairline-dark backdrop-blur"
-        >
-          <Maximize2 className="h-4 w-4 text-white" />
-        </Button>
-      </div>
-
-      {/* Live Coordinate & Telemetry HUD Bar (Bottom Right) */}
-      <div className="absolute bottom-4 right-4 z-10 rounded-lg border border-hairline-dark bg-brand-teal-deep/90 px-3 py-1.5 font-mono text-xs text-on-dark-muted shadow-lg backdrop-blur">
-        <div className="flex items-center gap-3">
-          <span>
-            {mouseCoords
-              ? `${mouseCoords.lat >= 0 ? `${mouseCoords.lat.toFixed(4)}° N` : `${Math.abs(mouseCoords.lat).toFixed(4)}° S`}, ${mouseCoords.lng >= 0 ? `${mouseCoords.lng.toFixed(4)}° E` : `${Math.abs(mouseCoords.lng).toFixed(4)}° W`}`
-              : `${initialCenter[1].toFixed(4)}° N, ${initialCenter[0].toFixed(4)}° E`}
-          </span>
-          <span className="text-hairline-dark">|</span>
-          <span>Zoom: {currentZoom}</span>
-          <span className="text-hairline-dark">|</span>
-          <span>HDG: {currentBearing}°</span>
+        {/* Floating Layer Control Switcher (Top Left) */}
+        <div className="absolute left-4 top-4 z-10 max-w-xs">
+          <LayerControlPanel layers={layers} onToggleLayer={handleToggleLayer} />
         </div>
-      </div>
 
-      {/* Optional Child Overlays (e.g. deck.gl canvas in TASK-042) */}
-      {children}
-    </div>
+        {/* Floating Quick Action Buttons (Top Right, below standard map controls) */}
+        <div className="absolute right-4 top-28 z-10 flex flex-col gap-2">
+          <Button
+            variant="secondary"
+            size="icon"
+            onClick={handleResetBearing}
+            title="Reset Heading to True North"
+            className="h-9 w-9 bg-brand-teal-deep/90 border-hairline-dark backdrop-blur"
+          >
+            <Compass className="h-4 w-4 text-brand-green" />
+          </Button>
+          <Button
+            variant="secondary"
+            size="icon"
+            onClick={handleFitIncidentEnvelope}
+            title="Fit to Incident Envelope"
+            className="h-9 w-9 bg-brand-teal-deep/90 border-hairline-dark backdrop-blur"
+          >
+            <Maximize2 className="h-4 w-4 text-white" />
+          </Button>
+        </div>
+
+        {/* Live Coordinate & Telemetry HUD Bar (Bottom Right) */}
+        <div className="absolute bottom-4 right-4 z-10 rounded-lg border border-hairline-dark bg-brand-teal-deep/90 px-3 py-1.5 font-mono text-xs text-on-dark-muted shadow-lg backdrop-blur">
+          <div className="flex items-center gap-3">
+            <span>
+              {mouseCoords
+                ? `${mouseCoords.lat >= 0 ? `${mouseCoords.lat.toFixed(4)}° N` : `${Math.abs(mouseCoords.lat).toFixed(4)}° S`}, ${mouseCoords.lng >= 0 ? `${mouseCoords.lng.toFixed(4)}° E` : `${Math.abs(mouseCoords.lng).toFixed(4)}° W`}`
+                : `${initialCenter[1].toFixed(4)}° N, ${initialCenter[0].toFixed(4)}° E`}
+            </span>
+            <span className="text-hairline-dark">|</span>
+            <span>Zoom: {currentZoom}</span>
+            <span className="text-hairline-dark">|</span>
+            <span>HDG: {currentBearing}°</span>
+          </div>
+        </div>
+
+        {/* Optional Child Overlays (e.g. deck.gl canvas in TASK-042) */}
+        {children}
+      </div>
+    </MapContext.Provider>
   );
 }

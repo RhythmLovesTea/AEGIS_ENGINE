@@ -32,6 +32,12 @@ const MarineMap = dynamic(
     ),
   }
 );
+
+const DeckOverlay = dynamic(
+  () => import("@/components/map").then((mod) => mod.DeckOverlay),
+  { ssr: false }
+);
+
 import {
   Dialog,
   DialogContent,
@@ -167,7 +173,9 @@ export default function ForensicWarRoomPage() {
               initialZoom={8.5}
               boundingBox={[71.8, 18.2, 73.4, 19.8]}
               className="h-[620px] w-full shadow-2xl"
-            />
+            >
+              <DeckOverlay />
+            </MarineMap>
           </TabsContent>
 
           {/* Candidate Vessels Tab */}

@@ -776,7 +776,7 @@ This document serves as the master, strictly sequential, atomic task backlog for
 
 ---
 
-### TASK-042: deck.gl High-Performance Data Layers (Particles & AIS Trips)
+### [x] TASK-042: deck.gl High-Performance Data Layers (Particles & AIS Trips) (Completed)
 - **Domain:** Frontend Geospatial / High Performance
 - **Prerequisites:** TASK-041
 - **Objective:** Integrate deck.gl overlay onto MapLibre GL to render 10,000+ advection particles and vessel tracks at 60 FPS.

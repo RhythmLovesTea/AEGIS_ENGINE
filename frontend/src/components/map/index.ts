@@ -7,3 +7,14 @@ export {
   SHIPPING_LANES_GEOJSON,
   MARINE_PROTECTED_AREAS_GEOJSON,
 } from "./map-style";
+export {
+  DeckOverlay,
+  type DeckOverlayProps,
+  type AdvectionParticle,
+  type CandidateVesselTrip,
+  generateSyntheticAdvectionParticles,
+  generateSyntheticCandidateTrips,
+  generateSyntheticErrorEllipses,
+  generateSyntheticSlickPolygon,
+} from "./DeckOverlay";
+

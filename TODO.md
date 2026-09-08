@@ -821,7 +821,7 @@ This document serves as the master, strictly sequential, atomic task backlog for
 
 ---
 
-### TASK-045: Suspect Vessel Ranking Panel & Candidate Cards (Rules 1, 3, 6)
+### [x] TASK-045: Suspect Vessel Ranking Panel & Candidate Cards (Rules 1, 3, 6) (Completed)
 - **Domain:** Frontend UI / Forensic Attribution
 - **Prerequisites:** TASK-044
 - **Objective:** Build the suspect vessel ranking list displaying composite Culprit Score ($S_{culprit}$) and mandatory confidence metrics.

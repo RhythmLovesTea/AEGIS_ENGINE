@@ -48,23 +48,21 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
-import {
   TimeScrubber,
   type LiveVesselRanking,
   computeDynamicRankings,
 } from "@/components/investigation";
+import { VesselRankingList } from "@/components/attribution";
 
 export default function ForensicWarRoomPage() {
   const [driftFactor, setDriftFactor] = React.useState<number[]>([0.032]);
+  const [activeTab, setActiveTab] = React.useState<string>("map");
+  const [selectedVesselMmsi, setSelectedVesselMmsi] = React.useState<number | null>(419001234);
 
   // Investigation Replay & Temporal Scrubber State (TASK-043 / D4)
   const [simulationSeconds, setSimulationSeconds] = React.useState<number>(540); // default to midpoint CPA
   const [_simulationProgress, setSimulationProgress] = React.useState<number>(0.5);
-  const [liveRankings, setLiveRankings] = React.useState<LiveVesselRanking[]>(() =>
+  const [_liveRankings, setLiveRankings] = React.useState<LiveVesselRanking[]>(() =>
     computeDynamicRankings(0.5)
   );
 
@@ -167,7 +165,7 @@ export default function ForensicWarRoomPage() {
         </div>
 
         {/* War Room Layout: Interactive Tabs & Primitives */}
-        <Tabs defaultValue="map" className="w-full space-y-6">
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full space-y-6">
           <TabsList className="border border-hairline-dark bg-brand-teal-deep/90">
             <TabsTrigger value="map" className="gap-2">
               <MapIcon className="h-4 w-4" />
@@ -214,154 +212,16 @@ export default function ForensicWarRoomPage() {
             />
           </TabsContent>
 
-          {/* Candidate Vessels Tab */}
+          {/* Candidate Vessels Tab (TASK-045 / Rules 1, 3, 4, 6) */}
           <TabsContent value="candidates" className="space-y-6">
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-              {/* Candidate 1 */}
-              {(() => {
-                const c1 = liveRankings.find((c) => c.mmsi === "419001234");
-                const score = c1 ? c1.score : 0.884;
-                const cpa = c1 ? c1.cpaDistanceNm : 0.42;
-                const dt = c1 ? c1.temporalOffsetMin : -18;
-                const rank = c1 ? c1.rank : 1;
-                return (
-                  <Card className="border-brand-green/40 hover:border-brand-green transition-colors">
-                    <CardHeader>
-                      <div className="flex items-center justify-between">
-                        <Badge variant="green">Rank {rank}: Putative Culprit</Badge>
-                        <span className="font-mono text-xs text-brand-green">
-                          S_culprit: {score.toFixed(3)}
-                        </span>
-                      </div>
-                      <CardTitle className="mt-2 text-xl font-bold">MT PACIFIC TRADER</CardTitle>
-                      <CardDescription className="font-mono text-xs">
-                        MMSI: 419001234 | IMO: 9283741
-                      </CardDescription>
-                    </CardHeader>
-                    <CardContent className="space-y-3 text-sm">
-                      <div className="flex justify-between text-xs text-on-dark-muted">
-                        <span>Spatial Closest Point (CPA):</span>
-                        <span className="font-mono font-medium text-white">{cpa.toFixed(2)} NM</span>
-                      </div>
-                      <div className="flex justify-between text-xs text-on-dark-muted">
-                        <span>Temporal Offset (Δt):</span>
-                        <span className="font-mono font-medium text-white">
-                          {dt >= 0 ? `+${dt}` : dt} min
-                        </span>
-                      </div>
-                      <div className="flex justify-between text-xs text-on-dark-muted">
-                        <span>Vessel Flag & Class:</span>
-                        <span className="font-medium text-white">Panama | Crude Oil Tanker</span>
-                      </div>
-                      <div className="pt-2">
-                        <Tooltip>
-                          <TooltipTrigger asChild>
-                            <Button variant="secondary" size="sm" className="w-full">
-                              Inspect Correlated Trajectory
-                            </Button>
-                          </TooltipTrigger>
-                          <TooltipContent>
-                            View AIS track interpolated against release envelope
-                          </TooltipContent>
-                        </Tooltip>
-                      </div>
-                    </CardContent>
-                  </Card>
-                );
-              })()}
-
-              {/* Candidate 2 */}
-              {(() => {
-                const c2 = liveRankings.find((c) => c.mmsi === "563004567");
-                const score = c2 ? c2.score : 0.541;
-                const cpa = c2 ? c2.cpaDistanceNm : 2.15;
-                const dt = c2 ? c2.temporalOffsetMin : 42;
-                const rank = c2 ? c2.rank : 2;
-                return (
-                  <Card>
-                    <CardHeader>
-                      <div className="flex items-center justify-between">
-                        <Badge variant="blue">Rank {rank}: Candidate</Badge>
-                        <span className="font-mono text-xs text-on-dark-muted">
-                          S_culprit: {score.toFixed(3)}
-                        </span>
-                      </div>
-                      <CardTitle className="mt-2 text-xl font-bold">MV OCEAN STAR</CardTitle>
-                      <CardDescription className="font-mono text-xs">
-                        MMSI: 563004567 | IMO: 9451234
-                      </CardDescription>
-                    </CardHeader>
-                    <CardContent className="space-y-3 text-sm">
-                      <div className="flex justify-between text-xs text-on-dark-muted">
-                        <span>Spatial Closest Point (CPA):</span>
-                        <span className="font-mono font-medium text-white">{cpa.toFixed(2)} NM</span>
-                      </div>
-                      <div className="flex justify-between text-xs text-on-dark-muted">
-                        <span>Temporal Offset (Δt):</span>
-                        <span className="font-mono font-medium text-white">
-                          {dt >= 0 ? `+${dt}` : dt} min
-                        </span>
-                      </div>
-                      <div className="flex justify-between text-xs text-on-dark-muted">
-                        <span>Vessel Flag & Class:</span>
-                        <span className="font-medium text-white">Singapore | Container Ship</span>
-                      </div>
-                      <div className="pt-2">
-                        <Button variant="secondary" size="sm" className="w-full">
-                          Inspect Correlated Trajectory
-                        </Button>
-                      </div>
-                    </CardContent>
-                  </Card>
-                );
-              })()}
-
-              {/* Candidate 3 */}
-              {(() => {
-                const c3 = liveRankings.find((c) => c.mmsi === "412998877");
-                const score = c3 ? c3.score : 0.219;
-                const cpa = c3 ? c3.cpaDistanceNm : 4.8;
-                const dt = c3 ? c3.temporalOffsetMin : 115;
-                const rank = c3 ? c3.rank : 3;
-                return (
-                  <Card>
-                    <CardHeader>
-                      <div className="flex items-center justify-between">
-                        <Badge variant="outline">Rank {rank}: Low Likelihood</Badge>
-                        <span className="font-mono text-xs text-on-dark-muted">
-                          S_culprit: {score.toFixed(3)}
-                        </span>
-                      </div>
-                      <CardTitle className="mt-2 text-xl font-bold">SEABIRD EXPLORER</CardTitle>
-                      <CardDescription className="font-mono text-xs">
-                        MMSI: 412998877 | IMO: 9128833
-                      </CardDescription>
-                    </CardHeader>
-                    <CardContent className="space-y-3 text-sm">
-                      <div className="flex justify-between text-xs text-on-dark-muted">
-                        <span>Spatial Closest Point (CPA):</span>
-                        <span className="font-mono font-medium text-white">{cpa.toFixed(2)} NM</span>
-                      </div>
-                      <div className="flex justify-between text-xs text-on-dark-muted">
-                        <span>Temporal Offset (Δt):</span>
-                        <span className="font-mono font-medium text-white">
-                          {dt >= 0 ? `+${dt}` : dt} min
-                        </span>
-                      </div>
-                      <div className="flex justify-between text-xs text-on-dark-muted">
-                        <span>Vessel Flag & Class:</span>
-                        <span className="font-medium text-white">India | Offshore Supply</span>
-                      </div>
-                      <div className="pt-2">
-                        <Button variant="secondary" size="sm" className="w-full">
-                          Inspect Correlated Trajectory
-                        </Button>
-                      </div>
-                    </CardContent>
-                  </Card>
-                );
-              })()}
-            </div>
+            <VesselRankingList
+              selectedMmsi={selectedVesselMmsi}
+              onSelectCandidate={(cand) => setSelectedVesselMmsi(cand.mmsi)}
+              onInspectTrack={(cand) => {
+                setSelectedVesselMmsi(cand.mmsi);
+                setActiveTab("map");
+              }}
+            />
           </TabsContent>
 
           {/* Hindcast & Dispersion Tab */}

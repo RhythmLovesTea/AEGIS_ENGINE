@@ -32,6 +32,8 @@ export type SlickCharacterization = Schemas["SlickCharacterizationResponse"];
 export type OriginEstimate = Schemas["OriginEstimateResponse"];
 export type ForwardForecast = Schemas["ForwardForecastResponse"];
 export type VesselCandidate = Schemas["VesselCandidateResponse"];
+export type SubScores = Schemas["SubScores"];
+export type AISCoverage = Schemas["AISCoverageEnum"];
 export type AlternativeExplanation = Schemas["AlternativeExplanationResponse"];
 
 // -----------------------------------------------------------------------------

@@ -53,6 +53,7 @@ import {
   TimeScrubber,
   type LiveVesselRanking,
   computeDynamicRankings,
+  WhatIfDrawer,
 } from "@/components/investigation";
 import {
   VesselRankingList,
@@ -71,6 +72,7 @@ export default function ForensicWarRoomPage() {
   const [explainingVessel, setExplainingVessel] = React.useState<VesselCandidate | null>(null);
   const [isCounterfactualModalOpen, setIsCounterfactualModalOpen] = React.useState<boolean>(false);
   const [counterfactualCandidate, setCounterfactualCandidate] = React.useState<VesselCandidate | null>(null);
+  const [isWhatIfDrawerOpen, setIsWhatIfDrawerOpen] = React.useState<boolean>(false);
 
   // Investigation Replay & Temporal Scrubber State (TASK-043 / D4)
   const [simulationSeconds, setSimulationSeconds] = React.useState<number>(540); // default to midpoint CPA
@@ -169,7 +171,12 @@ export default function ForensicWarRoomPage() {
                 </DialogContent>
               </Dialog>
 
-              <Button variant="default" size="sm">
+              <Button
+                variant="default"
+                size="sm"
+                onClick={() => setIsWhatIfDrawerOpen(true)}
+                className="gap-1.5"
+              >
                 <Sliders className="h-4 w-4" />
                 Simulate Scenario
               </Button>
@@ -348,6 +355,16 @@ export default function ForensicWarRoomPage() {
                   </div>
                   <Badge variant="orange">Confidence: 89.2%</Badge>
                 </div>
+
+                <Button
+                  variant="default"
+                  size="sm"
+                  onClick={() => setIsWhatIfDrawerOpen(true)}
+                  className="w-full gap-2 text-xs font-semibold bg-brand-green text-brand-teal-deep hover:bg-brand-green/90"
+                >
+                  <Sliders className="h-4 w-4" />
+                  <span>Launch What-If Scenario Exploration Engine</span>
+                </Button>
               </CardContent>
             </Card>
           </TabsContent>
@@ -428,6 +445,23 @@ export default function ForensicWarRoomPage() {
         onOpenChange={setIsCounterfactualModalOpen}
         candidate={counterfactualCandidate}
         caseId="case-2026-0814-in-bom"
+      />
+
+      {/* "What-If" Scenario Control Drawer (TASK-050 / Feature 3 / P3) */}
+      <WhatIfDrawer
+        open={isWhatIfDrawerOpen}
+        onOpenChange={setIsWhatIfDrawerOpen}
+        caseId="case-2026-0814-in-bom"
+        onApplyScenario={(scenario) => {
+          if (scenario.comparison.rank_shifts && scenario.comparison.rank_shifts.length > 0) {
+            setSelectedVesselMmsi(scenario.comparison.rank_shifts[0].mmsi);
+          }
+          if (scenario.applied_parameters.wind_drift_factor) {
+            setDriftFactor([scenario.applied_parameters.wind_drift_factor]);
+          }
+          setIsWhatIfDrawerOpen(false);
+          setActiveTab("candidates");
+        }}
       />
     </div>
   );

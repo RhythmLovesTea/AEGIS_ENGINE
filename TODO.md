@@ -902,7 +902,7 @@ This document serves as the master, strictly sequential, atomic task backlog for
 
 ---
 
-### TASK-050: "What-If" Scenario Control Drawer & Parameter Sliders (Feature 3 / P3)
+### [x] TASK-050: "What-If" Scenario Control Drawer & Parameter Sliders (Feature 3 / P3) (Completed)
 - **Domain:** Frontend UI / Scenario Exploration
 - **Prerequisites:** TASK-049
 - **Objective:** Build the "What-If" drawer enabling interactive parameter overrides and live scenario re-calculation.

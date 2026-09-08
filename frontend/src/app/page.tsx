@@ -41,14 +41,7 @@ const DeckOverlay = dynamic(
   { ssr: false }
 );
 
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+import { DossierModal } from "@/components/dossier";
 import {
   TimeScrubber,
   type LiveVesselRanking,
@@ -73,6 +66,7 @@ export default function ForensicWarRoomPage() {
   const [isCounterfactualModalOpen, setIsCounterfactualModalOpen] = React.useState<boolean>(false);
   const [counterfactualCandidate, setCounterfactualCandidate] = React.useState<VesselCandidate | null>(null);
   const [isWhatIfDrawerOpen, setIsWhatIfDrawerOpen] = React.useState<boolean>(false);
+  const [isDossierModalOpen, setIsDossierModalOpen] = React.useState<boolean>(false);
 
   // Investigation Replay & Temporal Scrubber State (TASK-043 / D4)
   const [simulationSeconds, setSimulationSeconds] = React.useState<number>(540); // default to midpoint CPA
@@ -142,34 +136,15 @@ export default function ForensicWarRoomPage() {
             </div>
 
             <div className="flex items-center gap-3">
-              <Dialog>
-                <DialogTrigger asChild>
-                  <Button variant="secondary" size="sm">
-                    <FileText className="h-4 w-4" />
-                    Forensic Dossier Summary
-                  </Button>
-                </DialogTrigger>
-                <DialogContent>
-                  <DialogHeader>
-                    <DialogTitle>Investigative Dossier Overview</DialogTitle>
-                    <DialogDescription>
-                      Cryptographic chain-of-custody and attribution summary for case CASE-2026-0814-IN-BOM.
-                    </DialogDescription>
-                  </DialogHeader>
-                  <div className="space-y-4 py-4 text-sm text-on-dark-muted">
-                    <div className="rounded-md border border-hairline-dark bg-brand-teal-deep p-3 font-mono text-xs">
-                      SHA-256 Digest: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
-                    </div>
-                    <p>
-                      Attribution calculation combines backward Lagrangian particle dispersion with AIS track historical correlation.
-                    </p>
-                    <div className="flex items-center justify-between rounded-md border border-hairline-dark bg-brand-teal-deep p-3">
-                      <span>Primary Attributed Candidate</span>
-                      <Badge variant="orange">MMSI: 419001234</Badge>
-                    </div>
-                  </div>
-                </DialogContent>
-              </Dialog>
+              <Button
+                variant="secondary"
+                size="sm"
+                onClick={() => setIsDossierModalOpen(true)}
+                className="gap-1.5"
+              >
+                <FileText className="h-4 w-4" />
+                Forensic Dossier Summary
+              </Button>
 
               <Button
                 variant="default"
@@ -462,6 +437,13 @@ export default function ForensicWarRoomPage() {
           setIsWhatIfDrawerOpen(false);
           setActiveTab("candidates");
         }}
+      />
+
+      {/* Legal Evidence Dossier & PDF Export Modal (TASK-051 / FR-20 / C13) */}
+      <DossierModal
+        open={isDossierModalOpen}
+        onOpenChange={setIsDossierModalOpen}
+        caseId="case-2026-0814-in-bom"
       />
     </div>
   );

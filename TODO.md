@@ -920,7 +920,7 @@ This document serves as the master, strictly sequential, atomic task backlog for
 
 ---
 
-### TASK-051: Legal Dossier Preview & PDF Export Modal (FR-20, C13)
+### [x] TASK-051: Legal Dossier Preview & PDF Export Modal (FR-20, C13) (Completed)
 - **Domain:** Frontend UI / Reporting
 - **Prerequisites:** TASK-050
 - **Objective:** Build dossier preview modal allowing investigators to inspect the generated report and download signed PDF.

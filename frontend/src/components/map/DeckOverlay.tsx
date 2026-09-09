@@ -31,6 +31,14 @@ export interface CandidateVesselTrip {
   path: [number, number, number][]; // [longitude, latitude, timestamp_seconds]
 }
 
+export interface VesselMarkerDatum {
+  name: string;
+  mmsi: string;
+  position: [number, number];
+  color: [number, number, number];
+  isPutativeCulprit: boolean;
+}
+
 export interface DeckOverlayProps {
   particles?: AdvectionParticle[];
   vesselTrips?: CandidateVesselTrip[];
@@ -426,14 +434,14 @@ export function DeckOverlay({
             }
             return d.position;
           },
-          getRadius: 24,
-          radiusMinPixels: 2,
-          radiusMaxPixels: 8,
+          getRadius: 180,
+          radiusMinPixels: 3,
+          radiusMaxPixels: 9,
           getFillColor: () => {
             const effectiveAge = (1.0 - activeProgress) * 12.0;
-            if (effectiveAge < 3.0) return [0, 237, 100, 210]; // #00ed64 (brand green near observation)
-            if (effectiveAge < 7.0) return [0, 163, 92, 175]; // #00a35c (mid green)
-            return [250, 110, 57, 180]; // #fa6e39 (accent orange near release origin)
+            if (effectiveAge < 3.0) return [0, 237, 100, 225]; // #00ed64 (brand green near observation)
+            if (effectiveAge < 7.0) return [0, 163, 92, 195]; // #00a35c (mid green)
+            return [250, 110, 57, 210]; // #fa6e39 (accent orange near release origin)
           },
           stroked: false,
           pickable: false,
@@ -455,9 +463,57 @@ export function DeckOverlay({
           getColor: (d) => d.color,
           opacity: 0.95,
           widthMinPixels: 4,
-          rounded: true,
+          jointRounded: true,
+          capRounded: true,
           trailLength: trailLength,
           currentTime: activeTime,
+        })
+      );
+    }
+
+    // Helper: Compute live vessel positions at current activeTime
+    const currentVesselMarkers = resolvedTrips.map((v) => {
+      const path = v.path;
+      let pos: [number, number] = [path[0][0], path[0][1]];
+      for (let i = 0; i < path.length - 1; i++) {
+        const p1 = path[i];
+        const p2 = path[i + 1];
+        if (activeTime >= p1[2] && activeTime <= p2[2]) {
+          const frac = (activeTime - p1[2]) / (p2[2] - p1[2]);
+          pos = [
+            p1[0] + frac * (p2[0] - p1[0]),
+            p1[1] + frac * (p2[1] - p1[1]),
+          ];
+          break;
+        } else if (activeTime > p2[2] && i === path.length - 2) {
+          pos = [p2[0], p2[1]];
+        }
+      }
+      return {
+        name: v.name,
+        mmsi: v.mmsi,
+        position: pos,
+        color: v.color,
+        isPutativeCulprit: v.isPutativeCulprit,
+      };
+    });
+
+    // 4b. ScatterplotLayer: Dynamic Vessel Beacon at Current Simulated Position
+    if (showTrips && currentVesselMarkers.length > 0) {
+      layerList.push(
+        new ScatterplotLayer<VesselMarkerDatum>({
+          id: "vessel-head-beacons",
+          data: currentVesselMarkers,
+          getPosition: (d) => d.position,
+          getRadius: 300,
+          radiusMinPixels: 6,
+          radiusMaxPixels: 14,
+          getFillColor: (d) =>
+            d.isPutativeCulprit ? [0, 237, 100, 240] : [56, 189, 248, 200],
+          getLineColor: [255, 255, 255, 255],
+          stroked: true,
+          lineWidthMinPixels: 2,
+          pickable: true,
         })
       );
     }
@@ -481,26 +537,45 @@ export function DeckOverlay({
 
     // 6. TextLayer: High-Visibility On-Map Tactical Milestone Labels
     if (showLabels) {
+      const putativeVessel = currentVesselMarkers.find((v) => v.isPutativeCulprit);
+      const labelData: {
+        text: string;
+        position: [number, number];
+        color: [number, number, number, number];
+      }[] = [
+        {
+          text: "🎯 Spill Origin (t₀: 15:42 UTC)",
+          position: [72.25, 18.79],
+          color: [250, 110, 57, 255],
+        },
+        {
+          text: "🛰️ SAR Slick Detection (t_obs: 03:42 UTC)",
+          position: [72.82, 18.96],
+          color: [0, 237, 100, 255],
+        },
+        {
+          text: "⚠️ Shoreline Impact Hazard (+18.4h ETB)",
+          position: [72.89, 18.91],
+          color: [255, 190, 40, 255],
+        },
+      ];
+
+      if (putativeVessel) {
+        labelData.push({
+          text: `🚢 ${putativeVessel.name} (CPA 0.42 NM)`,
+          position: [putativeVessel.position[0], putativeVessel.position[1] + 0.022],
+          color: [0, 237, 100, 255],
+        });
+      }
+
       layerList.push(
-        new TextLayer<{ text: string; position: [number, number]; color: [number, number, number, number] }>({
+        new TextLayer<{
+          text: string;
+          position: [number, number];
+          color: [number, number, number, number];
+        }>({
           id: "map-tactical-labels",
-          data: [
-            {
-              text: "🎯 Spill Origin (t₀: 15:42 UTC)",
-              position: [72.25, 18.79],
-              color: [250, 110, 57, 255],
-            },
-            {
-              text: "🛰️ SAR Slick Detection (t_obs: 03:42 UTC)",
-              position: [72.82, 18.96],
-              color: [0, 237, 100, 255],
-            },
-            {
-              text: "⚠️ Shoreline Impact Hazard (+18.4h ETB)",
-              position: [72.89, 18.91],
-              color: [255, 190, 40, 255],
-            },
-          ],
+          data: labelData,
           getPosition: (d) => d.position,
           getText: (d) => d.text,
           getSize: 12,
@@ -538,10 +613,11 @@ export function DeckOverlay({
     if (!map) return;
 
     const overlay = new MapLibreOverlay({
-      layers: [],
+      layers,
     });
     map.addControl(overlay);
     overlayRef.current = overlay;
+    overlay.setProps({ layers });
 
     return () => {
       try {
@@ -551,6 +627,7 @@ export function DeckOverlay({
       }
       overlayRef.current = null;
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [map]);
 
   // Keep overlay layer props reactive
@@ -558,7 +635,7 @@ export function DeckOverlay({
     if (overlayRef.current) {
       overlayRef.current.setProps({ layers });
     }
-  }, [layers]);
+  }, [layers, activeTime]);
 
   return (
     <div className={`pointer-events-none absolute inset-0 z-20 ${className}`}>

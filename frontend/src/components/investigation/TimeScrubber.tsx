@@ -46,6 +46,8 @@ export interface TimeScrubberProps {
   endTimestamp?: string;
   /** Externally controlled time in seconds [0, totalDurationSeconds] */
   currentTimeSeconds?: number;
+  /** External play state control */
+  isPlaying?: boolean;
   /** Callback fired whenever simulation time advances or is scrubbed */
   onTimeChange?: (currentSeconds: number, progressPct: number, currentDate: Date) => void;
   /** Callback fired when live vessel rankings update */
@@ -139,137 +141,216 @@ export function TimeScrubber({
   startTimestamp = "2026-08-13T15:42:00Z",
   endTimestamp = "2026-08-14T03:42:00Z",
   currentTimeSeconds: externalTime,
+  isPlaying: externalIsPlaying,
   onTimeChange,
   onRankingsChange,
   onPlayStateChange,
   className = "",
 }: TimeScrubberProps) {
-  // Internal clock state in seconds [0, totalDurationSeconds]
-  const [internalSeconds, setInternalSeconds] = React.useState<number>(0);
-  const currentSeconds = externalTime !== undefined ? externalTime : internalSeconds;
+  // ── Stable refs for parent callbacks (prevent render-loop triggers) ──
+  const onTimeChangeRef = React.useRef(onTimeChange);
+  React.useEffect(() => { onTimeChangeRef.current = onTimeChange; });
+  const onRankingsChangeRef = React.useRef(onRankingsChange);
+  React.useEffect(() => { onRankingsChangeRef.current = onRankingsChange; });
+  const onPlayStateChangeRef = React.useRef(onPlayStateChange);
+  React.useEffect(() => { onPlayStateChangeRef.current = onPlayStateChange; });
 
-  // Playback engine states
-  const [isPlaying, setIsPlaying] = React.useState<boolean>(false);
+  // ── Core time state (React-managed for rendering) ──
+  const [displaySeconds, setDisplaySeconds] = React.useState<number>(externalTime ?? 540);
+
+  // ── Playback engine state ──
+  const [isPlaying, setIsPlaying] = React.useState<boolean>(externalIsPlaying ?? false);
   const [isReverse, setIsReverse] = React.useState<boolean>(false);
   const [speedMultiplier, setSpeedMultiplier] = React.useState<number>(5);
   const [isLooping, setIsLooping] = React.useState<boolean>(true);
 
-  // Time calculations
+  // ── Refs for animation loop (no React re-renders) ──
+  const timeRef = React.useRef<number>(externalTime ?? 540);
+  const isPlayingRef = React.useRef<boolean>(externalIsPlaying ?? false);
+  const isReverseRef = React.useRef<boolean>(false);
+  const speedRef = React.useRef<number>(5);
+  const isLoopingRef = React.useRef<boolean>(true);
+  const lastRafTimeRef = React.useRef<number>(0);
+  const animIdRef = React.useRef<number>(0);
+  const lastDisplayUpdateRef = React.useRef<number>(0);
+
+  // Keep refs in sync with React state (one-way: React → ref)
+  React.useEffect(() => { isPlayingRef.current = isPlaying; }, [isPlaying]);
+  React.useEffect(() => { isReverseRef.current = isReverse; }, [isReverse]);
+  React.useEffect(() => { speedRef.current = speedMultiplier; }, [speedMultiplier]);
+  React.useEffect(() => { isLoopingRef.current = isLooping; }, [isLooping]);
+
+  // ── Sync external play state from parent ──
+  React.useEffect(() => {
+    if (externalIsPlaying !== undefined && externalIsPlaying !== isPlayingRef.current) {
+      isPlayingRef.current = externalIsPlaying;
+      setIsPlaying(externalIsPlaying);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [externalIsPlaying]);
+
+  // ── Sync external time from parent (only on significant jumps) ──
+  const lastExternalTimeRef = React.useRef<number | undefined>(externalTime);
+  React.useEffect(() => {
+    if (externalTime !== undefined && externalTime !== lastExternalTimeRef.current) {
+      const diff = Math.abs(timeRef.current - externalTime);
+      if (diff > 2) {
+        // Parent jumped significantly — sync
+        timeRef.current = externalTime;
+        setDisplaySeconds(externalTime);
+      }
+      lastExternalTimeRef.current = externalTime;
+    }
+  }, [externalTime]);
+
+  // ── Time calculations ──
   const startDate = React.useMemo(() => new Date(startTimestamp), [startTimestamp]);
   const endDate = React.useMemo(() => new Date(endTimestamp), [endTimestamp]);
-  const totalMs = React.useMemo(
-    () => endDate.getTime() - startDate.getTime(),
-    [startDate, endDate]
-  );
+  const totalMs = React.useMemo(() => endDate.getTime() - startDate.getTime(), [startDate, endDate]);
+
+  const currentSeconds = displaySeconds;
   const progress = Math.min(1, Math.max(0, currentSeconds / totalDurationSeconds));
   const currentDate = React.useMemo(
     () => new Date(startDate.getTime() + progress * totalMs),
     [startDate, progress, totalMs]
   );
 
+  // ── Helper: emit discrete updates on user actions ──
+  const emitDiscreteUpdate = React.useCallback((sec: number) => {
+    const prog = Math.min(1, Math.max(0, sec / totalDurationSeconds));
+    const curDate = new Date(startDate.getTime() + prog * totalMs);
+    onTimeChangeRef.current?.(sec, prog, curDate);
+    onRankingsChangeRef.current?.(computeDynamicRankings(prog));
+  }, [totalDurationSeconds, startDate, totalMs]);
+
   // Dynamic evolving rankings at current simulation step
-  const currentRankings = React.useMemo(
-    () => computeDynamicRankings(progress),
-    [progress]
-  );
+  const currentRankings = React.useMemo(() => computeDynamicRankings(progress), [progress]);
   const topCandidate = currentRankings[0];
 
-  // Notify parent of updates
-  const lastEmittedProgress = React.useRef<number>(-1);
+  // ── Core Animation Loop (runs entirely via refs, no React state in hot path) ──
   React.useEffect(() => {
-    if (Math.abs(progress - lastEmittedProgress.current) > 0.001) {
-      lastEmittedProgress.current = progress;
-      onTimeChange?.(currentSeconds, progress, currentDate);
-      onRankingsChange?.(currentRankings);
-    }
-  }, [currentSeconds, progress, currentDate, currentRankings, onTimeChange, onRankingsChange]);
-
-  // Notify play state changes
-  React.useEffect(() => {
-    onPlayStateChange?.(isPlaying, isReverse);
-  }, [isPlaying, isReverse, onPlayStateChange]);
-
-  // Animation frame clock driving smooth 60 FPS playback
-  const lastRafTimeRef = React.useRef<number>(performance.now());
-  React.useEffect(() => {
-    if (!isPlaying) return;
-
-    let animId: number;
-    lastRafTimeRef.current = performance.now();
-
+    // Single persistent RAF loop — starts on mount, cleaned up on unmount
     const frameLoop = (time: number) => {
-      const deltaSec = (time - lastRafTimeRef.current) / 1000;
-      lastRafTimeRef.current = time;
+      if (isPlayingRef.current) {
+        const deltaSec = lastRafTimeRef.current > 0 
+          ? Math.min((time - lastRafTimeRef.current) / 1000, 0.1) // cap at 100ms to prevent jumps
+          : 0;
+        lastRafTimeRef.current = time;
 
-      const increment = deltaSec * 15 * speedMultiplier;
-
-      setInternalSeconds((prev) => {
+        const increment = deltaSec * 15 * speedRef.current;
         let next: number;
-        if (isReverse) {
-          next = prev - increment;
+
+        if (isReverseRef.current) {
+          next = timeRef.current - increment;
           if (next <= 0) {
-            if (isLooping) next = totalDurationSeconds;
+            if (isLoopingRef.current) { next = totalDurationSeconds; }
             else {
+              next = 0;
+              isPlayingRef.current = false;
               setIsPlaying(false);
-              return 0;
+              onPlayStateChangeRef.current?.(false, true);
             }
           }
         } else {
-          next = prev + increment;
+          next = timeRef.current + increment;
           if (next >= totalDurationSeconds) {
-            if (isLooping) next = 0;
+            if (isLoopingRef.current) { next = 0; }
             else {
+              next = totalDurationSeconds;
+              isPlayingRef.current = false;
               setIsPlaying(false);
-              return totalDurationSeconds;
+              onPlayStateChangeRef.current?.(false, false);
             }
           }
         }
-        return next;
-      });
 
-      animId = requestAnimationFrame(frameLoop);
+        timeRef.current = next;
+
+        // Throttle React state updates to ~30fps to avoid render storms
+        if (time - lastDisplayUpdateRef.current > 33) {
+          lastDisplayUpdateRef.current = time;
+          setDisplaySeconds(next);
+
+          // Notify parent
+          const prog = Math.min(1, Math.max(0, next / totalDurationSeconds));
+          const curDate = new Date(startDate.getTime() + prog * totalMs);
+          onTimeChangeRef.current?.(next, prog, curDate);
+          onRankingsChangeRef.current?.(computeDynamicRankings(prog));
+        }
+      } else {
+        lastRafTimeRef.current = 0; // Reset so next play doesn't get a huge delta
+      }
+
+      animIdRef.current = requestAnimationFrame(frameLoop);
     };
 
-    animId = requestAnimationFrame(frameLoop);
-    return () => cancelAnimationFrame(animId);
-  }, [isPlaying, isReverse, speedMultiplier, isLooping, totalDurationSeconds]);
+    animIdRef.current = requestAnimationFrame(frameLoop);
+    return () => cancelAnimationFrame(animIdRef.current);
+    // Intentionally stable — all values are read from refs
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [totalDurationSeconds]);
 
   // User playback actions
   const handleTogglePlay = (reverse: boolean = false) => {
+    const nextPlaying = isPlaying && isReverse === reverse ? false : true;
     if (isPlaying && isReverse === reverse) {
+      isPlayingRef.current = false;
       setIsPlaying(false);
     } else {
+      isReverseRef.current = reverse;
       setIsReverse(reverse);
+      isPlayingRef.current = true;
       setIsPlaying(true);
     }
+    onPlayStateChangeRef.current?.(nextPlaying, reverse);
   };
 
   const handleSliderChange = (vals: number[]) => {
+    isPlayingRef.current = false;
     setIsPlaying(false);
+    onPlayStateChangeRef.current?.(false, isReverse);
     const val = vals[0] ?? 0;
-    setInternalSeconds(val);
+    timeRef.current = val;
+    setDisplaySeconds(val);
+    emitDiscreteUpdate(val);
   };
 
   const handleJumpToStart = () => {
+    isPlayingRef.current = false;
     setIsPlaying(false);
-    setInternalSeconds(0);
+    onPlayStateChangeRef.current?.(false, isReverse);
+    timeRef.current = 0;
+    setDisplaySeconds(0);
+    emitDiscreteUpdate(0);
   };
 
   const handleJumpToCpa = () => {
+    isPlayingRef.current = false;
     setIsPlaying(false);
-    setInternalSeconds(totalDurationSeconds * 0.5);
+    onPlayStateChangeRef.current?.(false, isReverse);
+    const cpaSec = totalDurationSeconds * 0.5;
+    timeRef.current = cpaSec;
+    setDisplaySeconds(cpaSec);
+    emitDiscreteUpdate(cpaSec);
   };
 
   const handleJumpToEnd = () => {
+    isPlayingRef.current = false;
     setIsPlaying(false);
-    setInternalSeconds(totalDurationSeconds);
+    onPlayStateChangeRef.current?.(false, isReverse);
+    timeRef.current = totalDurationSeconds;
+    setDisplaySeconds(totalDurationSeconds);
+    emitDiscreteUpdate(totalDurationSeconds);
   };
 
   const handleStep = (stepSeconds: number) => {
+    isPlayingRef.current = false;
     setIsPlaying(false);
-    setInternalSeconds((prev) =>
-      Math.max(0, Math.min(totalDurationSeconds, prev + stepSeconds))
-    );
+    onPlayStateChangeRef.current?.(false, isReverse);
+    const next = Math.max(0, Math.min(totalDurationSeconds, timeRef.current + stepSeconds));
+    timeRef.current = next;
+    setDisplaySeconds(next);
+    emitDiscreteUpdate(next);
   };
 
   // Formatted string representations

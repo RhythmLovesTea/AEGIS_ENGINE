@@ -19,6 +19,8 @@ import {
   Target,
   Ship,
   AlertTriangle,
+  Play,
+  Pause,
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -60,6 +62,9 @@ import {
 } from "@/components/attribution";
 import type { VesselCandidate } from "@/types";
 
+const INCIDENT_CENTER: [number, number] = [72.535, 18.87];
+const INCIDENT_BOUNDS: [number, number, number, number] = [72.05, 18.65, 72.95, 19.05];
+
 export default function ForensicWarRoomPage() {
   const [driftFactor, setDriftFactor] = React.useState<number[]>([0.032]);
   const [activeTab, setActiveTab] = React.useState<string>("map");
@@ -75,9 +80,24 @@ export default function ForensicWarRoomPage() {
   // Investigation Replay & Temporal Scrubber State (TASK-043 / D4)
   const [simulationSeconds, setSimulationSeconds] = React.useState<number>(540); // default to midpoint CPA
   const [_simulationProgress, setSimulationProgress] = React.useState<number>(0.5);
+  const [isPlaying, setIsPlaying] = React.useState<boolean>(false);
   const [_liveRankings, setLiveRankings] = React.useState<LiveVesselRanking[]>(() =>
     computeDynamicRankings(0.5)
   );
+
+  // Memoized handlers to prevent render-storms and Maximum Update Depth errors
+  const handleTimeChange = React.useCallback((sec: number, prog: number) => {
+    setSimulationSeconds(sec);
+    setSimulationProgress(prog);
+  }, []);
+
+  const handleRankingsChange = React.useCallback((rankings: LiveVesselRanking[]) => {
+    setLiveRankings(rankings);
+  }, []);
+
+  const handlePlayStateChange = React.useCallback((playing: boolean) => {
+    setIsPlaying(playing);
+  }, []);
 
   return (
     <div className="flex min-h-screen flex-col bg-brand-teal-deep text-white">
@@ -206,9 +226,25 @@ export default function ForensicWarRoomPage() {
               </div>
               <div className="flex flex-wrap items-center gap-2">
                 <Button
+                  variant={isPlaying ? "default" : "secondary"}
+                  size="sm"
+                  onClick={() => setIsPlaying((prev) => !prev)}
+                  className={`gap-1.5 text-xs font-bold ${
+                    isPlaying
+                      ? "bg-brand-green text-brand-teal-deep hover:bg-brand-green/90 shadow-md shadow-brand-green/20"
+                      : "border border-brand-green/50 text-brand-green hover:bg-brand-green/10"
+                  }`}
+                  title="Toggle 60 FPS live continuous animation replay across the Arabian Sea"
+                >
+                  {isPlaying ? <Pause className="h-3.5 w-3.5" /> : <Play className="h-3.5 w-3.5" />}
+                  <span>{isPlaying ? "Pause Replay" : "▶ Play Live Replay"}</span>
+                </Button>
+
+                <Button
                   variant="secondary"
                   size="sm"
                   onClick={() => {
+                    setIsPlaying(false);
                     setSimulationSeconds(0);
                     setSimulationProgress(0);
                   }}
@@ -223,6 +259,7 @@ export default function ForensicWarRoomPage() {
                   variant="secondary"
                   size="sm"
                   onClick={() => {
+                    setIsPlaying(false);
                     setSimulationSeconds(540);
                     setSimulationProgress(0.5);
                   }}
@@ -230,13 +267,14 @@ export default function ForensicWarRoomPage() {
                   title="Show MT PACIFIC TRADER crossing origin envelope at CPA"
                 >
                   <Ship className="h-3.5 w-3.5" />
-                  <span>2. Suspect Vessel CPA (21:42)</span>
+                  <span>2. Suspect CPA (21:42)</span>
                 </Button>
 
                 <Button
                   variant="secondary"
                   size="sm"
                   onClick={() => {
+                    setIsPlaying(false);
                     setSimulationSeconds(1080);
                     setSimulationProgress(1.0);
                   }}
@@ -265,9 +303,9 @@ export default function ForensicWarRoomPage() {
             </div>
 
             <MarineMap
-              initialCenter={[72.55, 18.88]}
+              initialCenter={INCIDENT_CENTER}
               initialZoom={9.2}
-              boundingBox={[72.0, 18.6, 73.1, 19.15]}
+              boundingBox={INCIDENT_BOUNDS}
               className="h-[620px] w-full shadow-2xl"
             >
               <DeckOverlay
@@ -283,13 +321,10 @@ export default function ForensicWarRoomPage() {
               startTimestamp="2026-08-13T15:42:00Z"
               endTimestamp="2026-08-14T03:42:00Z"
               currentTimeSeconds={simulationSeconds}
-              onTimeChange={(sec, prog) => {
-                setSimulationSeconds(sec);
-                setSimulationProgress(prog);
-              }}
-              onRankingsChange={(rankings) => {
-                setLiveRankings(rankings);
-              }}
+              isPlaying={isPlaying}
+              onPlayStateChange={handlePlayStateChange}
+              onTimeChange={handleTimeChange}
+              onRankingsChange={handleRankingsChange}
             />
           </TabsContent>
 

@@ -185,6 +185,168 @@ export const MARINE_PROTECTED_AREAS_GEOJSON: GeoJSON.FeatureCollection = {
 };
 
 // -----------------------------------------------------------------------------
+// Forensic Investigation Baseline Vector Overlays (Native Instant Render)
+// -----------------------------------------------------------------------------
+
+export function generateEllipseCoords(
+  center: [number, number],
+  semiMajor: number,
+  semiMinor: number,
+  rotationRad: number = 0.44,
+  points: number = 48
+): [number, number][] {
+  const coords: [number, number][] = [];
+  for (let i = 0; i <= points; i++) {
+    const theta = (i / points) * 2 * Math.PI;
+    const x = semiMajor * Math.cos(theta);
+    const y = semiMinor * Math.sin(theta);
+    const rotX = x * Math.cos(rotationRad) - y * Math.sin(rotationRad);
+    const rotY = x * Math.sin(rotationRad) + y * Math.cos(rotationRad);
+    coords.push([Number((center[0] + rotX).toFixed(5)), Number((center[1] + rotY).toFixed(5))]);
+  }
+  return coords;
+}
+
+export const SAR_SLICK_GEOJSON: GeoJSON.FeatureCollection = {
+  type: "FeatureCollection",
+  features: [
+    {
+      type: "Feature",
+      properties: {
+        name: "Observed SAR Oil Slick (Sentinel-1A IW)",
+        sensor: "Sentinel-1A C-SAR IW",
+        area_km2: 5.2,
+        confidence: "92.4%",
+      },
+      geometry: {
+        type: "Polygon",
+        coordinates: [
+          [
+            [72.785, 18.905],
+            [72.800, 18.945],
+            [72.835, 18.960],
+            [72.865, 18.940],
+            [72.870, 18.910],
+            [72.840, 18.890],
+            [72.805, 18.895],
+            [72.785, 18.905],
+          ],
+        ],
+      },
+    },
+  ],
+};
+
+export const ORIGIN_RELEASE_GEOJSON: GeoJSON.FeatureCollection = {
+  type: "FeatureCollection",
+  features: [
+    {
+      type: "Feature",
+      properties: { sigma: "1σ Release Envelope (68.3% CI)", level: 1 },
+      geometry: {
+        type: "Polygon",
+        coordinates: [generateEllipseCoords([72.25, 18.82], 0.035, 0.018, 0.44)],
+      },
+    },
+    {
+      type: "Feature",
+      properties: { sigma: "2σ Release Envelope (95.4% CI)", level: 2 },
+      geometry: {
+        type: "Polygon",
+        coordinates: [generateEllipseCoords([72.25, 18.82], 0.065, 0.033, 0.44)],
+      },
+    },
+    {
+      type: "Feature",
+      properties: { sigma: "3σ Release Envelope (99.7% CI)", level: 3 },
+      geometry: {
+        type: "Polygon",
+        coordinates: [generateEllipseCoords([72.25, 18.82], 0.095, 0.048, 0.44)],
+      },
+    },
+  ],
+};
+
+export const HINDCAST_DRIFT_GEOJSON: GeoJSON.FeatureCollection = {
+  type: "FeatureCollection",
+  features: [
+    {
+      type: "Feature",
+      properties: {
+        name: "Backward Hydrodynamic Advection Streamline (12h Drift)",
+        driftVelocity: "0.42 m/s",
+        direction: "68° ENE",
+      },
+      geometry: {
+        type: "LineString",
+        coordinates: [
+          [72.25, 18.82],
+          [72.38, 18.845],
+          [72.52, 18.875],
+          [72.67, 18.90],
+          [72.82, 18.92],
+        ],
+      },
+    },
+  ],
+};
+
+export const FORECAST_BEACHING_GEOJSON: GeoJSON.FeatureCollection = {
+  type: "FeatureCollection",
+  features: [
+    {
+      type: "Feature",
+      properties: {
+        name: "Tier 3 Shoreline Beaching Hazard Forecast (+24h)",
+        etb_hours: "18.4 hrs",
+        vulnerability: "Critical (Colaba Coastline)",
+      },
+      geometry: {
+        type: "Polygon",
+        coordinates: [
+          [
+            [72.82, 18.92],
+            [72.845, 18.938],
+            [72.875, 18.948],
+            [72.895, 18.935],
+            [72.896, 18.910],
+            [72.868, 18.892],
+            [72.840, 18.898],
+            [72.82, 18.92],
+          ],
+        ],
+      },
+    },
+  ],
+};
+
+export const VESSEL_TRACK_GEOJSON: GeoJSON.FeatureCollection = {
+  type: "FeatureCollection",
+  features: [
+    {
+      type: "Feature",
+      properties: {
+        name: "MT PACIFIC TRADER (MMSI 419001234) AIS Trajectory",
+        candidate: "Primary Putative Culprit",
+        cpa: "0.42 NM at 21:42 UTC",
+      },
+      geometry: {
+        type: "LineString",
+        coordinates: [
+          [71.85, 18.65],
+          [71.98, 18.72],
+          [72.15, 18.78],
+          [72.28, 18.84],
+          [72.45, 18.91],
+          [72.68, 18.99],
+          [72.95, 19.08],
+        ],
+      },
+    },
+  ],
+};
+
+// -----------------------------------------------------------------------------
 // MapLibre GL Style Specification (Version 8)
 // -----------------------------------------------------------------------------
 
@@ -249,6 +411,31 @@ export function createDarkMarineMapStyle(): StyleSpecification {
       "mpa-source": {
         type: "geojson",
         data: MARINE_PROTECTED_AREAS_GEOJSON,
+      },
+      // Observed SAR Oil Slick
+      "sar-slick-source": {
+        type: "geojson",
+        data: SAR_SLICK_GEOJSON,
+      },
+      // Release Origin Error Ellipses
+      "origin-release-source": {
+        type: "geojson",
+        data: ORIGIN_RELEASE_GEOJSON,
+      },
+      // Backward Hydrodynamic Drift Streamline
+      "hindcast-drift-source": {
+        type: "geojson",
+        data: HINDCAST_DRIFT_GEOJSON,
+      },
+      // Forward Shoreline Hazard Forecast Cone
+      "forecast-beaching-source": {
+        type: "geojson",
+        data: FORECAST_BEACHING_GEOJSON,
+      },
+      // Suspect Vessel AIS Track
+      "vessel-track-source": {
+        type: "geojson",
+        data: VESSEL_TRACK_GEOJSON,
       },
     },
     layers: [
@@ -373,6 +560,128 @@ export function createDarkMarineMapStyle(): StyleSpecification {
           "line-color": "#00ed64",
           "line-width": 1.8,
           "line-opacity": 0.85,
+        },
+      },
+      // 9. Backward Hindcast Drift Corridor (Dashed Cyan Streamline)
+      {
+        id: "hindcast-drift-line",
+        type: "line",
+        source: "hindcast-drift-source",
+        layout: {
+          "line-join": "round",
+          "line-cap": "round",
+          visibility: "visible",
+        },
+        paint: {
+          "line-color": "#38bdf8",
+          "line-width": 2.5,
+          "line-opacity": 0.85,
+          "line-dasharray": [4, 2],
+        },
+      },
+      // 10. Release Origin Concentric Error Ellipses (Fill)
+      {
+        id: "origin-release-fill",
+        type: "fill",
+        source: "origin-release-source",
+        layout: {
+          visibility: "visible",
+        },
+        paint: {
+          "fill-color": "#fa6e39",
+          "fill-opacity": 0.22,
+        },
+      },
+      // 11. Release Origin Error Ellipses (Border)
+      {
+        id: "origin-release-border",
+        type: "line",
+        source: "origin-release-source",
+        layout: {
+          "line-join": "round",
+          "line-cap": "round",
+          visibility: "visible",
+        },
+        paint: {
+          "line-color": "#fa6e39",
+          "line-width": 2.0,
+          "line-opacity": 0.9,
+          "line-dasharray": [3, 2],
+        },
+      },
+      // 12. Forward Shoreline Beaching Hazard Cone (Fill)
+      {
+        id: "forecast-beaching-fill",
+        type: "fill",
+        source: "forecast-beaching-source",
+        layout: {
+          visibility: "visible",
+        },
+        paint: {
+          "fill-color": "#f59e0b",
+          "fill-opacity": 0.25,
+        },
+      },
+      // 13. Forward Shoreline Beaching Hazard Cone (Border)
+      {
+        id: "forecast-beaching-border",
+        type: "line",
+        source: "forecast-beaching-source",
+        layout: {
+          "line-join": "round",
+          "line-cap": "round",
+          visibility: "visible",
+        },
+        paint: {
+          "line-color": "#f59e0b",
+          "line-width": 2.0,
+          "line-opacity": 0.85,
+          "line-dasharray": [4, 2],
+        },
+      },
+      // 14. Suspect Vessel AIS Trajectory
+      {
+        id: "vessel-track-line",
+        type: "line",
+        source: "vessel-track-source",
+        layout: {
+          "line-join": "round",
+          "line-cap": "round",
+          visibility: "visible",
+        },
+        paint: {
+          "line-color": "#0ea5e9",
+          "line-width": 2.2,
+          "line-opacity": 0.8,
+        },
+      },
+      // 15. Observed SAR Oil Slick Polygon (Translucent Green Fill)
+      {
+        id: "sar-slick-fill",
+        type: "fill",
+        source: "sar-slick-source",
+        layout: {
+          visibility: "visible",
+        },
+        paint: {
+          "fill-color": "#00ed64",
+          "fill-opacity": 0.35,
+        },
+      },
+      // 16. Observed SAR Oil Slick Polygon (Neon Green Border)
+      {
+        id: "sar-slick-border",
+        type: "line",
+        source: "sar-slick-source",
+        layout: {
+          "line-join": "round",
+          "line-cap": "round",
+          visibility: "visible",
+        },
+        paint: {
+          "line-color": "#00ed64",
+          "line-width": 2.5,
+          "line-opacity": 0.95,
         },
       },
     ],

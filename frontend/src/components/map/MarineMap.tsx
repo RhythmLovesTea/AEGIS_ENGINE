@@ -41,8 +41,8 @@ export interface MarineMapProps {
 }
 
 export function MarineMap({
-  initialCenter = [72.8258, 18.925], // Offshore Mumbai High baseline
-  initialZoom = 8.5,
+  initialCenter = [72.535, 18.87], // Offshore Mumbai High incident center
+  initialZoom = 9.2,
   boundingBox = null,
   onViewportChange,
   className = "w-full h-[600px]",
@@ -87,6 +87,12 @@ export function MarineMap({
     });
 
     mapInstanceRef.current = map;
+    setMapInstance(map);
+    (window as unknown as Record<string, unknown>).__mapInstance = map;
+
+    map.on("error", (e) => {
+      console.warn("[MarineMap Error]", e);
+    });
 
     // 1. Navigation Control (Zoom, 3D Pitch, Bearing)
     const navControl = new NavigationControl({
@@ -146,14 +152,13 @@ export function MarineMap({
 
     // Auto-fit bounding box on initial load if provided
     map.on("load", () => {
-      setMapInstance(map);
       if (boundingBox) {
         map.fitBounds(
           [
             [boundingBox[0], boundingBox[1]],
             [boundingBox[2], boundingBox[3]],
           ],
-          { padding: 60, duration: 1200 }
+          { padding: 50, duration: 800 }
         );
       }
     });
@@ -165,19 +170,25 @@ export function MarineMap({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []); // Run once on mount
 
-  // Sync bounding box updates
+  // Sync bounding box updates only when coordinates actually change
+  const boundingBoxKey = boundingBox ? boundingBox.join(",") : null;
+  const lastFitBoundsKeyRef = React.useRef<string | null>(null);
+
   React.useEffect(() => {
     const map = mapInstanceRef.current;
-    if (!map || !boundingBox) return;
+    if (!map || !boundingBox || !boundingBoxKey) return;
+    if (lastFitBoundsKeyRef.current === boundingBoxKey) return;
+    lastFitBoundsKeyRef.current = boundingBoxKey;
 
     map.fitBounds(
       [
         [boundingBox[0], boundingBox[1]],
         [boundingBox[2], boundingBox[3]],
       ],
-      { padding: 60, duration: 1200 }
+      { padding: 50, duration: 800 }
     );
-  }, [boundingBox]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [boundingBoxKey]);
 
   // Sync layer visibility state
   const handleToggleLayer = (layerKey: keyof LayerVisibilityState) => {

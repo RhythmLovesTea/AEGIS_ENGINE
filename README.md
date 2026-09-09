@@ -191,7 +191,7 @@ alembic upgrade head
 uvicorn backend.app.main:app --host 0.0.0.0 --port 8000 --reload
 
 # Start Celery worker in another terminal
-celery -A backend.app.workers.celery_app worker -l info -Q queue_tier1,queue_tier2,queue_tier3,queue_tier4,queue_default
+celery -A backend.core.celery_app worker -l info -Q queue_tier1,queue_tier2,queue_tier3,queue_tier4,queue_default
 ```
 
 ### 2. Frontend Setup

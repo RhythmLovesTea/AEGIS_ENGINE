@@ -16,6 +16,9 @@ import {
   Map as MapIcon,
   Scale,
   Network,
+  Target,
+  Ship,
+  AlertTriangle,
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -67,6 +70,7 @@ export default function ForensicWarRoomPage() {
   const [counterfactualCandidate, setCounterfactualCandidate] = React.useState<VesselCandidate | null>(null);
   const [isWhatIfDrawerOpen, setIsWhatIfDrawerOpen] = React.useState<boolean>(false);
   const [isDossierModalOpen, setIsDossierModalOpen] = React.useState<boolean>(false);
+  const [showForecast, setShowForecast] = React.useState<boolean>(true);
 
   // Investigation Replay & Temporal Scrubber State (TASK-043 / D4)
   const [simulationSeconds, setSimulationSeconds] = React.useState<number>(540); // default to midpoint CPA
@@ -190,13 +194,87 @@ export default function ForensicWarRoomPage() {
 
           {/* Geospatial Map Canvas Tab */}
           <TabsContent value="map" className="space-y-4">
+            {/* Live Interactive Demo Controls for Presentation */}
+            <div className="flex flex-wrap items-center justify-between gap-2 rounded-xl border border-hairline-dark bg-brand-teal/30 p-3 backdrop-blur">
+              <div className="flex items-center gap-2 text-xs">
+                <Badge variant="greenSoft" className="font-mono text-[10px] tracking-wide uppercase">
+                  Live Demo Controls
+                </Badge>
+                <span className="text-on-dark-muted hidden sm:inline">
+                  Click to show each analytical phase live on the map:
+                </span>
+              </div>
+              <div className="flex flex-wrap items-center gap-2">
+                <Button
+                  variant="secondary"
+                  size="sm"
+                  onClick={() => {
+                    setSimulationSeconds(0);
+                    setSimulationProgress(0);
+                  }}
+                  className="gap-1.5 text-xs text-accent-orange hover:text-white"
+                  title="Show estimated discharge origin 12 hours prior to detection"
+                >
+                  <Target className="h-3.5 w-3.5" />
+                  <span>1. Spill Origin (15:42)</span>
+                </Button>
+
+                <Button
+                  variant="secondary"
+                  size="sm"
+                  onClick={() => {
+                    setSimulationSeconds(540);
+                    setSimulationProgress(0.5);
+                  }}
+                  className="gap-1.5 text-xs text-sky-400 hover:text-white"
+                  title="Show MT PACIFIC TRADER crossing origin envelope at CPA"
+                >
+                  <Ship className="h-3.5 w-3.5" />
+                  <span>2. Suspect Vessel CPA (21:42)</span>
+                </Button>
+
+                <Button
+                  variant="secondary"
+                  size="sm"
+                  onClick={() => {
+                    setSimulationSeconds(1080);
+                    setSimulationProgress(1.0);
+                  }}
+                  className="gap-1.5 text-xs text-brand-green hover:text-white"
+                  title="Show Sentinel-1A SAR observed oil slick polygon"
+                >
+                  <Radar className="h-3.5 w-3.5" />
+                  <span>3. SAR Detection (03:42)</span>
+                </Button>
+
+                <Button
+                  variant={showForecast ? "default" : "secondary"}
+                  size="sm"
+                  onClick={() => setShowForecast((prev) => !prev)}
+                  className={`gap-1.5 text-xs ${
+                    showForecast
+                      ? "bg-accent-orange text-white hover:bg-accent-orange/90"
+                      : "text-on-dark-muted hover:text-white"
+                  }`}
+                  title="Toggle 24-hour forward drift forecast and shoreline beaching risk"
+                >
+                  <AlertTriangle className="h-3.5 w-3.5" />
+                  <span>4. {showForecast ? "Hide" : "Show"} +24h Beaching Forecast</span>
+                </Button>
+              </div>
+            </div>
+
             <MarineMap
-              initialCenter={[72.8258, 18.925]}
-              initialZoom={8.5}
-              boundingBox={[71.8, 18.2, 73.4, 19.8]}
+              initialCenter={[72.55, 18.88]}
+              initialZoom={9.2}
+              boundingBox={[72.0, 18.6, 73.1, 19.15]}
               className="h-[620px] w-full shadow-2xl"
             >
-              <DeckOverlay currentTime={simulationSeconds} />
+              <DeckOverlay
+                currentTime={simulationSeconds}
+                showForecast={showForecast}
+                showLabels={true}
+              />
             </MarineMap>
 
             {/* Interactive Investigation Replay Time-Scrubber (D4 / FR-17) */}

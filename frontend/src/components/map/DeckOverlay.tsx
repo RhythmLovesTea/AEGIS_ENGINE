@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { GeoJsonLayer, ScatterplotLayer } from "deck.gl";
+import { GeoJsonLayer, ScatterplotLayer, TextLayer } from "deck.gl";
 import { TripsLayer } from "@deck.gl/geo-layers";
 import { MapLibreOverlay } from "@deck.gl/maplibre";
 
@@ -42,6 +42,8 @@ export interface DeckOverlayProps {
   showTrips?: boolean;
   showSlick?: boolean;
   showEllipses?: boolean;
+  showForecast?: boolean;
+  showLabels?: boolean;
   onFpsUpdate?: (fps: number) => void;
   className?: string;
 }
@@ -243,6 +245,41 @@ export function generateSyntheticSlickPolygon(
   };
 }
 
+export function generateSyntheticForecastPolygon(
+  slickCenter: [number, number] = [72.82, 18.92]
+): GeoJSON.FeatureCollection {
+  // Projected 24h forward hydrodynamic drift advecting toward Mumbai shoreline
+  const forecastCoords: [number, number][] = [
+    [slickCenter[0], slickCenter[1]],
+    [slickCenter[0] + 0.025, slickCenter[1] + 0.018],
+    [slickCenter[0] + 0.055, slickCenter[1] + 0.028],
+    [slickCenter[0] + 0.075, slickCenter[1] + 0.038], // Near Colaba shoreline
+    [slickCenter[0] + 0.076, slickCenter[1] + 0.012],
+    [slickCenter[0] + 0.048, slickCenter[1] - 0.008],
+    [slickCenter[0] + 0.02, slickCenter[1] - 0.012],
+    [slickCenter[0], slickCenter[1]],
+  ];
+
+  return {
+    type: "FeatureCollection",
+    features: [
+      {
+        type: "Feature",
+        properties: {
+          title: "Tier 3 Forward Drift Forecast (+24h)",
+          etb_hours: 18.4,
+          cvi_index: 0.84,
+          beached_volume_m3: 420.0,
+        },
+        geometry: {
+          type: "Polygon",
+          coordinates: [forecastCoords],
+        },
+      },
+    ],
+  };
+}
+
 // -----------------------------------------------------------------------------
 // Primary DeckOverlay Component
 // -----------------------------------------------------------------------------
@@ -258,6 +295,8 @@ export function DeckOverlay({
   showTrips = true,
   showSlick = true,
   showEllipses = true,
+  showForecast = true,
+  showLabels = true,
   onFpsUpdate,
   className = "",
 }: DeckOverlayProps) {
@@ -279,6 +318,10 @@ export function DeckOverlay({
   const resolvedSlick = React.useMemo(
     () => slickGeoJson ?? generateSyntheticSlickPolygon(),
     [slickGeoJson]
+  );
+  const resolvedForecast = React.useMemo(
+    () => generateSyntheticForecastPolygon(),
+    []
   );
 
   // Time-loop animation state for TripsLayer if no external clock is passed
@@ -419,6 +462,60 @@ export function DeckOverlay({
       );
     }
 
+    // 5. GeoJSON Layer: Projected 24h Forward Shoreline Beaching Forecast (Tier 3)
+    if (showForecast && resolvedForecast) {
+      layerList.push(
+        new GeoJsonLayer({
+          id: "forward-beaching-forecast",
+          data: resolvedForecast,
+          filled: true,
+          stroked: true,
+          lineWidthMinPixels: 2,
+          getFillColor: [255, 170, 0, 45], // Amber warning cone
+          getLineColor: [255, 170, 0, 220],
+          getLineWidth: 2,
+          pickable: true,
+        })
+      );
+    }
+
+    // 6. TextLayer: High-Visibility On-Map Tactical Milestone Labels
+    if (showLabels) {
+      layerList.push(
+        new TextLayer<{ text: string; position: [number, number]; color: [number, number, number, number] }>({
+          id: "map-tactical-labels",
+          data: [
+            {
+              text: "🎯 Spill Origin (t₀: 15:42 UTC)",
+              position: [72.25, 18.79],
+              color: [250, 110, 57, 255],
+            },
+            {
+              text: "🛰️ SAR Slick Detection (t_obs: 03:42 UTC)",
+              position: [72.82, 18.96],
+              color: [0, 237, 100, 255],
+            },
+            {
+              text: "⚠️ Shoreline Impact Hazard (+18.4h ETB)",
+              position: [72.89, 18.91],
+              color: [255, 190, 40, 255],
+            },
+          ],
+          getPosition: (d) => d.position,
+          getText: (d) => d.text,
+          getSize: 12,
+          getColor: (d) => d.color,
+          getTextAnchor: "middle",
+          getAlignmentBaseline: "center",
+          background: true,
+          getBackgroundColor: [0, 20, 30, 215],
+          backgroundPadding: [6, 3, 6, 3],
+          fontFamily: "monospace",
+          fontWeight: 700,
+        })
+      );
+    }
+
     return layerList;
   }, [
     showEllipses,
@@ -429,6 +526,9 @@ export function DeckOverlay({
     resolvedParticles,
     showTrips,
     resolvedTrips,
+    showForecast,
+    resolvedForecast,
+    showLabels,
     trailLength,
     activeTime,
   ]);

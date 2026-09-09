@@ -189,6 +189,28 @@ export const MARINE_PROTECTED_AREAS_GEOJSON: GeoJSON.FeatureCollection = {
 // -----------------------------------------------------------------------------
 
 export function createDarkMarineMapStyle(): StyleSpecification {
+  const cartoKey =
+    typeof process !== "undefined"
+      ? process.env?.NEXT_PUBLIC_CARTO_API_KEY
+      : undefined;
+
+  // When no CARTO key is configured, default to ESRI World Dark Gray Canvas:
+  // completely free, high-performance, and watermark-free for nautical and marine operations.
+  const baseTiles = cartoKey
+    ? [
+        `https://a.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png?api_key=${cartoKey}`,
+        `https://b.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png?api_key=${cartoKey}`,
+        `https://c.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png?api_key=${cartoKey}`,
+        `https://d.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png?api_key=${cartoKey}`,
+      ]
+    : [
+        "https://services.arcgisonline.com/arcgis/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}",
+      ];
+
+  const attribution = cartoKey
+    ? '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
+    : 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ';
+
   return {
     version: 8,
     name: "AEGIS Dark Nautical Marine",
@@ -196,15 +218,17 @@ export function createDarkMarineMapStyle(): StyleSpecification {
       // Global dark nautical base raster tiles
       "carto-dark": {
         type: "raster",
+        tiles: baseTiles,
+        tileSize: 256,
+        attribution,
+      },
+      // Nautical reference labels layer (ESRI Dark Gray Reference)
+      "esri-reference": {
+        type: "raster",
         tiles: [
-          "https://a.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png",
-          "https://b.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png",
-          "https://c.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png",
-          "https://d.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png",
+          "https://services.arcgisonline.com/arcgis/rest/services/Canvas/World_Dark_Gray_Reference/MapServer/tile/{z}/{y}/{x}",
         ],
         tileSize: 256,
-        attribution:
-          '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
       },
       // Bathymetry depth contours
       "bathymetry-source": {
@@ -246,6 +270,15 @@ export function createDarkMarineMapStyle(): StyleSpecification {
           "raster-contrast": 0.1,
           "raster-brightness-min": 0.05,
           "raster-brightness-max": 0.95,
+        },
+      },
+      // 3. Nautical Reference Labels
+      {
+        id: "esri-reference-tiles",
+        type: "raster",
+        source: "esri-reference",
+        paint: {
+          "raster-opacity": cartoKey ? 0 : 0.8,
         },
       },
       // 3. Bathymetry Contours

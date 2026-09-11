@@ -6,7 +6,6 @@ import "maplibre-gl/dist/maplibre-gl.css";
 
 import { createDarkMarineMapStyle } from "./map-style";
 import { LayerControlPanel, type LayerVisibilityState } from "./LayerControlPanel";
-import { Button } from "@/components/ui/button";
 import { Compass, Maximize2 } from "lucide-react";
 
 export interface ViewportState {

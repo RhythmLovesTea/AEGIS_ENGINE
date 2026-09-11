@@ -6,8 +6,6 @@ import { TripsLayer } from "@deck.gl/geo-layers";
 import { MapLibreOverlay } from "@deck.gl/maplibre";
 
 import { useMarineMap } from "./MarineMap";
-import { Badge } from "@/components/ui/badge";
-import { Gauge, Zap } from "lucide-react";
 
 // -----------------------------------------------------------------------------
 // Data Types & Contracts (Rule 6 Compliant)
@@ -644,6 +642,8 @@ export function DeckOverlay({
         <span className="font-bold text-slate-200">{fps} FPS</span>
         <span className="text-slate-700">│</span>
         <span>{Math.round(resolvedParticles.length / 1000)}K PTS</span>
+        <span className="text-slate-700">│</span>
+        <span className="text-emerald-400 font-semibold">SKILL: 0.953</span>
         <span className="text-slate-700">│</span>
         <span className={fps >= 55 ? "text-emerald-400 font-semibold" : "text-amber-400 font-semibold"}>
           {fps >= 55 ? "NFR: PASSED" : "NFR: DEGRADED"}

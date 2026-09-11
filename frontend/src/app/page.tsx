@@ -16,9 +16,6 @@ import {
   Map as MapIcon,
   Scale,
   Network,
-  Target,
-  Ship,
-  AlertTriangle,
   Play,
   Pause,
 } from "lucide-react";
@@ -490,14 +487,32 @@ export default function ForensicWarRoomPage() {
                   </div>
                 </div>
 
-                <div className="flex items-center justify-between rounded-lg border border-hairline-dark bg-brand-teal-deep p-4">
-                  <div className="space-y-1">
-                    <div className="text-sm font-medium">Attribution Uncertainty Covariance</div>
-                    <div className="font-mono text-xs text-on-dark-muted">
-                      Semi-major axis: 2.45 NM | Semi-minor axis: 0.82 NM
+                <div className="flex items-center justify-between rounded-sm border border-[#1F2937] bg-[#0B0F14] p-3 font-mono text-xs">
+                  <div className="space-y-0.5">
+                    <div className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
+                      Hydrodynamic Model Empirical Skill (PRD Section 14)
+                    </div>
+                    <div className="text-[11px] text-slate-500 font-sans">
+                      Liu-Weisberg Skill Score: 0.953 │ Separation Error: 0.046 (s &lt; 0.15) │ Origin Distance: 0.69 km
                     </div>
                   </div>
-                  <Badge variant="orange">Confidence: 89.2%</Badge>
+                  <Badge variant="outline" className="rounded-sm border-emerald-500/40 bg-emerald-950/20 text-emerald-400 font-bold tabular-nums">
+                    SKILL SCORE: 0.953 [PASS]
+                  </Badge>
+                </div>
+
+                <div className="flex items-center justify-between rounded-sm border border-[#1F2937] bg-[#0B0F14] p-3 font-mono text-xs">
+                  <div className="space-y-0.5">
+                    <div className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
+                      Attribution Uncertainty Covariance
+                    </div>
+                    <div className="text-xs text-slate-400 tabular-nums">
+                      Semi-major axis: 2.45 NM │ Semi-minor axis: 0.82 NM
+                    </div>
+                  </div>
+                  <Badge variant="outline" className="rounded-sm border-amber-500/40 bg-amber-950/20 text-amber-400 font-bold tabular-nums">
+                    Confidence: 89.2%
+                  </Badge>
                 </div>
 
                 <Button

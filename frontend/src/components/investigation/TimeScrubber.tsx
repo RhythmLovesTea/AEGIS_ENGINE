@@ -12,12 +12,9 @@ import {
   Clock,
   Activity,
   Repeat,
-  ShieldCheck,
 } from "lucide-react";
 
 import { Slider } from "@/components/ui/slider";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 
 // -----------------------------------------------------------------------------
@@ -392,13 +389,17 @@ export function TimeScrubber({
         </div>
 
         {/* Structured Suspect Telemetry Readout */}
-        <div className="rounded-sm border border-slate-800 bg-slate-900/80 px-2.5 py-1 text-[11px] text-slate-300 tabular-nums">
+        <div className="rounded-sm border border-slate-800 bg-slate-900/80 px-2.5 py-1 text-[11px] text-slate-300 tabular-nums flex flex-wrap items-center">
           <span>SUSPECT: {topCandidate.name}</span>
           <span className="text-slate-700 mx-1.5">│</span>
           <span>ANOMALY INDEX: {topCandidate.score.toFixed(3)}</span>
           <span className="text-slate-700 mx-1.5">│</span>
           <span className="text-emerald-400 font-semibold">
             P(CULPRIT): {topCandidate.confidencePct.toFixed(1)}% [BAYESIAN]
+          </span>
+          <span className="text-slate-700 mx-1.5">│</span>
+          <span>
+            HINDCAST SKILL: <strong className="text-emerald-400 font-semibold">0.953</strong> [LIU-WEISBERG]
           </span>
         </div>
       </div>

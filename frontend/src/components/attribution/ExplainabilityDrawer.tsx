@@ -24,7 +24,6 @@ import {
   SheetContent,
   SheetHeader,
   SheetTitle,
-  SheetDescription,
 } from "@/components/ui/sheet";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -295,8 +294,6 @@ export function ExplainabilityDrawer({
     candidate.s_culprit <= 1.0
       ? (candidate.s_culprit * 100).toFixed(1)
       : candidate.s_culprit.toFixed(1);
-
-  const confValue = candidate.confidence.toFixed(1);
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>

@@ -1,10 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Layers, ChevronDown, ChevronUp, Eye, EyeOff } from "lucide-react";
-
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
+import { Layers, ChevronDown, ChevronUp } from "lucide-react";
 
 export interface LayerVisibilityState {
   bathymetry: boolean;

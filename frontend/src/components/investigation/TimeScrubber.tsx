@@ -360,177 +360,174 @@ export function TimeScrubber({
 
   return (
     <div
-      className={`rounded-xl border border-hairline-dark bg-brand-teal-deep/95 p-4 shadow-2xl backdrop-blur-md text-white transition-all ${className}`}
+      className={`rounded-sm border border-[#1F2937] bg-[#111720] p-4 text-slate-100 shadow-2xl transition-all ${className}`}
       data-testid="investigation-time-scrubber"
     >
-      {/* 1. Header Strip: Live Status, UTC Timestamp & Paired Confidence */}
-      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-hairline-dark pb-3">
-        {/* Playback Mode & Status */}
+      {/* 1. Header Strip: Terminal Status, UTC Timestamp & Structured Suspect Telemetry */}
+      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[#1F2937] pb-3 font-mono">
+        {/* Terminal Status Line */}
         <div className="flex items-center gap-2">
-          <div className="flex items-center gap-1.5">
-            <span
-              className={`h-2.5 w-2.5 rounded-full ${
-                isPlaying
-                  ? "bg-brand-green animate-pulse"
-                  : "bg-on-dark-muted"
-              }`}
-            />
-            <span className="text-xs font-bold uppercase tracking-wider text-white">
-              Investigation Replay (D4)
-            </span>
-          </div>
-
-          <Badge
-            variant={isPlaying ? (isReverse ? "orange" : "green") : "secondary"}
-            className="text-[10px] font-mono uppercase"
-          >
-            {isPlaying
-              ? isReverse
-                ? "⏪ Reverse Convergence"
-                : "⏩ Forward Dispersion"
-              : "⏸ Paused"}
-          </Badge>
+          <span
+            className={`h-2 w-2 rounded-full ${
+              isPlaying ? "bg-emerald-400 animate-ping" : "bg-slate-600"
+            }`}
+          />
+          <span className="text-xs font-mono font-bold text-slate-300 tracking-wide">
+            ● REPLAY MODE: {isReverse ? "REVERSE CONVERGENCE" : "FORWARD DISPERSION"} [
+            {isPlaying ? "RUNNING" : "PAUSED"}]
+          </span>
         </div>
 
         {/* Current Replay Timestamp & Elapsed Offset */}
-        <div className="flex items-center gap-3">
-          <div className="flex items-center gap-1.5 font-mono text-sm font-semibold text-brand-green">
-            <Clock className="h-4 w-4 text-brand-green" />
-            <span>{formattedUtc}</span>
+        <div className="flex items-center gap-3 text-xs">
+          <div className="flex items-center gap-1.5 font-semibold text-emerald-400">
+            <Clock className="h-3.5 w-3.5 text-emerald-400" />
+            <span className="tabular-nums">{formattedUtc}</span>
           </div>
-
-          <div className="flex items-center gap-1.5 font-mono text-xs text-on-dark-muted">
+          <div className="flex items-center gap-1.5 text-slate-400 tabular-nums text-[11px]">
             <span>+{elapsedHours}h from release</span>
-            <span className="text-hairline-dark">|</span>
+            <span className="text-slate-700">│</span>
             <span>-{remainingHours}h to observation</span>
           </div>
         </div>
 
-        {/* Rule 1 Paired Confidence & Live Top Attributed Candidate */}
-        <div className="flex items-center gap-2">
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <div className="flex items-center gap-1.5 rounded-lg border border-hairline-dark bg-white/5 px-2.5 py-1 font-mono text-xs text-brand-green">
-                <ShieldCheck className="h-3.5 w-3.5 text-brand-green" />
-                <span>Confidence: {topCandidate.confidencePct.toFixed(1)}%</span>
-              </div>
-            </TooltipTrigger>
-            <TooltipContent>
-              Constitutional Rule 1: Mandatory paired confidence assessment for active state
-            </TooltipContent>
-          </Tooltip>
-
-          <Badge variant="green" className="text-xs font-mono">
-            Rank 1: {topCandidate.name} (S: {topCandidate.score.toFixed(3)})
-          </Badge>
+        {/* Structured Suspect Telemetry Readout */}
+        <div className="rounded-sm border border-slate-800 bg-slate-900/80 px-2.5 py-1 text-[11px] text-slate-300 tabular-nums">
+          <span>SUSPECT: {topCandidate.name}</span>
+          <span className="text-slate-700 mx-1.5">│</span>
+          <span>ANOMALY INDEX: {topCandidate.score.toFixed(3)}</span>
+          <span className="text-slate-700 mx-1.5">│</span>
+          <span className="text-emerald-400 font-semibold">
+            P(CULPRIT): {topCandidate.confidencePct.toFixed(1)}% [BAYESIAN]
+          </span>
         </div>
       </div>
 
-      {/* 2. Timeline Scrubber Track with Milestone Annotations */}
+      {/* 2. Timeline Scrubber: Precision Ruler Track with Vertical Tick Marks & Needles */}
       <div className="py-4 space-y-2">
-        <Slider
-          value={[currentSeconds]}
-          min={0}
-          max={totalDurationSeconds}
-          step={1}
-          onValueChange={handleSliderChange}
-          className="cursor-pointer"
-        />
+        <div className="relative">
+          <Slider
+            value={[currentSeconds]}
+            min={0}
+            max={totalDurationSeconds}
+            step={1}
+            onValueChange={handleSliderChange}
+            className="cursor-pointer"
+          />
 
-        {/* Milestone Labels Along Track */}
-        <div className="relative flex justify-between font-mono text-[10px] text-on-dark-muted px-1">
+          {/* Precision Ruler 1-Hour UTC Interval Tick Marks */}
+          <div className="pointer-events-none absolute inset-x-0 top-3 flex justify-between px-1">
+            {Array.from({ length: 13 }).map((_, i) => (
+              <div key={i} className="flex flex-col items-center">
+                <div
+                  className={`w-[1px] ${
+                    i % 3 === 0 ? "h-2.5 bg-slate-500" : "h-1.5 bg-slate-700"
+                  }`}
+                />
+                {i % 3 === 0 && (
+                  <span className="text-[9px] font-mono text-slate-500 tabular-nums mt-0.5">
+                    {String(15 + i).padStart(2, "0")}:00
+                  </span>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Milestone Vertical Tags with Precise UTC Offsets */}
+        <div className="relative flex justify-between font-mono text-[10px] text-slate-400 px-1 pt-3">
           {/* Release Window Marker (t_0) */}
           <button
             type="button"
             onClick={handleJumpToStart}
-            className="text-left hover:text-brand-green transition-colors"
+            className="flex flex-col items-start hover:text-emerald-400 transition-colors text-left"
             title="Jump to Estimated Release Window"
           >
-            <div className="flex items-center gap-1">
-              <span className="h-1.5 w-1.5 rounded-full bg-accent-orange" />
-              <span className="font-semibold text-white">t₀ Release Window</span>
-            </div>
-            <span>15:42:00 UTC (Origin)</span>
+            <span className="border-l-2 border-amber-500 pl-1.5 font-bold text-slate-200">
+              t₀ RELEASE WINDOW
+            </span>
+            <span className="pl-2 text-slate-400 tabular-nums">
+              15:42:00 UTC [Δt: -12.0h]
+            </span>
           </button>
 
           {/* CPA Crossing Marker (t_cpa) */}
           <button
             type="button"
             onClick={handleJumpToCpa}
-            className="text-center hover:text-brand-green transition-colors"
+            className="flex flex-col items-center hover:text-emerald-400 transition-colors text-center"
             title="Jump to MT PACIFIC TRADER CPA Crossing"
           >
-            <div className="flex items-center justify-center gap-1">
-              <span className="h-1.5 w-1.5 rounded-full bg-brand-green" />
-              <span className="font-semibold text-white">CPA Intersection (t_cpa)</span>
-            </div>
-            <span>21:42:00 UTC (Δ = 0.42 NM)</span>
+            <span className="border-t-2 border-sky-400 px-1.5 font-bold text-slate-200">
+              CPA INTERSECTION
+            </span>
+            <span className="text-slate-400 tabular-nums">
+              21:42:00 UTC [Δt: -6.0h]
+            </span>
           </button>
 
           {/* Observation Marker (t_obs) */}
           <button
             type="button"
             onClick={handleJumpToEnd}
-            className="text-right hover:text-brand-green transition-colors"
+            className="flex flex-col items-end hover:text-emerald-400 transition-colors text-right"
             title="Jump to Sentinel-1A SAR Detection"
           >
-            <div className="flex items-center justify-end gap-1">
-              <span className="h-1.5 w-1.5 rounded-full bg-brand-green" />
-              <span className="font-semibold text-white">t_obs SAR Observation</span>
-            </div>
-            <span>03:42:00 UTC (Copernicus)</span>
+            <span className="border-r-2 border-emerald-400 pr-1.5 font-bold text-slate-200">
+              t_obs SAR DETECT
+            </span>
+            <span className="pr-2 text-slate-400 tabular-nums">
+              03:42:00 UTC [Δt: 0.0h]
+            </span>
           </button>
         </div>
       </div>
 
       {/* 3. Playback Transport Controls & Speed Selector */}
-      <div className="flex flex-wrap items-center justify-between gap-3 pt-2 border-t border-hairline-dark">
+      <div className="flex flex-wrap items-center justify-between gap-3 pt-2 border-t border-[#1F2937]">
         {/* Transport Action Buttons */}
-        <div className="flex items-center gap-1.5">
+        <div className="flex items-center gap-1.5 font-mono">
           <Tooltip>
             <TooltipTrigger asChild>
-              <Button
-                variant="secondary"
-                size="icon"
+              <button
+                type="button"
                 onClick={handleJumpToStart}
-                className="h-8 w-8 bg-brand-teal-deep border-hairline-dark text-on-dark-muted hover:text-white"
+                className="h-7 w-7 rounded-sm border border-slate-700 bg-slate-800/80 text-slate-300 hover:text-white hover:border-slate-500 flex items-center justify-center transition-colors"
               >
-                <SkipBack className="h-4 w-4" />
-              </Button>
+                <SkipBack className="h-3.5 w-3.5" />
+              </button>
             </TooltipTrigger>
             <TooltipContent>Jump to Spill Release Origin (t₀)</TooltipContent>
           </Tooltip>
 
           <Tooltip>
             <TooltipTrigger asChild>
-              <Button
-                variant="secondary"
-                size="icon"
-                onClick={() => handleStep(-90)} // -15 minutes in simulation units
-                className="h-8 w-8 bg-brand-teal-deep border-hairline-dark text-on-dark-muted hover:text-white"
+              <button
+                type="button"
+                onClick={() => handleStep(-90)} // -15 minutes
+                className="h-7 w-7 rounded-sm border border-slate-700 bg-slate-800/80 text-slate-300 hover:text-white hover:border-slate-500 flex items-center justify-center transition-colors"
               >
-                <Rewind className="h-4 w-4" />
-              </Button>
+                <Rewind className="h-3.5 w-3.5" />
+              </button>
             </TooltipTrigger>
             <TooltipContent>Step -15 Minutes</TooltipContent>
           </Tooltip>
 
-          {/* Reverse Play (Reverse Convergence, PRD US-14) */}
+          {/* Reverse Play */}
           <Tooltip>
             <TooltipTrigger asChild>
-              <Button
-                variant={isPlaying && isReverse ? "default" : "secondary"}
-                size="sm"
+              <button
+                type="button"
                 onClick={() => handleTogglePlay(true)}
-                className={`h-8 gap-1.5 text-xs font-medium ${
+                className={`h-7 px-2.5 gap-1.5 rounded-sm border text-xs font-mono font-medium flex items-center transition-colors ${
                   isPlaying && isReverse
-                    ? "bg-accent-orange hover:bg-accent-orange/90 text-white"
-                    : "bg-brand-teal-deep border-hairline-dark text-on-dark-muted hover:text-white"
+                    ? "border-amber-500/60 bg-amber-500/20 text-amber-300"
+                    : "border-slate-700 bg-slate-800/80 text-slate-300 hover:border-slate-500 hover:text-white"
                 }`}
               >
-                <RotateCcw className="h-3.5 w-3.5" />
+                <RotateCcw className="h-3 w-3" />
                 <span>Reverse Play</span>
-              </Button>
+              </button>
             </TooltipTrigger>
             <TooltipContent>
               Animate reverse particle convergence from slick to origin envelope (PRD US-14)
@@ -540,56 +537,53 @@ export function TimeScrubber({
           {/* Forward Play / Pause Toggle */}
           <Tooltip>
             <TooltipTrigger asChild>
-              <Button
-                variant={isPlaying && !isReverse ? "default" : "secondary"}
-                size="sm"
+              <button
+                type="button"
                 onClick={() => handleTogglePlay(false)}
-                className={`h-8 gap-1.5 text-xs font-semibold ${
+                className={`h-7 px-3 gap-1.5 rounded-sm border text-xs font-mono font-medium flex items-center transition-colors ${
                   isPlaying && !isReverse
-                    ? "bg-brand-green hover:bg-brand-green/90 text-brand-teal-deep"
-                    : "bg-brand-teal-deep border-hairline-dark text-white hover:bg-white/5"
+                    ? "border-emerald-500/60 bg-emerald-500/20 text-emerald-300"
+                    : "border-slate-700 bg-slate-800/80 text-slate-200 hover:border-slate-500 hover:text-white"
                 }`}
               >
                 {isPlaying && !isReverse ? (
                   <>
-                    <Pause className="h-3.5 w-3.5" />
+                    <Pause className="h-3 w-3" />
                     <span>Pause</span>
                   </>
                 ) : (
                   <>
-                    <Play className="h-3.5 w-3.5 fill-current" />
+                    <Play className="h-3 w-3 fill-current" />
                     <span>Play</span>
                   </>
                 )}
-              </Button>
+              </button>
             </TooltipTrigger>
             <TooltipContent>Play forward dispersion from origin to slick</TooltipContent>
           </Tooltip>
 
           <Tooltip>
             <TooltipTrigger asChild>
-              <Button
-                variant="secondary"
-                size="icon"
+              <button
+                type="button"
                 onClick={() => handleStep(90)} // +15 minutes
-                className="h-8 w-8 bg-brand-teal-deep border-hairline-dark text-on-dark-muted hover:text-white"
+                className="h-7 w-7 rounded-sm border border-slate-700 bg-slate-800/80 text-slate-300 hover:text-white hover:border-slate-500 flex items-center justify-center transition-colors"
               >
-                <FastForward className="h-4 w-4" />
-              </Button>
+                <FastForward className="h-3.5 w-3.5" />
+              </button>
             </TooltipTrigger>
             <TooltipContent>Step +15 Minutes</TooltipContent>
           </Tooltip>
 
           <Tooltip>
             <TooltipTrigger asChild>
-              <Button
-                variant="secondary"
-                size="icon"
+              <button
+                type="button"
                 onClick={handleJumpToEnd}
-                className="h-8 w-8 bg-brand-teal-deep border-hairline-dark text-on-dark-muted hover:text-white"
+                className="h-7 w-7 rounded-sm border border-slate-700 bg-slate-800/80 text-slate-300 hover:text-white hover:border-slate-500 flex items-center justify-center transition-colors"
               >
-                <SkipForward className="h-4 w-4" />
-              </Button>
+                <SkipForward className="h-3.5 w-3.5" />
+              </button>
             </TooltipTrigger>
             <TooltipContent>Jump to SAR Observation (t_obs)</TooltipContent>
           </Tooltip>
@@ -597,17 +591,17 @@ export function TimeScrubber({
 
         {/* Speed Multipliers & Loop Toggle */}
         <div className="flex items-center gap-2">
-          <span className="text-[11px] font-medium text-on-dark-muted">Speed:</span>
-          <div className="flex items-center rounded-lg border border-hairline-dark bg-brand-teal-deep p-0.5">
+          <span className="text-[11px] font-mono text-slate-400">Speed:</span>
+          <div className="flex items-center rounded-sm border border-slate-800 bg-slate-900/90 p-0.5">
             {[1, 5, 10, 30].map((spd) => (
               <button
                 key={spd}
                 type="button"
                 onClick={() => setSpeedMultiplier(spd)}
-                className={`rounded-md px-2 py-0.5 font-mono text-xs transition-colors ${
+                className={`rounded-sm px-2 py-0.5 font-mono text-xs transition-colors ${
                   speedMultiplier === spd
-                    ? "bg-brand-green font-bold text-brand-teal-deep shadow"
-                    : "text-on-dark-muted hover:text-white"
+                    ? "bg-emerald-500/20 text-emerald-300 font-bold border border-emerald-500/40"
+                    : "text-slate-400 hover:text-white border border-transparent"
                 }`}
               >
                 {spd}×
@@ -618,16 +612,15 @@ export function TimeScrubber({
           {/* Loop Toggle */}
           <Tooltip>
             <TooltipTrigger asChild>
-              <Button
-                variant="ghost"
-                size="icon"
+              <button
+                type="button"
                 onClick={() => setIsLooping(!isLooping)}
-                className={`h-8 w-8 ${
-                  isLooping ? "text-brand-green" : "text-on-dark-muted"
+                className={`h-7 w-7 rounded-sm border border-slate-800 flex items-center justify-center transition-colors ${
+                  isLooping ? "text-emerald-400 bg-emerald-500/10 border-emerald-500/40" : "text-slate-400 hover:text-white"
                 }`}
               >
-                <Repeat className="h-4 w-4" />
-              </Button>
+                <Repeat className="h-3.5 w-3.5" />
+              </button>
             </TooltipTrigger>
             <TooltipContent>Loop Playback: {isLooping ? "On" : "Off"}</TooltipContent>
           </Tooltip>
@@ -635,14 +628,14 @@ export function TimeScrubber({
 
         {/* Dynamic Telemetry & deck.gl Link Badge */}
         <div className="flex items-center gap-3">
-          <div className="flex items-center gap-1.5 font-mono text-xs text-on-dark-muted">
-            <Activity className="h-3.5 w-3.5 text-brand-green" />
+          <div className="flex items-center gap-1.5 font-mono text-xs text-slate-400 tabular-nums">
+            <Activity className="h-3.5 w-3.5 text-emerald-400" />
             <span>deck.gl 10k Particles Synced</span>
           </div>
 
-          <Badge variant="outline" className="font-mono text-xs">
+          <span className="rounded-sm border border-slate-800 bg-slate-900/60 px-2 py-0.5 font-mono text-xs text-slate-300 tabular-nums">
             Progress: {(progress * 100).toFixed(1)}%
-          </Badge>
+          </span>
         </div>
       </div>
     </div>

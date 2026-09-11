@@ -233,25 +233,25 @@ export function CaseTable({
     switch (status.toLowerCase()) {
       case "ready":
         return (
-          <Badge variant="green" className="font-mono text-[10px] uppercase">
-            Attribution Ready
+          <Badge variant="outline" className="font-mono text-[10px] uppercase rounded-sm border-emerald-500/40 bg-emerald-950/20 text-emerald-400">
+            ATTRIBUTION READY
           </Badge>
         );
       case "hindcasting":
         return (
-          <Badge variant="blue" className="font-mono text-[10px] uppercase">
-            Hindcast Active
+          <Badge variant="outline" className="font-mono text-[10px] uppercase rounded-sm border-sky-500/40 bg-sky-950/20 text-sky-400">
+            HINDCAST ACTIVE
           </Badge>
         );
       case "detecting":
         return (
-          <Badge variant="orange" className="font-mono text-[10px] uppercase">
-            SAR Ingestion
+          <Badge variant="outline" className="font-mono text-[10px] uppercase rounded-sm border-amber-500/40 bg-amber-950/20 text-amber-400">
+            SAR INGESTION
           </Badge>
         );
       default:
         return (
-          <Badge variant="secondary" className="font-mono text-[10px] uppercase">
+          <Badge variant="outline" className="font-mono text-[10px] uppercase rounded-sm border-slate-700 text-slate-400">
             {status}
           </Badge>
         );
@@ -264,44 +264,46 @@ export function CaseTable({
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         {/* Search Bar */}
         <div className="relative flex-1 max-w-md">
-          <Search className="absolute left-3 top-2.5 h-4 w-4 text-on-dark-muted" />
+          <Search className="absolute left-3 top-2.5 h-4 w-4 text-slate-500" />
           <Input
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search by case ID, region, vessel name, MMSI, or scene..."
-            className="pl-9 text-xs"
+            className="pl-9 text-xs rounded-sm border-[#1F2937] bg-[#111720] text-slate-200 placeholder:text-slate-500 font-mono"
           />
         </div>
 
-        {/* Status Filter Pills */}
+        {/* Status Filter Squared Segmented Controls */}
         <div className="flex flex-wrap items-center gap-1.5">
-          <span className="text-xs text-on-dark-muted font-medium mr-1 flex items-center gap-1">
-            <Filter className="h-3 w-3" /> Status:
+          <span className="text-xs text-slate-400 font-mono uppercase mr-1 flex items-center gap-1">
+            <Filter className="h-3 w-3 text-emerald-400" /> STATUS:
           </span>
-          {[
-            { id: "all", label: "All Cases" },
-            { id: "ready", label: "Ready" },
-            { id: "hindcasting", label: "Hindcasting" },
-            { id: "detecting", label: "Detecting" },
-          ].map((pill) => (
-            <button
-              key={pill.id}
-              type="button"
-              onClick={() => setStatusFilter(pill.id)}
-              className={`rounded-full px-3 py-1 text-xs font-semibold transition-colors ${
-                statusFilter === pill.id
-                  ? "bg-brand-green text-brand-teal-deep shadow"
-                  : "bg-brand-teal-deep border border-hairline-dark text-on-dark-muted hover:text-white"
-              }`}
-            >
-              {pill.label}
-            </button>
-          ))}
+          <div className="inline-flex rounded-sm border border-slate-800 bg-slate-900/60 p-0.5 font-mono">
+            {[
+              { id: "all", label: "ALL CASES" },
+              { id: "ready", label: "READY" },
+              { id: "hindcasting", label: "HINDCASTING" },
+              { id: "detecting", label: "DETECTING" },
+            ].map((pill) => (
+              <button
+                key={pill.id}
+                type="button"
+                onClick={() => setStatusFilter(pill.id)}
+                className={`rounded-sm px-2.5 py-1 text-[11px] font-semibold transition-colors ${
+                  statusFilter === pill.id
+                    ? "bg-emerald-500 text-slate-950 font-bold shadow-sm"
+                    : "text-slate-400 hover:text-slate-200 hover:bg-slate-800/40"
+                }`}
+              >
+                {pill.label}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
 
       {/* Incident Case Table */}
-      <div className="overflow-x-auto rounded-xl border border-hairline-dark bg-brand-teal-deep/90 shadow-xl backdrop-blur">
+      <div className="overflow-x-auto rounded-sm border border-[#1F2937] bg-[#111720] shadow-xl backdrop-blur">
         <table className="w-full text-left text-xs">
           {/* Table Header */}
           <thead className="border-b border-hairline-dark bg-white/5 font-semibold text-on-dark-muted">
@@ -384,80 +386,80 @@ export function CaseTable({
                           e.stopPropagation();
                           setSelectedChipCase(item);
                         }}
-                        className="group relative h-10 w-10 overflow-hidden rounded-md border border-hairline-dark bg-[#0a151e] p-0.5 hover:border-brand-green transition-colors"
+                        className="group relative h-9 w-9 overflow-hidden rounded-sm border border-[#1F2937] bg-[#0B0F14] p-0.5 hover:border-emerald-400 transition-colors"
                         title="Click to inspect calibrated SAR chip"
                       >
                         {/* Mini SVG Radar Thumbnail */}
                         <svg viewBox="0 0 256 256" className="w-full h-full">
-                          <rect width="256" height="256" fill="#0d1c26" />
+                          <rect width="256" height="256" fill="#0B0F14" />
                           <path
                             d="M 64,88 Q 90,60 138,72 T 196,118 Q 204,164 162,188 T 92,176 Q 52,142 64,88 Z"
-                            fill="#000e17"
-                            stroke="#00ed64"
+                            fill="#05080c"
+                            stroke="#10b981"
                             strokeWidth="8"
                           />
                         </svg>
-                        <div className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity">
-                          <Eye className="h-4 w-4 text-brand-green" />
+                        <div className="absolute inset-0 flex items-center justify-center bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity">
+                          <Eye className="h-4 w-4 text-emerald-400" />
                         </div>
                       </button>
                     </td>
 
                     {/* Surveillance Region */}
                     <td className="px-3 py-3">
-                      <div className="font-medium text-white flex items-center gap-1.5">
-                        <MapPin className="h-3.5 w-3.5 text-brand-green shrink-0" />
+                      <div className="font-medium text-slate-200 flex items-center gap-1.5">
+                        <MapPin className="h-3.5 w-3.5 text-emerald-400 shrink-0" />
                         <span className="truncate max-w-[180px]">{item.regionName}</span>
                       </div>
-                      <div className="font-mono text-[10px] text-on-dark-muted pl-5">
-                        {item.coordinates[1].toFixed(2)}&deg; N, {item.coordinates[0].toFixed(2)}&deg; E
+                      <div className="font-mono text-[10px] text-slate-400 pl-5 tabular-nums">
+                        {item.coordinates[1].toFixed(4)}° N, {item.coordinates[0].toFixed(4)}° E
                       </div>
                     </td>
 
                     {/* Sensor Instrument */}
-                    <td className="px-3 py-3">
-                      <div className="font-medium text-white">{item.sensor}</div>
-                      <div className="font-mono text-[10px] text-brand-green-soft truncate max-w-[150px]">
+                    <td className="px-3 py-3 font-mono">
+                      <div className="font-medium text-slate-200 text-xs">{item.sensor}</div>
+                      <div className="font-mono text-[10px] text-emerald-400/80 truncate max-w-[150px]">
                         {item.sceneRef}
                       </div>
                     </td>
 
                     {/* Acquisition Time */}
-                    <td className="px-3 py-3 font-mono text-xs">
-                      <div className="text-white flex items-center gap-1">
-                        <Clock className="h-3 w-3 text-on-dark-muted" />
+                    <td className="px-3 py-3 font-mono text-xs tabular-nums">
+                      <div className="text-slate-300 flex items-center gap-1">
+                        <Clock className="h-3 w-3 text-slate-500" />
                         <span>{formattedDate}</span>
                       </div>
                     </td>
 
                     {/* Slick Footprint */}
-                    <td className="px-3 py-3 font-mono text-xs">
-                      <div className="font-bold text-white">{item.areaKm2} km&sup2;</div>
+                    <td className="px-3 py-3 font-mono text-xs tabular-nums">
+                      <div className="font-bold text-slate-200">{item.areaKm2} km²</div>
                       {item.volumeM3 && (
-                        <div className="text-[10px] text-on-dark-muted">~{item.volumeM3} m&sup3;</div>
+                        <div className="text-[10px] text-slate-500">~{item.volumeM3} m³</div>
                       )}
                     </td>
 
                     {/* Top Candidate Suspect (Rule 1 & Rule 6) */}
-                    <td className="px-3 py-3">
+                    <td className="px-3 py-3 font-mono">
                       {item.topCandidate ? (
                         <div className="space-y-0.5">
-                          <div className="font-semibold text-white flex items-center gap-1.5">
-                            <Anchor className="h-3 w-3 text-brand-green shrink-0" />
+                          <div className="font-semibold text-slate-200 flex items-center gap-1.5">
+                            <Anchor className="h-3 w-3 text-emerald-400 shrink-0" />
                             <span className="truncate max-w-[140px]">{item.topCandidate.name}</span>
                           </div>
-                          <div className="flex items-center gap-2 font-mono text-[10px]">
-                            <span className="text-brand-green font-bold">
+                          <div className="flex items-center gap-2 text-[10px] tabular-nums">
+                            <span className="text-emerald-400 font-bold">
                               S: {item.topCandidate.score.toFixed(3)}
                             </span>
-                            <span className="text-hairline-dark">|</span>
-                            <span className="text-on-dark-muted">
+                            <span className="text-slate-700">│</span>
+                            <span className="text-slate-400">
                               {item.topCandidate.confidencePct.toFixed(1)}% CI
                             </span>
                           </div>
                         </div>
                       ) : (
-                        <span className="text-[11px] text-on-dark-muted italic">
+                        <span className="text-[11px] text-slate-500 italic">
                           Correlating tracks...
                         </span>
                       )}
@@ -478,7 +480,7 @@ export function CaseTable({
                                 e.stopPropagation();
                                 setSelectedChipCase(item);
                               }}
-                              className="h-7 w-7 text-on-dark-muted hover:text-white"
+                              className="h-7 w-7 rounded-sm text-slate-400 hover:text-slate-100 hover:bg-slate-800"
                             >
                               <Radar className="h-3.5 w-3.5" />
                             </Button>
@@ -488,11 +490,11 @@ export function CaseTable({
 
                         <Link href="/">
                           <Button
-                            variant="secondary"
+                            variant="outline"
                             size="sm"
-                            className="h-7 px-2.5 text-[11px] font-semibold gap-1"
+                            className="h-7 px-2.5 text-[11px] font-mono font-semibold gap-1 rounded-sm border-slate-700 bg-slate-900 text-slate-200 hover:bg-slate-800"
                           >
-                            <span>War Room</span>
+                            <span>WAR ROOM</span>
                             <ChevronRight className="h-3 w-3" />
                           </Button>
                         </Link>

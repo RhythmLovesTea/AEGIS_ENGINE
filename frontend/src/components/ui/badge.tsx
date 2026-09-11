@@ -4,28 +4,28 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const badgeVariants = cva(
-  "inline-flex items-center rounded-sm px-2 py-0.5 text-xs font-bold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2",
+  "inline-flex items-center rounded-sm px-2 py-0.5 text-[11px] font-mono font-medium tracking-tight tabular-nums transition-colors focus:outline-none",
   {
     variants: {
       variant: {
         default:
-          "bg-brand-green text-brand-teal-deep hover:bg-brand-green/90",
+          "border border-emerald-500/40 bg-emerald-500/15 text-emerald-300",
         green:
-          "bg-brand-green text-brand-teal-deep hover:bg-brand-green/90",
+          "border border-emerald-500/40 bg-emerald-500/15 text-emerald-300",
         greenSoft:
-          "bg-brand-green-soft text-brand-green-dark rounded-full px-2.5 py-0.5",
+          "border border-emerald-500/30 bg-emerald-500/10 text-emerald-400 px-2 py-0.5 rounded-sm",
         purple:
-          "bg-accent-purple text-white hover:bg-accent-purple/90",
+          "border border-purple-500/40 bg-purple-500/15 text-purple-300",
         orange:
-          "bg-accent-orange text-white hover:bg-accent-orange/90",
+          "border border-amber-500/40 bg-amber-500/15 text-amber-300",
         blue:
-          "bg-accent-blue text-white hover:bg-accent-blue/90",
+          "border border-sky-500/40 bg-sky-500/15 text-sky-300",
         secondary:
-          "bg-hairline-dark text-on-dark hover:bg-hairline-dark/80",
+          "border border-slate-800 bg-slate-900/80 text-slate-300",
         destructive:
-          "bg-destructive text-destructive-foreground hover:bg-destructive/90",
+          "border border-red-500/40 bg-red-500/15 text-red-300",
         outline:
-          "border border-hairline-dark text-on-dark",
+          "border border-slate-800 bg-slate-900/60 text-slate-300",
       },
     },
     defaultVariants: {

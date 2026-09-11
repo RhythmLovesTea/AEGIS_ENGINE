@@ -141,15 +141,15 @@ export function AHPRadarChart({
             </radialGradient>
           </defs>
 
-          {/* 1. Background Grid Rings */}
+          {/* 1. Background Neutral Grid Rings */}
           {gridPolygons.map(({ level, points }) => (
             <polygon
               key={level}
               points={points}
               fill="transparent"
-              stroke="#1c2d38"
+              stroke="#1F2937"
               strokeWidth="1"
-              strokeDasharray={level === 1.0 ? undefined : "2 2"}
+              strokeDasharray={level === 1.0 ? undefined : "3 3"}
             />
           ))}
 
@@ -161,7 +161,7 @@ export function AHPRadarChart({
                 key={lvl}
                 x={cx + 4}
                 y={yPos + 3}
-                fill="#5c6c7a"
+                fill="#475569"
                 fontSize="9"
                 fontFamily="monospace"
               >
@@ -181,8 +181,9 @@ export function AHPRadarChart({
                 y1={cy}
                 x2={endCoords.x}
                 y2={endCoords.y}
-                stroke={isHovered ? "#00ed64" : "#1c2d38"}
+                stroke={isHovered ? "#10B981" : "#1F2937"}
                 strokeWidth={isHovered ? "1.5" : "1"}
+                strokeDasharray="2 2"
                 className="transition-colors duration-200"
               />
             );
@@ -191,20 +192,20 @@ export function AHPRadarChart({
           {/* 3. Regional Fleet Baseline Polygon */}
           <polygon
             points={benchmarkPoints}
-            fill="url(#benchmarkGradient)"
-            stroke="#5c6c7a"
-            strokeWidth="1.5"
-            strokeDasharray="4 4"
+            fill="rgba(100, 116, 139, 0.08)"
+            stroke="#475569"
+            strokeWidth="1"
+            strokeDasharray="3 3"
             className="transition-all duration-300"
           />
 
-          {/* 4. Candidate Evaluation Polygon */}
+          {/* 4. Candidate Evaluation Polygon: Tactical Emerald with 1.5px stroke */}
           <polygon
             points={candidatePoints}
-            fill="url(#candidateGradient)"
-            stroke="#00ed64"
-            strokeWidth="2.5"
-            className="transition-all duration-300 drop-shadow-[0_0_8px_rgba(0,237,100,0.3)]"
+            fill="rgba(16, 185, 129, 0.12)"
+            stroke="#10B981"
+            strokeWidth="1.5"
+            className="transition-all duration-300"
           />
 
           {/* 5. Interactive Vertex Dots & Values */}
@@ -223,14 +224,13 @@ export function AHPRadarChart({
                 onMouseEnter={() => setHoveredAxis(axis.key)}
                 onMouseLeave={() => setHoveredAxis(null)}
               >
-                {/* Glowing Outer Ring */}
                 <circle
                   cx={coords.x}
                   cy={coords.y}
-                  r={isHovered ? 6 : 4}
-                  fill="#00ed64"
-                  stroke="#001e2b"
-                  strokeWidth="2"
+                  r={isHovered ? 4.5 : 3}
+                  fill="#10B981"
+                  stroke="#0B0F14"
+                  strokeWidth="1.5"
                   className="transition-all duration-200"
                 />
               </g>

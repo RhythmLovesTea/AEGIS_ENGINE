@@ -248,7 +248,7 @@ export function MarineMap({
 
   return (
     <MapContext.Provider value={{ map: mapInstance, viewport }}>
-      <div className={`relative overflow-hidden rounded-xl border border-hairline-dark bg-brand-teal-deep ${className}`}>
+      <div className={`relative overflow-hidden rounded-sm border border-[#1F2937] bg-[#0B0F14] ${className}`}>
         {/* MapLibre Canvas Host Container */}
         <div ref={mapContainerRef} className="h-full w-full" />
 
@@ -258,38 +258,36 @@ export function MarineMap({
         </div>
 
         {/* Floating Quick Action Buttons (Top Right, below standard map controls) */}
-        <div className="absolute right-4 top-28 z-10 flex flex-col gap-2">
-          <Button
-            variant="secondary"
-            size="icon"
+        <div className="absolute right-4 top-28 z-10 flex flex-col gap-1.5">
+          <button
+            type="button"
             onClick={handleResetBearing}
             title="Reset Heading to True North"
-            className="h-9 w-9 bg-brand-teal-deep/90 border-hairline-dark backdrop-blur"
+            className="h-7 w-7 flex items-center justify-center rounded-sm bg-[#111720]/90 border border-slate-800 text-slate-300 hover:text-white hover:border-slate-600 backdrop-blur-sm shadow"
           >
-            <Compass className="h-4 w-4 text-brand-green" />
-          </Button>
-          <Button
-            variant="secondary"
-            size="icon"
+            <Compass className="h-3.5 w-3.5 text-emerald-400" />
+          </button>
+          <button
+            type="button"
             onClick={handleFitIncidentEnvelope}
             title="Fit to Incident Envelope"
-            className="h-9 w-9 bg-brand-teal-deep/90 border-hairline-dark backdrop-blur"
+            className="h-7 w-7 flex items-center justify-center rounded-sm bg-[#111720]/90 border border-slate-800 text-slate-300 hover:text-white hover:border-slate-600 backdrop-blur-sm shadow"
           >
-            <Maximize2 className="h-4 w-4 text-white" />
-          </Button>
+            <Maximize2 className="h-3.5 w-3.5 text-slate-200" />
+          </button>
         </div>
 
         {/* Live Coordinate & Telemetry HUD Bar (Bottom Right) */}
-        <div className="absolute bottom-4 right-4 z-10 rounded-lg border border-hairline-dark bg-brand-teal-deep/90 px-3 py-1.5 font-mono text-xs text-on-dark-muted shadow-lg backdrop-blur">
-          <div className="flex items-center gap-3">
+        <div className="absolute bottom-4 right-4 z-10 rounded-sm border border-slate-800 bg-black/70 px-2 py-1 font-mono text-[11px] text-slate-300 shadow-xl backdrop-blur-sm tabular-nums">
+          <div className="flex items-center gap-2">
             <span>
               {mouseCoords
                 ? `${mouseCoords.lat >= 0 ? `${mouseCoords.lat.toFixed(4)}° N` : `${Math.abs(mouseCoords.lat).toFixed(4)}° S`}, ${mouseCoords.lng >= 0 ? `${mouseCoords.lng.toFixed(4)}° E` : `${Math.abs(mouseCoords.lng).toFixed(4)}° W`}`
                 : `${initialCenter[1].toFixed(4)}° N, ${initialCenter[0].toFixed(4)}° E`}
             </span>
-            <span className="text-hairline-dark">|</span>
+            <span className="text-slate-700">│</span>
             <span>Zoom: {currentZoom}</span>
-            <span className="text-hairline-dark">|</span>
+            <span className="text-slate-700">│</span>
             <span>HDG: {currentBearing}°</span>
           </div>
         </div>

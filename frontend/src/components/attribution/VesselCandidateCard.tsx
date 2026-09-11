@@ -58,40 +58,40 @@ export function VesselCandidateCard({
 
   const getRankBadge = (rankNum: number) => {
     if (rankNum === 1) {
-      return <Badge variant="green">Rank 1: Putative Source</Badge>;
+      return <Badge variant="outline" className="rounded-sm border-emerald-500/50 bg-emerald-950/40 text-emerald-400 font-mono text-[10px] font-bold">RANK 1: PUTATIVE SOURCE</Badge>;
     }
     if (rankNum === 2) {
-      return <Badge variant="blue">Rank 2: Candidate Suspect</Badge>;
+      return <Badge variant="outline" className="rounded-sm border-sky-500/50 bg-sky-950/40 text-sky-400 font-mono text-[10px] font-bold">RANK 2: CANDIDATE SUSPECT</Badge>;
     }
-    return <Badge variant="outline">Rank {rankNum}: Low Correlation</Badge>;
+    return <Badge variant="outline" className="rounded-sm border-slate-700 bg-slate-900/60 text-slate-400 font-mono text-[10px]">RANK {rankNum}: LOW CORRELATION</Badge>;
   };
 
   const getAisCoverageBadge = (coverage: AISCoverage | string) => {
     switch (coverage) {
       case "full":
         return (
-          <Badge variant="greenSoft" className="gap-1 font-mono text-[10px]">
-            <Radio className="h-3 w-3 text-brand-green-dark" />
-            <span>AIS: Continuous</span>
+          <Badge variant="outline" className="gap-1 font-mono text-[10px] rounded-sm border-emerald-500/40 bg-emerald-950/20 text-emerald-400">
+            <Radio className="h-3 w-3 text-emerald-400" />
+            <span>AIS: CONTINUOUS</span>
           </Badge>
         );
       case "dark_gap":
         return (
-          <Badge variant="orange" className="gap-1 font-mono text-[10px]">
+          <Badge variant="outline" className="gap-1 font-mono text-[10px] rounded-sm border-amber-500/40 bg-amber-950/20 text-amber-400">
             <Radio className="h-3 w-3" />
-            <span>AIS: Transponder Gap</span>
+            <span>AIS: TRANSPONDER GAP</span>
           </Badge>
         );
       case "non_ais_unknown":
         return (
-          <Badge variant="purple" className="gap-1 font-mono text-[10px]">
+          <Badge variant="outline" className="gap-1 font-mono text-[10px] rounded-sm border-purple-500/40 bg-purple-950/20 text-purple-400">
             <AlertTriangle className="h-3 w-3" />
-            <span>Non-AIS Target</span>
+            <span>NON-AIS TARGET</span>
           </Badge>
         );
       default:
         return (
-          <Badge variant="secondary" className="font-mono text-[10px]">
+          <Badge variant="outline" className="font-mono text-[10px] rounded-sm border-slate-700 text-slate-400">
             AIS: {coverage}
           </Badge>
         );
@@ -100,18 +100,18 @@ export function VesselCandidateCard({
 
   return (
     <Card
-      className={`relative overflow-hidden transition-all duration-200 cursor-pointer ${
+      className={`relative overflow-hidden transition-all duration-200 cursor-pointer rounded-sm ${
         isSelected
-          ? "border-brand-green bg-brand-teal/60 ring-2 ring-brand-green/30"
+          ? "border-emerald-500 bg-[#161F2C] ring-1 ring-emerald-500/30"
           : rank === 1
-          ? "border-brand-green/40 hover:border-brand-green bg-brand-teal-deep/90 hover:bg-brand-teal/30"
-          : "border-hairline-dark hover:border-hairline-strong bg-brand-teal-deep/90 hover:bg-brand-teal/20"
+          ? "border-emerald-500/40 hover:border-emerald-400 bg-[#111720] hover:bg-[#161F2C]/50"
+          : "border-[#1F2937] hover:border-slate-600 bg-[#111720] hover:bg-[#161F2C]/40"
       } ${className}`}
       onClick={() => onSelect?.(candidate)}
       data-testid={`vessel-candidate-card-${candidate.mmsi}`}
     >
       {/* 1. Header: Rank, Coverage & Identity */}
-      <CardHeader className="pb-3">
+      <CardHeader className="pb-3 border-b border-[#1F2937]">
         <div className="flex items-center justify-between gap-2">
           {getRankBadge(rank)}
           {getAisCoverageBadge(candidate.ais_coverage)}
@@ -119,59 +119,59 @@ export function VesselCandidateCard({
 
         <div className="mt-2 flex items-start justify-between">
           <div>
-            <CardTitle className="text-xl font-bold text-white flex items-center gap-2">
-              <Anchor className="h-4 w-4 text-brand-green shrink-0" />
+            <CardTitle className="text-base font-bold font-mono text-slate-100 flex items-center gap-2">
+              <Anchor className="h-4 w-4 text-emerald-400 shrink-0" />
               <span>{candidate.name}</span>
             </CardTitle>
-            <CardDescription className="font-mono text-xs text-on-dark-muted mt-0.5">
-              MMSI: {candidate.mmsi} {candidate.imo ? `| IMO: ${candidate.imo}` : ""} | Flag:{" "}
+            <CardDescription className="font-mono text-xs text-slate-400 mt-0.5 tabular-nums">
+              MMSI: {candidate.mmsi} {candidate.imo ? `│ IMO: ${candidate.imo}` : ""} │ FLAG:{" "}
               {candidate.flag_state ?? "Unknown"}
             </CardDescription>
           </div>
 
-          <Badge variant="outline" className="text-[10px] font-mono shrink-0">
+          <Badge variant="outline" className="text-[10px] font-mono shrink-0 rounded-sm border-slate-700 text-slate-300">
             {candidate.vessel_type}
           </Badge>
         </div>
       </CardHeader>
 
-      <CardContent className="space-y-4 text-sm">
+      <CardContent className="space-y-4 pt-3 text-sm">
         {/* 2. Attribution Score & Paired Confidence Chip (Constitutional Rule 1) */}
-        <div className="rounded-xl border border-hairline-dark bg-white/5 p-3.5">
+        <div className="rounded-sm border border-[#1F2937] bg-[#0B0F14] p-3">
           <div className="flex items-center justify-between">
             <div className="space-y-0.5">
-              <div className="text-xs font-semibold text-on-dark-muted flex items-center gap-1.5">
-                <span>Attribution Score (S_culprit)</span>
+              <div className="text-[10px] font-mono font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
+                <span>ATTRIBUTION SCORE (S_CULPRIT)</span>
                 <Tooltip>
                   <TooltipTrigger asChild>
-                    <Info className="h-3 w-3 text-on-dark-muted cursor-help" />
+                    <Info className="h-3 w-3 text-slate-500 cursor-help" />
                   </TooltipTrigger>
                   <TooltipContent>
                     Multi-criteria AHP score evaluating spatial, temporal, kinematic, anomaly, and type dimensions.
                   </TooltipContent>
                 </Tooltip>
               </div>
-              <div className="flex items-baseline gap-1.5 font-mono">
+              <div className="flex items-baseline gap-1.5 font-mono tabular-nums">
                 <span
                   className={`text-2xl font-bold ${
-                    rank === 1 ? "text-brand-green" : "text-white"
+                    rank === 1 ? "text-emerald-400" : "text-slate-100"
                   }`}
                 >
                   {scoreFormatted}
                 </span>
-                <span className="text-xs text-on-dark-muted">/ 1.000</span>
+                <span className="text-xs text-slate-500">/ 1.000</span>
               </div>
             </div>
 
             {/* Constitutional Rule 1: Paired Confidence Badge */}
             <div className="text-right space-y-0.5">
-              <div className="text-[10px] uppercase font-semibold text-on-dark-muted">
-                Rule 1 Confidence
+              <div className="text-[9px] font-mono uppercase font-semibold text-slate-500">
+                RULE 1 CONFIDENCE
               </div>
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <div className="inline-flex items-center gap-1.5 rounded-lg border border-brand-green/30 bg-brand-green/10 px-2.5 py-1 font-mono text-xs text-brand-green font-bold shadow-sm">
-                    <ShieldCheck className="h-3.5 w-3.5 text-brand-green" />
+                  <div className="inline-flex items-center gap-1.5 rounded-sm border border-emerald-500/40 bg-emerald-950/30 px-2 py-0.5 font-mono text-xs text-emerald-400 font-bold tabular-nums">
+                    <ShieldCheck className="h-3.5 w-3.5 text-emerald-400" />
                     <span>{candidate.confidence.toFixed(1)}% CI</span>
                   </div>
                 </TooltipTrigger>
@@ -183,14 +183,14 @@ export function VesselCandidateCard({
           </div>
 
           {/* Visual Score Meter */}
-          <div className="mt-2.5 h-1.5 w-full overflow-hidden rounded-full bg-hairline-dark">
+          <div className="mt-2.5 h-1 w-full overflow-hidden rounded-sm bg-slate-800">
             <div
-              className={`h-full transition-all duration-500 rounded-full ${
+              className={`h-full transition-all duration-500 rounded-sm ${
                 rank === 1
-                  ? "bg-brand-green"
+                  ? "bg-emerald-500"
                   : rank === 2
-                  ? "bg-accent-blue"
-                  : "bg-on-dark-muted"
+                  ? "bg-sky-400"
+                  : "bg-slate-500"
               }`}
               style={{ width: `${Math.min(100, Math.max(0, normalizedScore))}%` }}
             />
@@ -199,30 +199,30 @@ export function VesselCandidateCard({
 
         {/* 3. Multi-Criteria AHP 5-Component Sub-Scores Breakdown (Rule 2) */}
         <div className="space-y-2">
-          <div className="flex items-center justify-between text-xs font-semibold text-on-dark-muted">
-            <span className="flex items-center gap-1">
-              <Sliders className="h-3 w-3 text-brand-green" />
-              AHP Dimensional Sub-Scores
+          <div className="flex items-center justify-between text-xs font-mono text-slate-400">
+            <span className="flex items-center gap-1 font-semibold uppercase tracking-wider text-[10px]">
+              <Sliders className="h-3 w-3 text-emerald-400" />
+              AHP DIMENSIONAL SUB-SCORES
             </span>
-            <span className="font-mono text-[10px]">Weights (CR &lt; 0.10)</span>
+            <span className="font-mono text-[10px] tabular-nums">WEIGHTS (CR &lt; 0.10)</span>
           </div>
 
           <div className="space-y-1.5">
             {[
-              { label: "Spatial Proximity", value: subScores.spatial, color: "bg-brand-green" },
-              { label: "Temporal Coincidence", value: subScores.temporal, color: "bg-brand-green-mid" },
-              { label: "Kinematic Heading", value: subScores.kinematic, color: "bg-accent-blue" },
-              { label: "Behavioral Anomaly", value: subScores.anomaly, color: "bg-accent-orange" },
-              { label: "Vessel Type Prior", value: subScores.type, color: "bg-accent-purple" },
+              { label: "Spatial Proximity", value: subScores.spatial, color: "bg-emerald-500" },
+              { label: "Temporal Coincidence", value: subScores.temporal, color: "bg-emerald-600" },
+              { label: "Kinematic Heading", value: subScores.kinematic, color: "bg-sky-400" },
+              { label: "Behavioral Anomaly", value: subScores.anomaly, color: "bg-amber-400" },
+              { label: "Vessel Type Prior", value: subScores.type, color: "bg-purple-400" },
             ].map((sub) => (
               <div key={sub.label} className="space-y-0.5">
-                <div className="flex justify-between text-[11px] font-mono">
-                  <span className="text-on-dark-muted">{sub.label}</span>
-                  <span className="font-semibold text-white">{sub.value.toFixed(1)}</span>
+                <div className="flex justify-between text-[11px] font-mono tabular-nums">
+                  <span className="text-slate-400">{sub.label}</span>
+                  <span className="font-semibold text-slate-200">{sub.value.toFixed(1)}</span>
                 </div>
-                <div className="h-1 w-full overflow-hidden rounded-full bg-hairline-dark">
+                <div className="h-1 w-full overflow-hidden rounded-sm bg-slate-800">
                   <div
-                    className={`h-full rounded-full ${sub.color}`}
+                    className={`h-full rounded-sm ${sub.color}`}
                     style={{ width: `${Math.min(100, Math.max(0, sub.value))}%` }}
                   />
                 </div>
@@ -232,28 +232,28 @@ export function VesselCandidateCard({
         </div>
 
         {/* 4. Physical Encounter Metrics */}
-        <div className="grid grid-cols-2 gap-2 text-xs border-t border-hairline-dark pt-3">
+        <div className="grid grid-cols-2 gap-2 text-xs border-t border-[#1F2937] pt-2.5 font-mono tabular-nums">
           <div className="flex justify-between">
-            <span className="text-on-dark-muted">CPA Proximity:</span>
-            <span className="font-mono font-medium text-white">
+            <span className="text-slate-500">CPA Proximity:</span>
+            <span className="font-medium text-slate-200">
               {rank === 1 ? "0.42 NM" : rank === 2 ? "2.15 NM" : "4.80 NM"}
             </span>
           </div>
           <div className="flex justify-between">
-            <span className="text-on-dark-muted">Temporal Offset:</span>
-            <span className="font-mono font-medium text-white">
+            <span className="text-slate-500">Temporal Offset:</span>
+            <span className="font-medium text-slate-200">
               {rank === 1 ? "-18 min" : rank === 2 ? "+42 min" : "+115 min"}
             </span>
           </div>
           <div className="flex justify-between">
-            <span className="text-on-dark-muted">Speed at CPA:</span>
-            <span className="font-mono font-medium text-white">
+            <span className="text-slate-500">Speed at CPA:</span>
+            <span className="font-medium text-slate-200">
               {rank === 1 ? "14.2 kts" : rank === 2 ? "18.5 kts" : "9.8 kts"}
             </span>
           </div>
           <div className="flex justify-between">
-            <span className="text-on-dark-muted">Heading Alignment:</span>
-            <span className="font-mono font-medium text-white">
+            <span className="text-slate-500">Heading Alignment:</span>
+            <span className="font-medium text-slate-200">
               {rank === 1 ? "198° (Δ 12°)" : rank === 2 ? "245° (Δ 59°)" : "085° (Δ 101°)"}
             </span>
           </div>
@@ -265,8 +265,8 @@ export function VesselCandidateCard({
             {candidate.anomaly_flags.map((flag) => (
               <Badge
                 key={flag}
-                variant="orange"
-                className="text-[10px] font-mono uppercase"
+                variant="outline"
+                className="text-[10px] font-mono uppercase rounded-sm border-amber-500/40 bg-amber-950/20 text-amber-400"
               >
                 {flag.replace(/_/g, " ")}
               </Badge>
@@ -275,30 +275,34 @@ export function VesselCandidateCard({
         )}
 
         {/* 6. Action Triggers */}
-        <div className="flex items-center gap-2 pt-2">
+        <div className="flex items-center gap-2 pt-1">
           <Button
-            variant="secondary"
+            variant="outline"
             size="sm"
             onClick={(e) => {
               e.stopPropagation();
               onInspectTrack?.(candidate);
             }}
-            className="flex-1 gap-1.5 text-xs font-semibold"
+            className="flex-1 gap-1.5 text-xs font-mono font-semibold rounded-sm border-slate-700 bg-slate-900/80 text-slate-200 hover:bg-slate-800"
           >
-            <Compass className="h-3.5 w-3.5 text-brand-green" />
-            <span>Inspect Trajectory</span>
+            <Compass className="h-3.5 w-3.5 text-emerald-400" />
+            <span>INSPECT TRAJECTORY</span>
           </Button>
 
           <Button
-            variant={rank === 1 ? "default" : "outline"}
+            variant="default"
             size="sm"
             onClick={(e) => {
               e.stopPropagation();
               onOpenExplainability?.(candidate);
             }}
-            className="gap-1 text-xs font-semibold"
+            className={`gap-1 text-xs font-mono font-semibold rounded-sm ${
+              rank === 1
+                ? "bg-emerald-600 hover:bg-emerald-500 text-slate-950"
+                : "bg-slate-800 hover:bg-slate-700 text-slate-200"
+            }`}
           >
-            <span>Explain</span>
+            <span>EXPLAIN</span>
             <ChevronRight className="h-3 w-3" />
           </Button>
         </div>

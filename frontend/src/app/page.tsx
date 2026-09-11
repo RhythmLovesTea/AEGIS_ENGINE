@@ -100,205 +100,261 @@ export default function ForensicWarRoomPage() {
   }, []);
 
   return (
-    <div className="flex min-h-screen flex-col bg-brand-teal-deep text-white">
+    <div className="flex min-h-screen flex-col bg-[#0B0F14] text-slate-100">
       {/* Top Navigation Bar */}
-      <header className="sticky top-0 z-40 border-b border-hairline-dark bg-brand-teal-deep/95 backdrop-blur">
-        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+      <header className="sticky top-0 z-40 border-b border-[#1F2937] bg-[#0B0F14]/95 backdrop-blur-md">
+        <div className="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-green text-brand-teal-deep shadow-md">
-              <Shield className="h-5 w-5" />
+            <div className="flex h-6 w-6 items-center justify-center rounded-sm bg-emerald-500/20 border border-emerald-500/40 text-emerald-400">
+              <Shield className="h-4 w-4" />
             </div>
-            <div>
-              <span className="text-base font-bold tracking-tight text-white">
-                AEGIS-Marine
-              </span>
-              <span className="ml-2 text-xs font-medium text-brand-green-soft">
-                Forensic Operations v2.0
-              </span>
-            </div>
+            <span className="text-xs font-mono font-semibold tracking-widest text-slate-300">
+              AEGIS-MARINE // FORENSICS v2.0
+            </span>
           </div>
 
-          <div className="flex items-center gap-3">
-            <Badge variant="greenSoft">
-              <span className="mr-1.5 inline-block h-2 w-2 rounded-full bg-brand-green animate-pulse" />
-              Surveillance Grid Active
-            </Badge>
-            <Link href="/cases">
-              <Button variant="secondary" size="sm" className="gap-1.5">
-                <Radar className="h-4 w-4 text-brand-green" />
-                <span>Incident Cases</span>
-              </Button>
-            </Link>
-            <Link href="/cases">
-              <Button variant="default" size="sm" className="gap-1.5">
-                <Activity className="h-4 w-4" />
-                <span>New Incident</span>
-              </Button>
-            </Link>
+          <div className="flex items-center gap-4">
+            {/* Live Status Indicator */}
+            <div className="flex items-center gap-2">
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
+              </span>
+              <span className="text-[11px] font-mono text-slate-400">
+                GRID: ONLINE [SENTINEL-1A + AIS]
+              </span>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <Link href="/cases">
+                <Button
+                  variant="secondary"
+                  size="sm"
+                  className="rounded-sm border border-slate-700 bg-slate-800/80 text-xs text-slate-200 hover:border-slate-500 gap-1.5 px-3 py-1.5 h-7"
+                >
+                  <Radar className="h-3.5 w-3.5 text-emerald-400" />
+                  <span>Incident Cases</span>
+                </Button>
+              </Link>
+              <Link href="/cases">
+                <button
+                  type="button"
+                  className="inline-flex items-center gap-1.5 border border-emerald-500/40 bg-emerald-500/10 text-emerald-400 hover:bg-emerald-500/20 text-xs px-3 py-1.5 rounded-sm font-mono font-medium transition-colors"
+                >
+                  <Activity className="h-3.5 w-3.5" />
+                  <span>New Incident</span>
+                </button>
+              </Link>
+            </div>
           </div>
         </div>
       </header>
 
       {/* Main War Room Canvas */}
-      <main className="mx-auto flex-1 max-w-7xl px-4 py-8 sm:px-6 lg:px-8 space-y-8">
+      <main className="mx-auto flex-1 max-w-7xl px-4 py-6 sm:px-6 lg:px-8 space-y-6">
         {/* Incident Context Banner */}
-        <div className="rounded-xl border border-hairline-dark bg-brand-teal/40 p-6 backdrop-blur">
+        <div className="rounded-sm border border-[#1F2937] bg-[#111720] p-4">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-            <div className="space-y-1">
-              <div className="flex items-center gap-2">
-                <Badge variant="purple">SAR Sentinel-1A</Badge>
-                <Badge variant="outline" className="font-mono text-xs">
-                  CASE-2026-0814-IN-BOM
-                </Badge>
-              </div>
-              <h1 className="text-2xl font-bold tracking-tight text-white sm:text-3xl">
+            <div className="space-y-2">
+              <h1 className="text-xl font-bold tracking-tight text-white sm:text-2xl font-sans">
                 Offshore Mumbai High Corridor Incident
               </h1>
-              <p className="font-mono text-xs text-on-dark-muted">
-                Origin Coordinates: 18.9250° N, 72.8258° E | UTC Time: 2026-08-14T03:42:00Z
-              </p>
+              {/* Structured Telemetry Header Strip */}
+              <div className="flex flex-wrap items-center gap-1.5 text-[11px] font-mono">
+                <span className="bg-slate-900/80 border border-slate-800 px-2 py-0.5 text-slate-300 rounded-sm">
+                  INCIDENT ID: BOM-2026-0814
+                </span>
+                <span className="text-slate-600 select-none">│</span>
+                <span className="bg-slate-900/80 border border-slate-800 px-2 py-0.5 text-slate-300 rounded-sm">
+                  ORIGIN: 18.9250°N, 72.8258°E
+                </span>
+                <span className="text-slate-600 select-none">│</span>
+                <span className="bg-slate-900/80 border border-slate-800 px-2 py-0.5 text-slate-300 rounded-sm">
+                  UTC: 2026-08-14 03:42:00Z
+                </span>
+                <span className="text-slate-600 select-none">│</span>
+                <span className="bg-slate-900/80 border border-slate-800 px-2 py-0.5 text-emerald-400 rounded-sm">
+                  SOURCE: SAR SENTINEL-1A
+                </span>
+              </div>
             </div>
 
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2">
               <Button
                 variant="secondary"
                 size="sm"
                 onClick={() => setIsDossierModalOpen(true)}
-                className="gap-1.5"
+                className="rounded-sm border border-slate-700 bg-slate-800/80 text-xs text-slate-200 hover:border-slate-500 gap-1.5 h-8 px-3"
               >
-                <FileText className="h-4 w-4" />
-                Forensic Dossier Summary
+                <FileText className="h-3.5 w-3.5" />
+                <span>Forensic Dossier Summary</span>
               </Button>
 
               <Button
-                variant="default"
+                variant="secondary"
                 size="sm"
                 onClick={() => setIsWhatIfDrawerOpen(true)}
-                className="gap-1.5"
+                className="rounded-sm border border-slate-700 bg-slate-800/80 text-xs text-slate-200 hover:border-slate-500 gap-1.5 h-8 px-3"
               >
-                <Sliders className="h-4 w-4" />
-                Simulate Scenario
+                <Sliders className="h-3.5 w-3.5" />
+                <span>Simulate Scenario</span>
               </Button>
             </div>
           </div>
         </div>
 
         {/* War Room Layout: Interactive Tabs & Primitives */}
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full space-y-6">
-          <TabsList className="border border-hairline-dark bg-brand-teal-deep/90">
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full space-y-4">
+          <TabsList className="border-b border-[#1F2937] bg-[#0B0F14]">
             <TabsTrigger value="map" className="gap-2">
-              <MapIcon className="h-4 w-4" />
+              <MapIcon className="h-3.5 w-3.5" />
               Geospatial Map Canvas
             </TabsTrigger>
             <TabsTrigger value="candidates" className="gap-2">
-              <Anchor className="h-4 w-4" />
+              <Anchor className="h-3.5 w-3.5" />
               Candidate Vessels
             </TabsTrigger>
             <TabsTrigger value="alternatives" className="gap-2">
-              <Scale className="h-4 w-4" />
+              <Scale className="h-3.5 w-3.5" />
               Alternative Hypotheses (Rule 5)
             </TabsTrigger>
             <TabsTrigger value="graph" className="gap-2">
-              <Network className="h-4 w-4" />
+              <Network className="h-3.5 w-3.5" />
               Evidence Graph (DAG)
             </TabsTrigger>
             <TabsTrigger value="hindcast" className="gap-2">
-              <Compass className="h-4 w-4" />
+              <Compass className="h-3.5 w-3.5" />
               Hindcast & Dispersion
             </TabsTrigger>
             <TabsTrigger value="layers" className="gap-2">
-              <Layers className="h-4 w-4" />
+              <Layers className="h-3.5 w-3.5" />
               Sensor Layers
             </TabsTrigger>
           </TabsList>
 
           {/* Geospatial Map Canvas Tab */}
           <TabsContent value="map" className="space-y-4">
-            {/* Live Interactive Demo Controls for Presentation */}
-            <div className="flex flex-wrap items-center justify-between gap-2 rounded-xl border border-hairline-dark bg-brand-teal/30 p-3 backdrop-blur">
-              <div className="flex items-center gap-2 text-xs">
-                <Badge variant="greenSoft" className="font-mono text-[10px] tracking-wide uppercase">
-                  Live Demo Controls
-                </Badge>
-                <span className="text-on-dark-muted hidden sm:inline">
-                  Click to show each analytical phase live on the map:
-                </span>
-              </div>
-              <div className="flex flex-wrap items-center gap-2">
-                <Button
-                  variant={isPlaying ? "default" : "secondary"}
-                  size="sm"
+            {/* Live Interconnected Phase Pipeline / Stepper */}
+            <div className="flex flex-wrap items-center justify-between gap-3 rounded-sm border border-[#1F2937] bg-[#111720] px-4 py-2.5">
+              <div className="flex flex-wrap items-center gap-2 font-mono text-xs">
+                {/* [ ▶ REPLAY ] button */}
+                <button
+                  type="button"
                   onClick={() => setIsPlaying((prev) => !prev)}
-                  className={`gap-1.5 text-xs font-bold ${
+                  className={`inline-flex items-center gap-1.5 rounded-sm border px-2.5 py-1 transition-all ${
                     isPlaying
-                      ? "bg-brand-green text-brand-teal-deep hover:bg-brand-green/90 shadow-md shadow-brand-green/20"
-                      : "border border-brand-green/50 text-brand-green hover:bg-brand-green/10"
+                      ? "border-emerald-400/60 bg-emerald-500/20 text-emerald-300"
+                      : "border-slate-700 bg-slate-900/60 text-slate-300 hover:border-slate-500 hover:text-white"
                   }`}
-                  title="Toggle 60 FPS live continuous animation replay across the Arabian Sea"
                 >
-                  {isPlaying ? <Pause className="h-3.5 w-3.5" /> : <Play className="h-3.5 w-3.5" />}
-                  <span>{isPlaying ? "Pause Replay" : "▶ Play Live Replay"}</span>
-                </Button>
+                  {isPlaying ? (
+                    <>
+                      <span className="relative flex h-1.5 w-1.5">
+                        <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+                        <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400" />
+                      </span>
+                      <Pause className="h-3 w-3" />
+                      <span>[ ⏸ PAUSE ]</span>
+                    </>
+                  ) : (
+                    <>
+                      <Play className="h-3 w-3 fill-current" />
+                      <span>[ ▶ REPLAY ]</span>
+                    </>
+                  )}
+                </button>
 
-                <Button
-                  variant="secondary"
-                  size="sm"
+                <span className="text-slate-700 select-none">│</span>
+
+                {/* (01) 15:42 SPILL ORIGIN */}
+                <button
+                  type="button"
                   onClick={() => {
                     setIsPlaying(false);
                     setSimulationSeconds(0);
                     setSimulationProgress(0);
                   }}
-                  className="gap-1.5 text-xs text-accent-orange hover:text-white"
-                  title="Show estimated discharge origin 12 hours prior to detection"
+                  className={`inline-flex items-center gap-1.5 rounded-sm border px-2.5 py-1 transition-all ${
+                    simulationSeconds === 0 && !isPlaying
+                      ? "border-amber-400/60 bg-amber-500/15 text-amber-300"
+                      : "border-transparent text-slate-400 hover:text-slate-200 hover:border-slate-800"
+                  }`}
                 >
-                  <Target className="h-3.5 w-3.5" />
-                  <span>1. Spill Origin (15:42)</span>
-                </Button>
+                  <span
+                    className={`h-1.5 w-1.5 rounded-full ${
+                      simulationSeconds === 0 && !isPlaying ? "bg-amber-400" : "bg-slate-600"
+                    }`}
+                  />
+                  <span>(01) 15:42 SPILL ORIGIN</span>
+                </button>
 
-                <Button
-                  variant="secondary"
-                  size="sm"
+                <span className="text-slate-700 select-none">───</span>
+
+                {/* (02) 21:42 SUSPECT CPA */}
+                <button
+                  type="button"
                   onClick={() => {
                     setIsPlaying(false);
                     setSimulationSeconds(540);
                     setSimulationProgress(0.5);
                   }}
-                  className="gap-1.5 text-xs text-sky-400 hover:text-white"
-                  title="Show MT PACIFIC TRADER crossing origin envelope at CPA"
+                  className={`inline-flex items-center gap-1.5 rounded-sm border px-2.5 py-1 transition-all ${
+                    Math.abs(simulationSeconds - 540) < 30 && !isPlaying
+                      ? "border-sky-400/60 bg-sky-500/15 text-sky-300"
+                      : "border-transparent text-slate-400 hover:text-slate-200 hover:border-slate-800"
+                  }`}
                 >
-                  <Ship className="h-3.5 w-3.5" />
-                  <span>2. Suspect CPA (21:42)</span>
-                </Button>
+                  <span
+                    className={`h-1.5 w-1.5 rounded-full ${
+                      Math.abs(simulationSeconds - 540) < 30 && !isPlaying ? "bg-sky-400" : "bg-slate-600"
+                    }`}
+                  />
+                  <span>(02) 21:42 SUSPECT CPA</span>
+                </button>
 
-                <Button
-                  variant="secondary"
-                  size="sm"
+                <span className="text-slate-700 select-none">───</span>
+
+                {/* (03) 03:42 SAR DETECT */}
+                <button
+                  type="button"
                   onClick={() => {
                     setIsPlaying(false);
                     setSimulationSeconds(1080);
                     setSimulationProgress(1.0);
                   }}
-                  className="gap-1.5 text-xs text-brand-green hover:text-white"
-                  title="Show Sentinel-1A SAR observed oil slick polygon"
-                >
-                  <Radar className="h-3.5 w-3.5" />
-                  <span>3. SAR Detection (03:42)</span>
-                </Button>
-
-                <Button
-                  variant={showForecast ? "default" : "secondary"}
-                  size="sm"
-                  onClick={() => setShowForecast((prev) => !prev)}
-                  className={`gap-1.5 text-xs ${
-                    showForecast
-                      ? "bg-accent-orange text-white hover:bg-accent-orange/90"
-                      : "text-on-dark-muted hover:text-white"
+                  className={`inline-flex items-center gap-1.5 rounded-sm border px-2.5 py-1 transition-all ${
+                    simulationSeconds === 1080 && !isPlaying
+                      ? "border-emerald-400/60 bg-emerald-500/15 text-emerald-300"
+                      : "border-transparent text-slate-400 hover:text-slate-200 hover:border-slate-800"
                   }`}
-                  title="Toggle 24-hour forward drift forecast and shoreline beaching risk"
                 >
-                  <AlertTriangle className="h-3.5 w-3.5" />
-                  <span>4. {showForecast ? "Hide" : "Show"} +24h Beaching Forecast</span>
-                </Button>
+                  <span
+                    className={`h-1.5 w-1.5 rounded-full ${
+                      simulationSeconds === 1080 && !isPlaying ? "bg-emerald-400" : "bg-slate-600"
+                    }`}
+                  />
+                  <span>(03) 03:42 SAR DETECT</span>
+                </button>
+
+                <span className="text-slate-700 select-none">───</span>
+
+                {/* [ ⚠ +24H FORECAST ] */}
+                <button
+                  type="button"
+                  onClick={() => setShowForecast((prev) => !prev)}
+                  className={`inline-flex items-center gap-1.5 rounded-sm border px-2.5 py-1 transition-all ${
+                    showForecast
+                      ? "border-amber-500/60 bg-amber-500/15 text-amber-300"
+                      : "border-slate-800 bg-slate-900/40 text-slate-500 hover:text-slate-300"
+                  }`}
+                >
+                  <span
+                    className={`h-1.5 w-1.5 rounded-full ${
+                      showForecast ? "bg-amber-400" : "bg-slate-600"
+                    }`}
+                  />
+                  <span>[ ⚠ +24H FORECAST ]</span>
+                </button>
               </div>
             </div>
 

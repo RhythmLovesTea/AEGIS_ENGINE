@@ -637,80 +637,50 @@ export function EvidenceGraphView({
   const NODE_HEIGHT = 86;
 
   return (
-    <div className={`flex flex-col gap-6 ${className}`}>
-      {/* Header Metric Bar & Controls */}
-      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 rounded-xl border border-hairline-dark bg-brand-teal-deep/90 p-5 backdrop-blur">
-        <div className="space-y-1">
-          <div className="flex items-center gap-2.5">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-green/20 text-brand-green border border-brand-green/30">
-              <Network className="h-4 w-4" />
-            </div>
-            <div>
-              <h2 className="text-lg font-bold tracking-tight text-white flex items-center gap-2">
-                Causal Evidence Graph
-                <Badge variant="outline" className="border-brand-green/40 text-brand-green font-mono text-[11px]">
-                  DAG Verified
-                </Badge>
-              </h2>
-              <p className="text-xs text-on-dark-muted">
-                Topological Bayesian reconstruction linking sensor observations down to candidate vessels & counterfactuals
-              </p>
-            </div>
-          </div>
+    <div className={`flex flex-col gap-5 ${className}`}>
+      {/* Header Unified Forensic Status Bar */}
+      <div className="flex flex-wrap items-center justify-between gap-3 rounded-sm border border-[#1F2937] bg-[#111720] px-4 py-2.5">
+        <div className="flex items-center gap-2.5">
+          <Network className="h-4 w-4 text-emerald-400" />
+          <span className="text-xs font-mono font-bold uppercase tracking-wider text-slate-200">
+            CAUSAL EVIDENCE GRAPH // TOPOLOGICAL BAYESIAN RECONSTRUCTION
+          </span>
         </div>
 
-        {/* Global Evidence Integrity KPI Strip */}
-        <div className="flex flex-wrap items-center gap-3">
-          <div className="rounded-lg border border-hairline-dark bg-brand-teal/30 px-3.5 py-1.5 flex items-center gap-2">
-            <span className="text-[11px] text-on-dark-muted font-medium">Nodes:</span>
-            <span className="font-mono text-xs font-bold text-white">{nodes.length}</span>
-            <span className="text-hairline-dark">|</span>
-            <span className="text-[11px] text-on-dark-muted font-medium">Causal Edges:</span>
-            <span className="font-mono text-xs font-bold text-white">{edges.length}</span>
-          </div>
-
-          <div className="rounded-lg border border-emerald-500/30 bg-emerald-950/40 px-3.5 py-1.5 flex items-center gap-2">
-            <ShieldCheck className="h-3.5 w-3.5 text-brand-green" />
-            <span className="text-[11px] text-emerald-200">Rule 1 Mean Confidence:</span>
-            <span className="font-mono text-xs font-bold text-brand-green">
-              {confidencePct.toFixed(1)}% CI
-            </span>
-          </div>
-
-          <div className="rounded-lg border border-hairline-dark bg-brand-teal/30 px-3.5 py-1.5 flex items-center gap-2">
-            <CheckCircle2 className="h-3.5 w-3.5 text-sky-400" />
-            <span className="text-[11px] text-sky-200">DAG Topology:</span>
-            <span className="font-mono text-xs font-semibold text-white">Acyclic Validated</span>
-          </div>
+        {/* Global Evidence Integrity Monospace Metric Strip */}
+        <div className="flex flex-wrap items-center gap-2 font-mono text-xs tabular-nums text-slate-300">
+          <span className="text-emerald-400 font-semibold">DAG TOPOLOGY: VALIDATED (ACYCLIC)</span>
+          <span className="text-slate-700">│</span>
+          <span className="text-slate-400">NODES: <strong className="text-slate-100">{nodes.length}</strong></span>
+          <span className="text-slate-700">│</span>
+          <span className="text-slate-400">EDGES: <strong className="text-slate-100">{edges.length}</strong></span>
+          <span className="text-slate-700">│</span>
+          <span className="text-slate-400">CONFIDENCE INTERVAL: <strong className="text-emerald-400">{confidencePct.toFixed(1)}% CI</strong></span>
         </div>
       </div>
 
       {/* Main Graph Canvas & Node Detail Inspector Split */}
-      <div className="grid grid-cols-1 xl:grid-cols-12 gap-6 items-start">
+      <div className="grid grid-cols-1 xl:grid-cols-12 gap-5 items-start">
         {/* Left / Main: SVG DAG Canvas */}
-        <div className="xl:col-span-8 flex flex-col rounded-xl border border-hairline-dark bg-brand-teal-deep shadow-2xl overflow-hidden">
-          {/* Canvas Sub-Header: Filter Pills & Zoom Controls */}
-          <div className="flex flex-wrap items-center justify-between gap-3 border-b border-hairline-dark bg-brand-teal/20 px-4 py-3">
-            {/* Filter Pills */}
-            <div className="flex flex-wrap items-center gap-1.5">
-              <span className="text-xs text-on-dark-muted flex items-center gap-1 mr-1">
-                <Filter className="h-3 w-3" />
-                Filter:
-              </span>
+        <div className="xl:col-span-8 flex flex-col rounded-sm border border-[#1F2937] bg-[#111720] shadow-2xl overflow-hidden">
+          {/* Canvas Sub-Header: Squared Segmented Filter Toolbar & Zoom Controls */}
+          <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[#1F2937] bg-[#0B0F14]/80 px-4 py-2.5">
+            {/* Squared Segmented Filter Toolbar */}
+            <div className="inline-flex rounded-sm border border-slate-800 bg-slate-900/60 p-0.5">
               {[
-                { id: "all", label: "All Layers" },
-                { id: "observation", label: "Observation & Origin" },
-                { id: "vessel", label: "AIS & Candidate" },
-                { id: "anomalies", label: "Anomalies" },
-                { id: "alternatives", label: "Alternatives & Sim" },
+                { id: "all", label: "ALL LAYERS" },
+                { id: "observation", label: "OBSERVATION & ORIGIN" },
+                { id: "vessel", label: "AIS & CANDIDATE" },
+                { id: "anomalies", label: "ANOMALIES" },
+                { id: "alternatives", label: "ALTERNATIVES & SIM" },
               ].map((f) => (
                 <button
                   key={f.id}
                   onClick={() => setActiveFilter(f.id)}
-                  className={`rounded-md px-2.5 py-1 text-xs font-medium transition-all ${
+                  className={`rounded-sm px-2.5 py-1 text-[11px] font-mono transition-all ${
                     activeFilter === f.id
-                      ? "bg-brand-green text-brand-teal-deep shadow-sm font-semibold"
-                      : "bg-brand-teal/40 text-on-dark-muted hover:bg-brand-teal hover:text-white"
+                      ? "bg-emerald-500 text-slate-950 font-bold shadow-sm"
+                      : "text-slate-400 hover:text-slate-200 hover:bg-slate-800/50"
                   }`}
                 >
                   {f.label}
@@ -719,44 +689,44 @@ export function EvidenceGraphView({
             </div>
 
             {/* Canvas Pan/Zoom Controls */}
-            <div className="flex items-center gap-1">
+            <div className="flex items-center gap-1 font-mono">
               <Button
-                variant="secondary"
+                variant="outline"
                 size="sm"
-                className="h-7 w-7 p-0"
+                className="h-7 w-7 p-0 rounded-sm border-slate-800 bg-[#0B0F14] text-slate-300 hover:bg-slate-800"
                 onClick={handleZoomIn}
                 title="Zoom In"
               >
                 <Plus className="h-3.5 w-3.5" />
               </Button>
-              <span className="font-mono text-[11px] text-on-dark-muted px-1.5">
+              <span className="font-mono text-[11px] text-slate-400 px-1.5 tabular-nums">
                 {Math.round(zoomLevel * 100)}%
               </span>
               <Button
-                variant="secondary"
+                variant="outline"
                 size="sm"
-                className="h-7 w-7 p-0"
+                className="h-7 w-7 p-0 rounded-sm border-slate-800 bg-[#0B0F14] text-slate-300 hover:bg-slate-800"
                 onClick={handleZoomOut}
                 title="Zoom Out"
               >
                 <Minus className="h-3.5 w-3.5" />
               </Button>
               <Button
-                variant="secondary"
+                variant="outline"
                 size="sm"
-                className="h-7 px-2 text-xs gap-1"
+                className="h-7 px-2 text-[11px] font-mono rounded-sm border-slate-800 bg-[#0B0F14] text-slate-300 hover:bg-slate-800 gap-1"
                 onClick={handleResetView}
                 title="Reset Canvas View"
               >
                 <RotateCcw className="h-3 w-3" />
-                Reset
+                RESET
               </Button>
             </div>
           </div>
 
           {/* Canvas Viewport */}
           <div
-            className="relative h-[680px] w-full overflow-hidden bg-[#00141e] cursor-grab active:cursor-grabbing select-none"
+            className="relative h-[680px] w-full overflow-hidden bg-[#0B0F14] cursor-grab active:cursor-grabbing select-none"
             onMouseDown={handleMouseDown}
             onMouseMove={handleMouseMove}
             onMouseUp={handleMouseUp}
@@ -764,9 +734,9 @@ export function EvidenceGraphView({
           >
             {/* Subtle Cartographic Grid Pattern */}
             <div
-              className="absolute inset-0 pointer-events-none opacity-20"
+              className="absolute inset-0 pointer-events-none opacity-15"
               style={{
-                backgroundImage: `radial-gradient(circle at 1px 1px, rgba(0, 237, 100, 0.25) 1px, transparent 0)`,
+                backgroundImage: `radial-gradient(circle at 1px 1px, rgba(16, 185, 129, 0.3) 1px, transparent 0)`,
                 backgroundSize: "28px 28px",
               }}
             />
@@ -792,7 +762,7 @@ export function EvidenceGraphView({
                   markerHeight="7"
                   orient="auto-start-reverse"
                 >
-                  <path d="M 0 1 L 9 5 L 0 9 z" fill="#38bdf8" />
+                  <path d="M 0 1 L 9 5 L 0 9 z" fill="#64748b" />
                 </marker>
                 <marker
                   id="dag-arrow-active"
@@ -803,7 +773,7 @@ export function EvidenceGraphView({
                   markerHeight="8"
                   orient="auto-start-reverse"
                 >
-                  <path d="M 0 1 L 9 5 L 0 9 z" fill="#00ed64" />
+                  <path d="M 0 1 L 9 5 L 0 9 z" fill="#10b981" />
                 </marker>
                 <marker
                   id="dag-arrow-dim"
@@ -814,13 +784,8 @@ export function EvidenceGraphView({
                   markerHeight="6"
                   orient="auto-start-reverse"
                 >
-                  <path d="M 0 1 L 9 5 L 0 9 z" fill="#1e3a47" />
+                  <path d="M 0 1 L 9 5 L 0 9 z" fill="#334155" />
                 </marker>
-
-                {/* Soft glow filter for active elements */}
-                <filter id="emerald-glow" x="-20%" y="-20%" width="140%" height="140%">
-                  <feDropShadow dx="0" dy="0" stdDeviation="6" floodColor="#00ed64" floodOpacity="0.4" />
-                </filter>
               </defs>
 
               {/* Clickable Canvas BG for Deselection */}
@@ -890,10 +855,9 @@ export function EvidenceGraphView({
                       <path
                         d={pathD}
                         fill="none"
-                        stroke={isConnected ? "#00ed64" : "#0284c7"}
-                        strokeWidth={isConnected ? 2.5 : 1.5}
-                        strokeOpacity={isConnected ? 0.95 : 0.4}
-                        strokeDasharray={isConnected ? "none" : "none"}
+                        stroke={isConnected ? "#10b981" : "#475569"}
+                        strokeWidth={isConnected ? 2.0 : 1.2}
+                        strokeOpacity={isConnected ? 0.95 : 0.45}
                         markerEnd={
                           isConnected
                             ? "url(#dag-arrow-active)"
@@ -901,27 +865,26 @@ export function EvidenceGraphView({
                         }
                       />
 
-                      {/* Edge Relation Badge Pill */}
+                      {/* Small Rectangular Edge Tag with Dark Border */}
                       <g
                         transform={`translate(${midX}, ${midY})`}
                         className="cursor-pointer"
                       >
                         <rect
-                          x="-58"
-                          y="-10"
-                          width="116"
-                          height="20"
-                          rx="10"
-                          fill={isConnected ? "#002b1f" : "#001e2b"}
-                          stroke={isConnected ? "#00ed64" : "#0284c7"}
+                          x="-56"
+                          y="-9"
+                          width="112"
+                          height="18"
+                          rx="2"
+                          fill="#0B0F14"
+                          stroke={isConnected ? "#10b981" : "#334155"}
                           strokeWidth={isConnected ? 1.5 : 1}
-                          strokeOpacity={isConnected ? 0.9 : 0.5}
                         />
                         <text
                           x="0"
-                          y="3"
+                          y="3.5"
                           textAnchor="middle"
-                          fill={isConnected ? "#00ed64" : "#93c5fd"}
+                          fill={isConnected ? "#10b981" : "#94a3b8"}
                           fontSize="9"
                           fontWeight="bold"
                           fontFamily="monospace"
@@ -944,6 +907,17 @@ export function EvidenceGraphView({
                   const cfg = NODE_CONFIGS[node.node_type] || NODE_CONFIGS.origin;
                   const Icon = cfg.icon;
 
+                  const accentColor =
+                    node.node_type === "vessel"
+                      ? "#10b981"
+                      : node.node_type === "slick"
+                      ? "#a855f7"
+                      : node.node_type === "origin"
+                      ? "#f59e0b"
+                      : node.node_type === "anomaly"
+                      ? "#f43f5e"
+                      : "#38bdf8";
+
                   return (
                     <g
                       key={node.id}
@@ -954,71 +928,53 @@ export function EvidenceGraphView({
                       }}
                       className="cursor-pointer transition-all duration-200 group"
                     >
-                      {/* Halo ring for selected node */}
+                      {/* Selection Box indicator */}
                       {isSelected && (
                         <rect
-                          x="-6"
-                          y="-6"
-                          width={NODE_WIDTH + 12}
-                          height={NODE_HEIGHT + 12}
-                          rx="16"
+                          x="-3"
+                          y="-3"
+                          width={NODE_WIDTH + 6}
+                          height={NODE_HEIGHT + 6}
+                          rx="4"
                           fill="none"
-                          stroke="#00ed64"
-                          strokeWidth="2.5"
-                          strokeDasharray="6 4"
-                          className="animate-spin-slow"
-                          style={{
-                            filter: "url(#emerald-glow)",
-                          }}
+                          stroke="#10b981"
+                          strokeWidth="1.5"
+                          strokeDasharray="4 3"
                         />
                       )}
 
-                      {/* Node Card Background */}
+                      {/* Sharp Rectangular Node Card (rounded-sm) */}
                       <rect
                         x="0"
                         y="0"
                         width={NODE_WIDTH}
                         height={NODE_HEIGHT}
-                        rx="12"
-                        fill="#001a24"
-                        stroke={isSelected ? "#00ed64" : "#1e3a47"}
-                        strokeWidth={isSelected ? 2 : 1.2}
-                        className="transition-colors group-hover:stroke-sky-400/80"
+                        rx="2"
+                        fill="#111720"
+                        stroke={isSelected ? "#10b981" : "#1F2937"}
+                        strokeWidth={isSelected ? 1.5 : 1}
+                        className="transition-colors group-hover:stroke-slate-500"
                       />
 
-                      {/* Header Color Accent Bar */}
+                      {/* 2px Top-Border Color Accent */}
                       <rect
                         x="0"
                         y="0"
                         width={NODE_WIDTH}
-                        height="4"
-                        rx="2"
-                        fill={
-                          isSelected
-                            ? "#00ed64"
-                            : node.node_type === "vessel"
-                            ? "#00ed64"
-                            : node.node_type === "slick"
-                            ? "#a855f7"
-                            : node.node_type === "origin"
-                            ? "#f59e0b"
-                            : node.node_type === "anomaly"
-                            ? "#f43f5e"
-                            : "#0284c7"
-                        }
+                        height="2"
+                        rx="0"
+                        fill={isSelected ? "#10b981" : accentColor}
                       />
 
-                      {/* Node Type Pill & Rule 1 Confidence Pill */}
-                      <foreignObject x="10" y="10" width={NODE_WIDTH - 20} height="24">
-                        <div className="flex items-center justify-between">
-                          <span
-                            className={`inline-flex items-center gap-1 rounded px-1.5 py-0.5 text-[9px] font-semibold tracking-wider uppercase ${cfg.badgeBg}`}
-                          >
-                            <Icon className="h-2.5 w-2.5" />
+                      {/* Node Header: Type & Rule 1 Confidence */}
+                      <foreignObject x="8" y="8" width={NODE_WIDTH - 16} height="22">
+                        <div className="flex items-center justify-between font-mono">
+                          <span className="inline-flex items-center gap-1 rounded-sm border border-slate-800 bg-slate-900/90 px-1.5 py-0.5 text-[9px] font-semibold tracking-wider uppercase text-slate-300">
+                            <Icon className="h-2.5 w-2.5 text-emerald-400" />
                             {cfg.layerLabel}
                           </span>
 
-                          <span className="inline-flex items-center rounded border border-hairline-dark bg-brand-teal-deep/80 px-1.5 py-0.5 font-mono text-[9px] font-bold text-brand-green">
+                          <span className="inline-flex items-center rounded-sm border border-slate-800 bg-slate-950/80 px-1.5 py-0.5 font-mono text-[9px] font-bold text-emerald-400 tabular-nums">
                             {node.confidence_pct.toFixed(1)}% CI
                           </span>
                         </div>
@@ -1026,50 +982,49 @@ export function EvidenceGraphView({
 
                       {/* Node Label Text */}
                       <text
-                        x="12"
-                        y="52"
-                        fill="#ffffff"
-                        fontSize="12"
+                        x="10"
+                        y="48"
+                        fill="#f1f5f9"
+                        fontSize="11"
                         fontWeight="bold"
-                        className="select-none font-sans"
+                        className="select-none font-mono tracking-tight"
                       >
-                        {node.label.length > 26 ? `${node.label.substring(0, 24)}...` : node.label}
+                        {node.label.length > 25 ? `${node.label.substring(0, 24)}...` : node.label}
                       </text>
 
-                      {/* Subtitle / Key Metric Property */}
+                      {/* Monospace Key-Value Subtext Row */}
                       <text
-                        x="12"
-                        y="70"
+                        x="10"
+                        y="68"
                         fill="#94a3b8"
                         fontSize="10"
                         fontFamily="monospace"
-                        className="select-none"
+                        className="select-none tabular-nums"
                       >
                         {node.node_type === "vessel"
-                          ? `S_culprit: ${node.properties?.s_culprit ?? "88.4"} / 100`
+                          ? `S_CULPRIT: ${node.properties?.s_culprit ?? "88.4"} / 100`
                           : node.node_type === "slick"
-                          ? `Area: ${node.properties?.surface_area_km2 ?? 4.82} km²`
+                          ? `SURFACE: ${node.properties?.surface_area_km2 ?? 4.82} km²`
                           : node.node_type === "origin"
-                          ? `Ellipse: ${node.properties?.ellipse_major_km ?? 3.2} km`
+                          ? `ELLIPSE: ${node.properties?.ellipse_major_km ?? 3.2} km`
                           : node.node_type === "time_window"
-                          ? `Spill Age: ${node.properties?.inferred_age_hours ?? 12.0}h`
+                          ? `SPILL AGE: ${node.properties?.inferred_age_hours ?? 12.0}h`
                           : node.node_type === "anomaly"
-                          ? `Speed: ${node.properties?.reduced_speed_kts ?? 6.2} kts`
+                          ? `SPEED: ${node.properties?.reduced_speed_kts ?? 6.2} kts`
                           : node.node_type === "counterfactual"
-                          ? `IoU: ${node.properties?.iou_pct ?? 84.8}%`
+                          ? `IOU: ${node.properties?.iou_pct ?? 84.8}%`
                           : node.node_type === "alternative_hypothesis"
-                          ? `Score: ${node.properties?.plausibility_score ?? 12.5}`
-                          : `Sens: Sentinel-1 C-SAR`}
+                          ? `SCORE: ${node.properties?.plausibility_score ?? 12.5}`
+                          : `SENSOR: S-1 C-SAR`}
                       </text>
 
-                      {/* Selected Indicator Pin */}
+                      {/* 6px Status LED Dot */}
                       {isSelected && (
                         <circle
-                          cx={NODE_WIDTH - 14}
+                          cx={NODE_WIDTH - 12}
                           cy="65"
-                          r="4"
-                          fill="#00ed64"
-                          className="animate-pulse"
+                          r="3"
+                          fill="#10b981"
                         />
                       )}
                     </g>
@@ -1078,26 +1033,26 @@ export function EvidenceGraphView({
               </g>
             </svg>
 
-            {/* Canvas Overlay Instructions */}
-            <div className="absolute bottom-3 left-4 pointer-events-none rounded-md border border-hairline-dark/60 bg-brand-teal-deep/80 px-2.5 py-1 text-[10px] text-on-dark-muted backdrop-blur flex items-center gap-2">
-              <span className="inline-block h-1.5 w-1.5 rounded-full bg-brand-green" />
-              <span>Click node to inspect forensic details | Drag canvas to pan</span>
+            {/* Canvas Overlay Monospace Status */}
+            <div className="absolute bottom-3 left-3 pointer-events-none rounded-sm border border-[#1F2937] bg-[#0B0F14]/90 px-2.5 py-1 text-[10px] font-mono text-slate-400 backdrop-blur flex items-center gap-2">
+              <span className="inline-block h-1.5 w-1.5 rounded-full bg-emerald-400" />
+              <span>CLICK NODE TO INSPECT FORENSIC PROPERTIES │ PAN: DRAG CANVAS</span>
             </div>
           </div>
         </div>
 
         {/* Right: Node Detail Inspector Panel */}
         <div className="xl:col-span-4 flex flex-col gap-4">
-          <Card className="border border-hairline-dark bg-brand-teal/20 backdrop-blur">
-            <CardHeader className="pb-3 border-b border-hairline-dark">
+          <Card className="rounded-sm border border-[#1F2937] bg-[#111720]">
+            <CardHeader className="pb-3 border-b border-[#1F2937]">
               <div className="flex items-center justify-between">
                 <Badge
                   variant="outline"
-                  className="font-mono text-[10px] uppercase tracking-wider text-brand-green border-brand-green/40"
+                  className="font-mono text-[10px] uppercase tracking-wider text-emerald-400 border-emerald-500/40 rounded-sm bg-emerald-950/20"
                 >
-                  Evidence Inspector
+                  EVIDENCE INSPECTOR
                 </Badge>
-                <Badge variant="purple" className="font-mono text-[10px]">
+                <Badge variant="outline" className="font-mono text-[10px] rounded-sm border-slate-700 bg-slate-900 text-slate-300">
                   ID: {selectedNode.id}
                 </Badge>
               </div>
@@ -1107,67 +1062,67 @@ export function EvidenceGraphView({
                   const cfg = NODE_CONFIGS[selectedNode.node_type] || NODE_CONFIGS.origin;
                   const Icon = cfg.icon;
                   return (
-                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-brand-teal-deep border border-hairline-dark text-brand-green">
-                      <Icon className="h-5 w-5" />
+                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-sm bg-[#0B0F14] border border-[#1F2937] text-emerald-400">
+                      <Icon className="h-4 w-4" />
                     </div>
                   );
                 })()}
 
                 <div className="space-y-0.5 min-w-0">
-                  <CardTitle className="text-base font-bold text-white truncate">
+                  <CardTitle className="text-sm font-bold font-mono text-slate-100 truncate">
                     {selectedNode.label}
                   </CardTitle>
-                  <CardDescription className="text-xs text-on-dark-muted capitalize">
-                    Entity Class: {selectedNode.node_type.replace(/_/g, " ")}
+                  <CardDescription className="text-xs font-mono text-slate-400 uppercase">
+                    CLASS: {selectedNode.node_type.replace(/_/g, " ")}
                   </CardDescription>
                 </div>
               </div>
             </CardHeader>
 
-            <CardContent className="pt-4 space-y-5 text-sm">
+            <CardContent className="pt-4 space-y-4 text-xs font-mono">
               {/* Rule 1 Confidence Card */}
-              <div className="flex items-center justify-between rounded-lg border border-emerald-500/30 bg-emerald-950/30 p-3">
+              <div className="flex items-center justify-between rounded-sm border border-[#1F2937] bg-[#0B0F14] p-2.5">
                 <div className="space-y-0.5">
-                  <span className="text-[11px] font-semibold uppercase tracking-wider text-emerald-300">
-                    Product Rule 1 Paired Confidence
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
+                    RULE 1 PAIRED CONFIDENCE
                   </span>
-                  <div className="text-xs text-on-dark-muted">
+                  <div className="text-[11px] text-slate-500 font-sans">
                     Statistical Bayesian certainty interval
                   </div>
                 </div>
-                <Badge variant="greenSoft" className="font-mono text-sm font-bold px-2 py-1">
+                <Badge variant="outline" className="font-mono text-xs font-bold px-2 py-0.5 rounded-sm border-emerald-500/40 bg-emerald-950/30 text-emerald-400 tabular-nums">
                   {selectedNode.confidence_pct.toFixed(1)}% CI
                 </Badge>
               </div>
 
               {/* Rule 4 Data Source Attribution */}
-              <div className="rounded-lg border border-hairline-dark bg-brand-teal-deep p-3 space-y-1">
-                <div className="text-[11px] font-semibold text-sky-300 uppercase tracking-wider flex items-center gap-1.5">
+              <div className="rounded-sm border border-[#1F2937] bg-[#0B0F14] p-2.5 space-y-1">
+                <div className="text-[10px] font-bold text-sky-400 uppercase tracking-wider flex items-center gap-1.5">
                   <Shield className="h-3 w-3" />
-                  Rule 4 Provenance Attribution
+                  RULE 4 PROVENANCE ATTRIBUTION
                 </div>
-                <div className="font-mono text-xs text-white">
+                <div className="font-mono text-[11px] text-slate-300">
                   {String(selectedNode.properties?.data_source ?? "AEGIS Sensor Fusion & Inversion")}
                 </div>
               </div>
 
-              {/* Key Telemetry Properties Table */}
+              {/* Two-Column Monospace Key-Value Grid: slate-500 keys, slate-200 values */}
               <div className="space-y-2">
-                <div className="text-xs font-semibold uppercase tracking-wider text-on-dark-muted">
-                  Forensic Telemetry & Parameters
+                <div className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
+                  FORENSIC TELEMETRY & PARAMETERS
                 </div>
-                <div className="rounded-lg border border-hairline-dark bg-brand-teal-deep divide-y divide-hairline-dark overflow-hidden">
+                <div className="rounded-sm border border-[#1F2937] bg-[#0B0F14] divide-y divide-[#1F2937] overflow-hidden">
                   {Object.entries(selectedNode.properties ?? {}).map(([key, val]) => {
                     if (key === "data_source") return null;
                     return (
                       <div
                         key={key}
-                        className="flex items-center justify-between px-3 py-2 text-xs"
+                        className="flex items-center justify-between px-3 py-1.5 text-xs tabular-nums"
                       >
-                        <span className="text-on-dark-muted font-mono text-[11px]">
+                        <span className="text-slate-500 font-mono text-[11px]">
                           {key.replace(/_/g, " ")}
                         </span>
-                        <span className="font-mono font-medium text-white text-right truncate max-w-[200px]">
+                        <span className="font-mono font-medium text-slate-200 text-right truncate max-w-[200px]">
                           {typeof val === "object" ? JSON.stringify(val) : String(val)}
                         </span>
                       </div>
@@ -1190,11 +1145,11 @@ export function EvidenceGraphView({
                     <Button
                       variant="default"
                       size="sm"
-                      className="w-full gap-2 text-xs"
+                      className="w-full gap-2 text-xs font-mono rounded-sm bg-emerald-600 hover:bg-emerald-500 text-slate-950"
                       onClick={() => onFocusCoordinate(coords)}
                     >
                       <Crosshair className="h-3.5 w-3.5" />
-                      <span>Focus Coordinates on Geospatial Map ({coords[1].toFixed(3)}°N, {coords[0].toFixed(3)}°E)</span>
+                      <span>FOCUS COORDINATES ({coords[1].toFixed(3)}°N, {coords[0].toFixed(3)}°E)</span>
                     </Button>
                   );
                 }
@@ -1202,19 +1157,19 @@ export function EvidenceGraphView({
               })()}
 
               {/* Causal Graph Neighbors (Incoming & Outgoing) */}
-              <div className="space-y-3 pt-1 border-t border-hairline-dark">
-                <div className="text-xs font-semibold uppercase tracking-wider text-on-dark-muted">
-                  Causal DAG Connectivity
+              <div className="space-y-3 pt-1 border-t border-[#1F2937]">
+                <div className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
+                  CAUSAL DAG CONNECTIVITY
                 </div>
 
                 {/* Incoming Edges */}
                 <div className="space-y-1.5">
-                  <span className="text-[11px] font-medium text-on-dark-muted flex items-center gap-1">
+                  <span className="text-[10px] font-semibold text-slate-400 flex items-center gap-1">
                     <ArrowRight className="h-3 w-3 text-sky-400 rotate-180" />
-                    Incoming Predecessors ({nodeRelations.incoming.length}):
+                    INCOMING PREDECESSORS ({nodeRelations.incoming.length}):
                   </span>
                   {nodeRelations.incoming.length === 0 ? (
-                    <div className="text-[11px] text-on-dark-muted italic px-2">
+                    <div className="text-[10px] text-slate-500 italic px-1">
                       Root node (no upstream dependencies)
                     </div>
                   ) : (
@@ -1222,15 +1177,15 @@ export function EvidenceGraphView({
                       <div
                         key={node.id}
                         onClick={() => handleSelectNode(node)}
-                        className="flex items-center justify-between rounded border border-hairline-dark bg-brand-teal-deep/70 px-2.5 py-1.5 text-xs hover:border-brand-green/40 cursor-pointer transition-colors"
+                        className="flex items-center justify-between rounded-sm border border-[#1F2937] bg-[#0B0F14] px-2 py-1 text-xs hover:border-emerald-500/50 cursor-pointer transition-colors"
                       >
                         <div className="flex items-center gap-1.5 truncate">
-                          <Badge variant="outline" className="text-[9px] font-mono border-sky-600/40 text-sky-300">
+                          <Badge variant="outline" className="text-[9px] font-mono border-slate-700 bg-slate-900 text-sky-300 rounded-sm">
                             {edge.relation}
                           </Badge>
-                          <span className="text-white truncate">{node.label}</span>
+                          <span className="text-slate-200 truncate text-[11px]">{node.label}</span>
                         </div>
-                        <span className="font-mono text-[10px] text-brand-green">
+                        <span className="font-mono text-[10px] text-emerald-400 tabular-nums">
                           {edge.confidence_pct}%
                         </span>
                       </div>
@@ -1240,12 +1195,12 @@ export function EvidenceGraphView({
 
                 {/* Outgoing Edges */}
                 <div className="space-y-1.5 pt-1">
-                  <span className="text-[11px] font-medium text-on-dark-muted flex items-center gap-1">
-                    <ArrowRight className="h-3 w-3 text-brand-green" />
-                    Outgoing Successors ({nodeRelations.outgoing.length}):
+                  <span className="text-[10px] font-semibold text-slate-400 flex items-center gap-1">
+                    <ArrowRight className="h-3 w-3 text-emerald-400" />
+                    OUTGOING SUCCESSORS ({nodeRelations.outgoing.length}):
                   </span>
                   {nodeRelations.outgoing.length === 0 ? (
-                    <div className="text-[11px] text-on-dark-muted italic px-2">
+                    <div className="text-[10px] text-slate-500 italic px-1">
                       Leaf node (terminal causal consequence)
                     </div>
                   ) : (
@@ -1253,15 +1208,15 @@ export function EvidenceGraphView({
                       <div
                         key={node.id}
                         onClick={() => handleSelectNode(node)}
-                        className="flex items-center justify-between rounded border border-hairline-dark bg-brand-teal-deep/70 px-2.5 py-1.5 text-xs hover:border-brand-green/40 cursor-pointer transition-colors"
+                        className="flex items-center justify-between rounded-sm border border-[#1F2937] bg-[#0B0F14] px-2 py-1 text-xs hover:border-emerald-500/50 cursor-pointer transition-colors"
                       >
                         <div className="flex items-center gap-1.5 truncate">
-                          <Badge variant="outline" className="text-[9px] font-mono border-emerald-600/40 text-emerald-300">
+                          <Badge variant="outline" className="text-[9px] font-mono border-slate-700 bg-slate-900 text-emerald-300 rounded-sm">
                             {edge.relation}
                           </Badge>
-                          <span className="text-white truncate">{node.label}</span>
+                          <span className="text-slate-200 truncate text-[11px]">{node.label}</span>
                         </div>
-                        <span className="font-mono text-[10px] text-brand-green">
+                        <span className="font-mono text-[10px] text-emerald-400 tabular-nums">
                           {edge.confidence_pct}%
                         </span>
                       </div>

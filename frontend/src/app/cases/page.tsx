@@ -47,34 +47,35 @@ export default function IncidentCasesDashboardPage() {
   };
 
   return (
-    <div className="flex min-h-screen flex-col bg-brand-teal-deep text-white">
+    <div className="flex min-h-screen flex-col bg-[#0B0F14] text-slate-100">
       {/* 1. Global Navigation Bar */}
-      <header className="sticky top-0 z-40 border-b border-hairline-dark bg-brand-teal-deep/95 backdrop-blur">
-        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+      <header className="sticky top-0 z-40 border-b border-[#1F2937] bg-[#0B0F14]/95 backdrop-blur-md">
+        <div className="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-green text-brand-teal-deep shadow-md">
-              <Shield className="h-5 w-5" />
+            <div className="flex h-6 w-6 items-center justify-center rounded-sm bg-emerald-500/20 border border-emerald-500/40 text-emerald-400">
+              <Shield className="h-4 w-4" />
             </div>
-            <div>
-              <span className="text-base font-bold tracking-tight text-white">
-                AEGIS-Marine
-              </span>
-              <span className="ml-2 text-xs font-medium text-brand-green-soft">
-                Operations & Active Monitor
-              </span>
-            </div>
+            <span className="text-xs font-mono font-semibold tracking-widest text-slate-300">
+              AEGIS-MARINE // FORENSICS v2.0
+            </span>
           </div>
 
-          <div className="flex items-center gap-3">
-            <Badge variant="greenSoft">
-              <span className="mr-1.5 inline-block h-2 w-2 rounded-full bg-brand-green animate-pulse" />
-              Global Sentinel Feed Live
-            </Badge>
+          <div className="flex items-center gap-4">
+            {/* Live Status Indicator */}
+            <div className="flex items-center gap-2">
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
+              </span>
+              <span className="text-[11px] font-mono text-slate-400">
+                GRID: ONLINE [SENTINEL-1A + AIS]
+              </span>
+            </div>
 
             {/* Link back to Forensic War Room Canvas */}
             <Link href="/">
-              <Button variant="secondary" size="sm" className="gap-1.5">
-                <MapIcon className="h-4 w-4 text-brand-green" />
+              <Button variant="secondary" size="sm" className="rounded-sm border border-slate-700 bg-slate-800/80 text-xs text-slate-200 hover:border-slate-500 gap-1.5 px-3 py-1.5 h-7">
+                <MapIcon className="h-3.5 w-3.5 text-emerald-400" />
                 <span>War Room Canvas</span>
               </Button>
             </Link>
@@ -86,21 +87,21 @@ export default function IncidentCasesDashboardPage() {
       </header>
 
       {/* 2. Main Dashboard Content */}
-      <main className="mx-auto flex-1 max-w-7xl w-full px-4 py-8 sm:px-6 lg:px-8 space-y-8">
+      <main className="mx-auto flex-1 max-w-7xl w-full px-4 py-6 sm:px-6 lg:px-8 space-y-6">
         {/* Operations Overview Banner */}
-        <div className="rounded-xl border border-hairline-dark bg-brand-teal/40 p-6 backdrop-blur">
+        <div className="rounded-sm border border-[#1F2937] bg-[#111720] p-4">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div className="space-y-1">
               <div className="flex items-center gap-2">
                 <Badge variant="green">Operations Monitor</Badge>
-                <span className="font-mono text-xs text-on-dark-muted">
+                <span className="font-mono text-xs text-slate-400">
                   Copernicus Sentinel-1 / Sentinel-2 Surveillance Grid
                 </span>
               </div>
-              <h1 className="text-2xl font-bold tracking-tight text-white sm:text-3xl">
+              <h1 className="text-xl font-bold tracking-tight text-white sm:text-2xl font-sans">
                 Incident Case Management & Spill Detection Monitor
               </h1>
-              <p className="text-xs text-on-dark-muted">
+              <p className="text-xs text-slate-400">
                 Continuous satellite radar surveillance, automated dark slick segmentation, and backward Lagrangian hindcasting.
               </p>
             </div>
@@ -111,7 +112,7 @@ export default function IncidentCasesDashboardPage() {
                 size="sm"
                 onClick={fetchCases}
                 disabled={isLoading}
-                className="gap-1.5"
+                className="rounded-sm border border-slate-700 bg-slate-800/80 text-xs text-slate-200 hover:border-slate-500 gap-1.5 h-8 px-3"
               >
                 <RefreshCw className={`h-3.5 w-3.5 ${isLoading ? "animate-spin" : ""}`} />
                 <span>Refresh Grid</span>
@@ -120,10 +121,13 @@ export default function IncidentCasesDashboardPage() {
               <CaseCreateDialog
                 onCaseCreated={handleCaseCreated}
                 triggerButton={
-                  <Button variant="default" size="sm" className="gap-1.5">
-                    <Plus className="h-4 w-4" />
+                  <button
+                    type="button"
+                    className="inline-flex items-center gap-1.5 border border-emerald-500/40 bg-emerald-500/10 text-emerald-400 hover:bg-emerald-500/20 text-xs px-3 py-1.5 rounded-sm font-mono font-medium transition-colors h-8"
+                  >
+                    <Plus className="h-3.5 w-3.5" />
                     <span>Ingest Satellite Scene</span>
-                  </Button>
+                  </button>
                 }
               />
             </div>

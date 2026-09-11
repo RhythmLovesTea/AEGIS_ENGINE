@@ -53,68 +53,81 @@ const config: Config = {
           foreground: "hsl(var(--card-foreground))",
         },
 
-        // DESIGN.md Brand Colors
+        // Tactical Forensic Intelligence Tokens (Neutral Deep Zinc / Ballistic Slate)
+        forensic: {
+          canvas: "#0B0F14",
+          panel: "#111720",
+          menu: "#161F2C",
+          border: "#1F2937",
+          emerald: "#10B981",
+          emeraldDark: "#059669",
+          steel: "#38BDF8",
+          steelMuted: "#64748B",
+        },
+
+        // Tactical Emerald & Steel Blue
         "brand-green": {
-          DEFAULT: "#00ed64",
-          deep: "#00b545",
-          pressed: "#008c34",
-          dark: "#00684a",
-          mid: "#00a35c",
-          soft: "#c3f0d2",
+          DEFAULT: "#10B981", // Tactical Emerald
+          deep: "#059669",
+          pressed: "#047857",
+          dark: "#064e3b",
+          mid: "#059669",
+          soft: "rgba(16, 185, 129, 0.15)",
         },
         "brand-teal": {
-          deep: "#001e2b",
-          DEFAULT: "#003d4f",
-          mid: "#00684a",
+          deep: "#0B0F14", // Neutral Deep Zinc Canvas
+          DEFAULT: "#111720", // Neutral Deep Zinc Panel
+          mid: "#161F2C", // Floating Menu
         },
 
-        // DESIGN.md Canvas & Surfaces
+        // Canvas & Surfaces
         canvas: {
-          DEFAULT: "#ffffff",
-          dark: "#001e2b",
+          DEFAULT: "#0B0F14",
+          dark: "#0B0F14",
         },
         surface: {
-          DEFAULT: "#f9fbfa",
-          soft: "#f4f7f6",
-          feature: "#e3fcef",
+          DEFAULT: "#111720",
+          soft: "#161F2C",
+          feature: "rgba(16, 185, 129, 0.1)",
         },
         hairline: {
-          DEFAULT: "#e1e5e8",
-          soft: "#eceff1",
-          strong: "#c1ccd6",
-          dark: "#1c2d38",
+          DEFAULT: "#1F2937",
+          soft: "#1F2937",
+          strong: "#374151",
+          dark: "#1F2937",
         },
 
-        // DESIGN.md Category & Semantic Accents
-        "accent-purple": "#7b3ff2",
-        "accent-orange": "#fa6e39",
-        "accent-pink": "#f06bb8",
-        "accent-blue": "#3d4f9f",
+        // Category & Semantic Accents
+        "accent-purple": "#8b5cf6",
+        "accent-orange": "#f97316",
+        "accent-pink": "#ec4899",
+        "accent-blue": "#38BDF8", // Steel Blue
         "semantic-warning": {
-          bg: "#fff8e0",
-          text: "#946f3f",
+          bg: "rgba(245, 158, 11, 0.15)",
+          text: "#f59e0b",
         },
 
-        // DESIGN.md Neutrals & Typography Colors
-        ink: "#001e2b",
-        charcoal: "#1c2d38",
-        slate: "#3d4f5b",
-        steel: "#5c6c7a",
-        stone: "#7c8c9a",
+        // Neutrals & Typography Colors
+        ink: "#0B0F14",
+        charcoal: "#111720",
+        slate: "#334155",
+        steel: "#64748B",
+        stone: "#94A3B8",
         "on-dark": {
-          DEFAULT: "#ffffff",
-          muted: "#a8b3bc",
+          DEFAULT: "#F8FAFC",
+          muted: "#94A3B8",
         },
       },
       borderRadius: {
-        xs: "4px",
-        sm: "6px",
-        md: "8px",
-        lg: "12px",
-        xl: "16px",
-        "2xl": "24px",
-        full: "9999px",
-        pill: "9999px",
+        none: "0px",
+        xs: "2px",
+        sm: "2px",
+        md: "4px",
+        lg: "4px",
+        xl: "4px",
+        "2xl": "4px",
+        full: "9999px", // Reserved strictly for 6px status LED dots
+        pill: "4px",
       },
       fontFamily: {
         sans: ["Euclid Circular A", "Inter", "var(--font-sans)", "sans-serif"],

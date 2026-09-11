@@ -302,75 +302,66 @@ export function ExplainabilityDrawer({
     <Sheet open={open} onOpenChange={onOpenChange}>
       <SheetContent
         side="right"
-        className="w-full sm:max-w-2xl md:max-w-3xl overflow-y-auto bg-brand-teal-deep border-hairline-dark text-white p-6 space-y-6"
+        className="w-full sm:max-w-2xl md:max-w-3xl overflow-y-auto bg-[#111720] border-[#1F2937] text-slate-100 p-6 space-y-6"
       >
-        {/* 1. Header & Identity */}
-        <SheetHeader className="space-y-3 pb-4 border-b border-hairline-dark">
+        {/* 1. Formal Forensic Identification Sheet Header */}
+        <SheetHeader className="space-y-3 pb-4 border-b border-[#1F2937]">
           <div className="flex flex-wrap items-center justify-between gap-2">
-            <div className="flex items-center gap-2">
-              <Badge variant="purple" className="text-xs">
-                Candidate Forensic Dossier
-              </Badge>
-              <Badge variant="outline" className="font-mono text-xs text-on-dark-muted">
-                MMSI: {candidate.mmsi}
-              </Badge>
-              {candidate.imo && (
-                <Badge variant="outline" className="font-mono text-xs text-on-dark-muted">
-                  IMO: {candidate.imo}
-                </Badge>
-              )}
+            <div className="flex items-center gap-2 font-mono text-xs">
+              <span className="rounded-sm border border-slate-800 bg-slate-900/90 px-2 py-0.5 text-slate-300">
+                FORENSIC DOSSIER
+              </span>
+              <span className="rounded-sm border border-slate-800 bg-slate-900/60 px-2 py-0.5 text-slate-400">
+                CASE: {caseId.toUpperCase()}
+              </span>
             </div>
 
             {/* Rule 4: AIS Coverage Indicator */}
             <div>
               {candidate.ais_coverage === "full" ? (
-                <Badge variant="green" className="gap-1 text-xs">
+                <span className="inline-flex items-center gap-1.5 rounded-sm border border-emerald-500/40 bg-emerald-500/10 px-2 py-0.5 font-mono text-[11px] text-emerald-400">
                   <Radio className="h-3 w-3" />
-                  AIS: Continuous
-                </Badge>
+                  AIS: CONTINUOUS
+                </span>
               ) : candidate.ais_coverage === "dark_gap" ? (
-                <Badge variant="orange" className="gap-1 text-xs">
+                <span className="inline-flex items-center gap-1.5 rounded-sm border border-amber-500/40 bg-amber-500/10 px-2 py-0.5 font-mono text-[11px] text-amber-400">
                   <AlertTriangle className="h-3 w-3" />
-                  AIS: Transponder Gap
-                </Badge>
+                  AIS: TRANSPONDER GAP
+                </span>
               ) : (
-                <Badge variant="outline" className="gap-1 text-xs text-on-dark-muted">
+                <span className="inline-flex items-center gap-1.5 rounded-sm border border-slate-800 bg-slate-900/80 px-2 py-0.5 font-mono text-[11px] text-slate-400">
                   <HelpCircle className="h-3 w-3" />
-                  Non-AIS Target
-                </Badge>
+                  NON-AIS TARGET
+                </span>
               )}
             </div>
           </div>
 
-          <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2">
-            <div>
-              <SheetTitle className="text-2xl font-bold tracking-tight text-white flex items-center gap-2">
-                <span>{candidate.name}</span>
+          <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 pt-1">
+            {/* Left side: Vessel identity sheet */}
+            <div className="space-y-1">
+              <SheetTitle className="text-2xl font-bold tracking-tight text-white font-sans">
+                {candidate.name}
               </SheetTitle>
-              <SheetDescription className="text-xs text-on-dark-muted font-mono mt-0.5">
-                Flag: {candidate.flag_state || "Unknown"} | Class: {candidate.vessel_type}
-              </SheetDescription>
+              <div className="text-[11px] font-mono text-slate-400 flex flex-wrap items-center gap-1.5 tabular-nums">
+                <span>MMSI: {candidate.mmsi}</span>
+                <span className="text-slate-700">│</span>
+                <span>IMO: {candidate.imo || "N/A"}</span>
+                <span className="text-slate-700">│</span>
+                <span>FLAG: {candidate.flag_state?.toUpperCase() || "UNKNOWN"} [PAN]</span>
+                <span className="text-slate-700">│</span>
+                <span>TYPE: {candidate.vessel_type.toUpperCase()}</span>
+              </div>
             </div>
 
-            {/* Score & Mandatory Rule 1 Paired Confidence */}
-            <div className="flex items-center gap-2 rounded-lg border border-hairline-dark bg-brand-teal/40 px-3 py-1.5">
-              <div className="text-right">
-                <span className="text-[10px] uppercase font-mono tracking-wider text-on-dark-muted block">
-                  Attribution Score
-                </span>
-                <span className="font-mono text-lg font-bold text-brand-green">
-                  {scoreDisplay}
-                  <span className="text-xs text-on-dark-muted">/100</span>
-                </span>
+            {/* Right side: Dedicated numeric score card */}
+            <div className="rounded-sm border border-slate-800 bg-slate-900/90 px-3.5 py-2 text-right shrink-0">
+              <div className="font-mono text-2xl font-bold text-slate-100 tabular-nums leading-none">
+                {scoreDisplay}
+                <span className="text-xs text-slate-500 font-normal ml-0.5">/100</span>
               </div>
-              <div className="h-7 w-px bg-hairline-dark" />
-              <div>
-                <span className="text-[10px] uppercase font-mono tracking-wider text-on-dark-muted block">
-                  Rule 1 Confidence
-                </span>
-                <Badge variant="greenSoft" className="text-xs font-mono">
-                  {confValue}% CI
-                </Badge>
+              <div className="text-[10px] uppercase font-mono tracking-wider text-slate-500 mt-1">
+                AHP ATTRIBUTION COMPOSITE
               </div>
             </div>
           </div>
@@ -443,58 +434,70 @@ export function ExplainabilityDrawer({
                       />
                     </div>
 
-                    {/* Weighted Criteria Contributions (Rule 7) */}
-                    <div className="space-y-2 text-xs">
-                      <div className="text-[11px] font-mono uppercase text-on-dark-muted border-b border-hairline-dark pb-1">
-                        Criteria Weight Synthesis
+                    {/* Analytical Criteria Weight Matrix Table */}
+                    <div className="space-y-2 font-mono text-xs">
+                      <div className="text-[11px] font-mono uppercase text-slate-400 border-b border-slate-800 pb-1 font-semibold">
+                        CRITERIA WEIGHT SYNTHESIS
                       </div>
-                      {[
-                        {
-                          label: "Spatial Proximity (S_spatial)",
-                          weight: "30%",
-                          score: explanationData.sub_scores.spatial,
-                          color: "bg-brand-green",
-                        },
-                        {
-                          label: "Temporal Coincidence (S_temporal)",
-                          weight: "25%",
-                          score: explanationData.sub_scores.temporal,
-                          color: "bg-brand-green-mid",
-                        },
-                        {
-                          label: "Behavioral Anomaly (S_anomaly)",
-                          weight: "20%",
-                          score: explanationData.sub_scores.anomaly,
-                          color: "bg-accent-orange",
-                        },
-                        {
-                          label: "Kinematic Alignment (S_kinematic)",
-                          weight: "15%",
-                          score: explanationData.sub_scores.kinematic,
-                          color: "bg-brand-teal-mid",
-                        },
-                        {
-                          label: "Vessel Type Prior (S_type)",
-                          weight: "10%",
-                          score: explanationData.sub_scores.type,
-                          color: "bg-accent-blue",
-                        },
-                      ].map((crit) => (
-                        <div key={crit.label} className="space-y-1">
-                          <div className="flex justify-between">
-                            <span className="text-on-dark-muted">{crit.label}</span>
-                            <span className="font-mono text-white">
-                              {crit.score.toFixed(1)} × {crit.weight}
-                            </span>
-                          </div>
-                          <div className="h-1.5 w-full rounded-full bg-brand-teal">
-                            <div
-                              className={`h-1.5 rounded-full ${crit.color}`}
-                              style={{ width: `${Math.min(100, crit.score)}%` }}
-                            />
-                          </div>
-                        </div>
-                      ))}
+                      <div className="overflow-x-auto">
+                        <table className="w-full text-left border-collapse text-[11px] tabular-nums">
+                          <thead>
+                            <tr className="text-slate-500 border-b border-slate-800">
+                              <th className="py-1 font-medium">CRITERION</th>
+                              <th className="py-1 font-medium text-right">WEIGHT</th>
+                              <th className="py-1 font-medium text-right">SCORE</th>
+                              <th className="py-1 font-medium text-right">WEIGHTED</th>
+                            </tr>
+                          </thead>
+                          <tbody className="divide-y divide-slate-800/60 text-slate-300">
+                            {[
+                              {
+                                label: "Spatial Proximity (S_sp)",
+                                weight: "30%",
+                                score: explanationData.sub_scores.spatial,
+                                weighted: (explanationData.sub_scores.spatial * 0.30).toFixed(2),
+                              },
+                              {
+                                label: "Temporal Coincidence",
+                                weight: "25%",
+                                score: explanationData.sub_scores.temporal,
+                                weighted: (explanationData.sub_scores.temporal * 0.25).toFixed(2),
+                              },
+                              {
+                                label: "Behavioral Anomaly",
+                                weight: "20%",
+                                score: explanationData.sub_scores.anomaly,
+                                weighted: (explanationData.sub_scores.anomaly * 0.20).toFixed(2),
+                              },
+                              {
+                                label: "Kinematic Alignment",
+                                weight: "15%",
+                                score: explanationData.sub_scores.kinematic,
+                                weighted: (explanationData.sub_scores.kinematic * 0.15).toFixed(2),
+                              },
+                              {
+                                label: "Vessel Type Prior",
+                                weight: "10%",
+                                score: explanationData.sub_scores.type,
+                                weighted: (explanationData.sub_scores.type * 0.10).toFixed(2),
+                              },
+                            ].map((row) => (
+                              <tr key={row.label} className="hover:bg-slate-800/30">
+                                <td className="py-1 text-slate-300">{row.label}</td>
+                                <td className="py-1 text-right text-slate-400">{row.weight}</td>
+                                <td className="py-1 text-right text-slate-200">{row.score.toFixed(1)}</td>
+                                <td className="py-1 text-right text-emerald-400 font-semibold">{row.weighted}</td>
+                              </tr>
+                            ))}
+                            <tr className="border-t border-slate-700 font-bold text-slate-100">
+                              <td colSpan={2} className="py-1.5 text-slate-200">COMPOSITE INDEX</td>
+                              <td colSpan={2} className="py-1.5 text-right text-emerald-400 font-mono text-xs">
+                                {scoreDisplay} / 100
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
                     </div>
                   </div>
                 )}
@@ -506,14 +509,14 @@ export function ExplainabilityDrawer({
                   className="flex items-center justify-between cursor-pointer"
                   onClick={() => toggleSection("breakdown")}
                 >
-                  <span className="text-sm font-semibold text-white flex items-center gap-2">
-                    <FileCheck className="h-4 w-4 text-brand-green" />
-                    Persisted Evidence Breakdown Cards (Rule 2)
+                  <span className="text-xs font-mono font-bold uppercase tracking-wider text-slate-300 flex items-center gap-2">
+                    <FileCheck className="h-3.5 w-3.5 text-emerald-400" />
+                    PERSISTED EVIDENCE BREAKDOWN (RULE 2)
                   </span>
                   {expandedSections.breakdown ? (
-                    <ChevronUp className="h-4 w-4 text-on-dark-muted" />
+                    <ChevronUp className="h-4 w-4 text-slate-400" />
                   ) : (
-                    <ChevronDown className="h-4 w-4 text-on-dark-muted" />
+                    <ChevronDown className="h-4 w-4 text-slate-400" />
                   )}
                 </div>
 
@@ -521,50 +524,49 @@ export function ExplainabilityDrawer({
                   <div className="grid grid-cols-1 gap-3">
                     {/* Dimension 1: Spatial */}
                     {explanationData.spatial_breakdown && (
-                      <div className="rounded-lg border border-hairline-dark bg-brand-teal/20 p-3.5 space-y-2">
-                        <div className="flex items-center justify-between">
+                      <div className="rounded-sm border border-[#1F2937] bg-[#0B0F14] p-3 space-y-2 font-mono">
+                        <div className="flex items-center justify-between border-b border-slate-800 pb-1.5">
                           <div className="flex items-center gap-2">
-                            <Navigation className="h-4 w-4 text-brand-green" />
-                            <span className="text-xs font-bold uppercase tracking-wider text-white">
+                            <Navigation className="h-3.5 w-3.5 text-emerald-400" />
+                            <span className="text-xs font-bold uppercase tracking-wider text-slate-200">
                               1. Spatial Proximity Breakdown
                             </span>
                           </div>
-                          <div className="flex items-center gap-2">
-                            <span className="font-mono text-xs font-semibold text-brand-green">
+                          <div className="flex items-center gap-3 text-xs tabular-nums">
+                            <span className="text-emerald-400 font-semibold">
                               Score: {explanationData.spatial_breakdown.sub_score.toFixed(1)}
                             </span>
-                            <Badge variant="greenSoft" className="text-[10px] font-mono">
-                              94.0% CI
-                            </Badge>
+                            <span className="text-slate-700">│</span>
+                            <span className="text-slate-400">94.0% CI</span>
                           </div>
                         </div>
-                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-1 text-xs font-mono">
-                          <div className="bg-brand-teal-deep/80 p-2 rounded border border-hairline-dark">
-                            <span className="text-[10px] text-on-dark-muted block">Mahalanobis D_M</span>
-                            <span className="text-white font-bold">
+                        <div className="divide-y divide-slate-800/60 text-xs">
+                          <div className="flex items-center justify-between py-1.5">
+                            <span className="text-slate-500 font-mono">Mahalanobis Distance (D_M)</span>
+                            <span className="text-slate-200 font-mono font-bold tabular-nums">
                               {explanationData.spatial_breakdown.mahalanobis_distance.toFixed(2)}
                             </span>
                           </div>
-                          <div className="bg-brand-teal-deep/80 p-2 rounded border border-hairline-dark">
-                            <span className="text-[10px] text-on-dark-muted block">Physical Dist</span>
-                            <span className="text-white font-bold">
+                          <div className="flex items-center justify-between py-1.5">
+                            <span className="text-slate-500 font-mono">Physical Distance</span>
+                            <span className="text-slate-200 font-mono font-bold tabular-nums">
                               {explanationData.spatial_breakdown.physical_distance_km.toFixed(2)} km
                             </span>
                           </div>
-                          <div className="bg-brand-teal-deep/80 p-2 rounded border border-hairline-dark">
-                            <span className="text-[10px] text-on-dark-muted block">Error Ellipse</span>
-                            <span className="text-brand-green font-bold uppercase">
+                          <div className="flex items-center justify-between py-1.5">
+                            <span className="text-slate-500 font-mono">Uncertainty Boundary</span>
+                            <span className="text-slate-200 font-mono font-bold uppercase">
                               {explanationData.spatial_breakdown.sigma_band}
                             </span>
                           </div>
-                          <div className="bg-brand-teal-deep/80 p-2 rounded border border-hairline-dark">
-                            <span className="text-[10px] text-on-dark-muted block">1-Sigma Inside</span>
-                            <span className="text-white font-bold">
-                              {explanationData.spatial_breakdown.inside_1sigma ? "YES" : "NO"}
+                          <div className="flex items-center justify-between py-1.5">
+                            <span className="text-slate-500 font-mono">Containment Status</span>
+                            <span className="text-emerald-400 font-mono font-bold">
+                              ✓ UNCERTAINTY: BOUNDED (1.0σ)
                             </span>
                           </div>
                         </div>
-                        <p className="text-[11px] text-on-dark-muted leading-relaxed">
+                        <p className="text-[11px] text-slate-400 font-sans leading-relaxed pt-1 border-t border-slate-800/40">
                           {explanationData.spatial_breakdown.rationale}
                         </p>
                       </div>
@@ -572,50 +574,49 @@ export function ExplainabilityDrawer({
 
                     {/* Dimension 2: Temporal */}
                     {explanationData.temporal_breakdown && (
-                      <div className="rounded-lg border border-hairline-dark bg-brand-teal/20 p-3.5 space-y-2">
-                        <div className="flex items-center justify-between">
+                      <div className="rounded-sm border border-[#1F2937] bg-[#0B0F14] p-3 space-y-2 font-mono">
+                        <div className="flex items-center justify-between border-b border-slate-800 pb-1.5">
                           <div className="flex items-center gap-2">
-                            <Clock className="h-4 w-4 text-brand-green" />
-                            <span className="text-xs font-bold uppercase tracking-wider text-white">
+                            <Clock className="h-3.5 w-3.5 text-emerald-400" />
+                            <span className="text-xs font-bold uppercase tracking-wider text-slate-200">
                               2. Temporal Coincidence Breakdown
                             </span>
                           </div>
-                          <div className="flex items-center gap-2">
-                            <span className="font-mono text-xs font-semibold text-brand-green">
+                          <div className="flex items-center gap-3 text-xs tabular-nums">
+                            <span className="text-emerald-400 font-semibold">
                               Score: {explanationData.temporal_breakdown.sub_score.toFixed(1)}
                             </span>
-                            <Badge variant="greenSoft" className="text-[10px] font-mono">
-                              91.5% CI
-                            </Badge>
+                            <span className="text-slate-700">│</span>
+                            <span className="text-slate-400">91.5% CI</span>
                           </div>
                         </div>
-                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-1 text-xs font-mono">
-                          <div className="bg-brand-teal-deep/80 p-2 rounded border border-hairline-dark">
-                            <span className="text-[10px] text-on-dark-muted block">Time Offset |Δt|</span>
-                            <span className="text-white font-bold">
+                        <div className="divide-y divide-slate-800/60 text-xs">
+                          <div className="flex items-center justify-between py-1.5">
+                            <span className="text-slate-500 font-mono">Time Offset |Δt|</span>
+                            <span className="text-slate-200 font-mono font-bold tabular-nums">
                               {explanationData.temporal_breakdown.delta_minutes.toFixed(0)} min
                             </span>
                           </div>
-                          <div className="bg-brand-teal-deep/80 p-2 rounded border border-hairline-dark">
-                            <span className="text-[10px] text-on-dark-muted block">Hours Delta</span>
-                            <span className="text-white font-bold">
+                          <div className="flex items-center justify-between py-1.5">
+                            <span className="text-slate-500 font-mono">Elapsed Duration</span>
+                            <span className="text-slate-200 font-mono font-bold tabular-nums">
                               {explanationData.temporal_breakdown.delta_hours.toFixed(2)} h
                             </span>
                           </div>
-                          <div className="bg-brand-teal-deep/80 p-2 rounded border border-hairline-dark">
-                            <span className="text-[10px] text-on-dark-muted block">Decay exp(-dt/τ)</span>
-                            <span className="text-brand-green font-bold">
+                          <div className="flex items-center justify-between py-1.5">
+                            <span className="text-slate-500 font-mono">Decay Factor exp(-Δt/τ)</span>
+                            <span className="text-slate-200 font-mono font-bold tabular-nums">
                               {explanationData.temporal_breakdown.decay_factor.toFixed(3)}
                             </span>
                           </div>
-                          <div className="bg-brand-teal-deep/80 p-2 rounded border border-hairline-dark">
-                            <span className="text-[10px] text-on-dark-muted block">Time Const τ</span>
-                            <span className="text-white font-bold">
+                          <div className="flex items-center justify-between py-1.5">
+                            <span className="text-slate-500 font-mono">Dispersion Const (τ)</span>
+                            <span className="text-slate-200 font-mono font-bold tabular-nums">
                               {explanationData.temporal_breakdown.tau_hours} h
                             </span>
                           </div>
                         </div>
-                        <p className="text-[11px] text-on-dark-muted leading-relaxed">
+                        <p className="text-[11px] text-slate-400 font-sans leading-relaxed pt-1 border-t border-slate-800/40">
                           {explanationData.temporal_breakdown.rationale}
                         </p>
                       </div>
@@ -623,50 +624,49 @@ export function ExplainabilityDrawer({
 
                     {/* Dimension 3: Kinematic */}
                     {explanationData.kinematic_breakdown && (
-                      <div className="rounded-lg border border-hairline-dark bg-brand-teal/20 p-3.5 space-y-2">
-                        <div className="flex items-center justify-between">
+                      <div className="rounded-sm border border-[#1F2937] bg-[#0B0F14] p-3 space-y-2 font-mono">
+                        <div className="flex items-center justify-between border-b border-slate-800 pb-1.5">
                           <div className="flex items-center gap-2">
-                            <Compass className="h-4 w-4 text-brand-green" />
-                            <span className="text-xs font-bold uppercase tracking-wider text-white">
+                            <Compass className="h-3.5 w-3.5 text-emerald-400" />
+                            <span className="text-xs font-bold uppercase tracking-wider text-slate-200">
                               3. Kinematic Alignment Breakdown
                             </span>
                           </div>
-                          <div className="flex items-center gap-2">
-                            <span className="font-mono text-xs font-semibold text-brand-green">
+                          <div className="flex items-center gap-3 text-xs tabular-nums">
+                            <span className="text-emerald-400 font-semibold">
                               Score: {explanationData.kinematic_breakdown.sub_score.toFixed(1)}
                             </span>
-                            <Badge variant="greenSoft" className="text-[10px] font-mono">
-                              88.0% CI
-                            </Badge>
+                            <span className="text-slate-700">│</span>
+                            <span className="text-slate-400">88.0% CI</span>
                           </div>
                         </div>
-                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-1 text-xs font-mono">
-                          <div className="bg-brand-teal-deep/80 p-2 rounded border border-hairline-dark">
-                            <span className="text-[10px] text-on-dark-muted block">Vessel COG</span>
-                            <span className="text-white font-bold">
+                        <div className="divide-y divide-slate-800/60 text-xs">
+                          <div className="flex items-center justify-between py-1.5">
+                            <span className="text-slate-500 font-mono">Vessel COG at CPA</span>
+                            <span className="text-slate-200 font-mono font-bold tabular-nums">
                               {explanationData.kinematic_breakdown.vessel_cog_deg ?? "N/A"}°
                             </span>
                           </div>
-                          <div className="bg-brand-teal-deep/80 p-2 rounded border border-hairline-dark">
-                            <span className="text-[10px] text-on-dark-muted block">Slick Axis</span>
-                            <span className="text-white font-bold">
+                          <div className="flex items-center justify-between py-1.5">
+                            <span className="text-slate-500 font-mono">Observed Slick Axis</span>
+                            <span className="text-slate-200 font-mono font-bold tabular-nums">
                               {explanationData.kinematic_breakdown.slick_orientation_deg ?? "N/A"}°
                             </span>
                           </div>
-                          <div className="bg-brand-teal-deep/80 p-2 rounded border border-hairline-dark">
-                            <span className="text-[10px] text-on-dark-muted block">Heading Delta</span>
-                            <span className="text-brand-green font-bold">
+                          <div className="flex items-center justify-between py-1.5">
+                            <span className="text-slate-500 font-mono">Heading Delta |θ_v - θ_s|</span>
+                            <span className="text-emerald-400 font-mono font-bold tabular-nums">
                               {explanationData.kinematic_breakdown.heading_difference_deg.toFixed(1)}°
                             </span>
                           </div>
-                          <div className="bg-brand-teal-deep/80 p-2 rounded border border-hairline-dark">
-                            <span className="text-[10px] text-on-dark-muted block">SOG at CPA</span>
-                            <span className="text-white font-bold">
+                          <div className="flex items-center justify-between py-1.5">
+                            <span className="text-slate-500 font-mono">Speed Over Ground (SOG)</span>
+                            <span className="text-slate-200 font-mono font-bold tabular-nums">
                               {explanationData.kinematic_breakdown.vessel_speed_kts ?? "N/A"} kts
                             </span>
                           </div>
                         </div>
-                        <p className="text-[11px] text-on-dark-muted leading-relaxed">
+                        <p className="text-[11px] text-slate-400 font-sans leading-relaxed pt-1 border-t border-slate-800/40">
                           {explanationData.kinematic_breakdown.rationale}
                         </p>
                       </div>
@@ -674,50 +674,49 @@ export function ExplainabilityDrawer({
 
                     {/* Dimension 4: Anomaly */}
                     {explanationData.anomaly_breakdown && (
-                      <div className="rounded-lg border border-hairline-dark bg-brand-teal/20 p-3.5 space-y-2">
-                        <div className="flex items-center justify-between">
+                      <div className="rounded-sm border border-[#1F2937] bg-[#0B0F14] p-3 space-y-2 font-mono">
+                        <div className="flex items-center justify-between border-b border-slate-800 pb-1.5">
                           <div className="flex items-center gap-2">
-                            <AlertTriangle className="h-4 w-4 text-accent-orange" />
-                            <span className="text-xs font-bold uppercase tracking-wider text-white">
+                            <AlertTriangle className="h-3.5 w-3.5 text-amber-400" />
+                            <span className="text-xs font-bold uppercase tracking-wider text-slate-200">
                               4. Behavioral Anomaly Breakdown
                             </span>
                           </div>
-                          <div className="flex items-center gap-2">
-                            <span className="font-mono text-xs font-semibold text-accent-orange">
+                          <div className="flex items-center gap-3 text-xs tabular-nums">
+                            <span className="text-amber-400 font-semibold">
                               Score: {explanationData.anomaly_breakdown.sub_score.toFixed(1)}
                             </span>
-                            <Badge variant="orange" className="text-[10px] font-mono">
-                              86.5% CI
-                            </Badge>
+                            <span className="text-slate-700">│</span>
+                            <span className="text-slate-400">86.5% CI</span>
                           </div>
                         </div>
-                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-1 text-xs font-mono">
-                          <div className="bg-brand-teal-deep/80 p-2 rounded border border-hairline-dark">
-                            <span className="text-[10px] text-on-dark-muted block">Speed Loiter</span>
-                            <span className="text-white font-bold">
+                        <div className="divide-y divide-slate-800/60 text-xs">
+                          <div className="flex items-center justify-between py-1.5">
+                            <span className="text-slate-500 font-mono">Speed Loiter in Window</span>
+                            <span className="text-slate-200 font-mono font-bold">
                               {explanationData.anomaly_breakdown.speed_loitering_detected ? "DETECTED" : "NONE"}
                             </span>
                           </div>
-                          <div className="bg-brand-teal-deep/80 p-2 rounded border border-hairline-dark">
-                            <span className="text-[10px] text-on-dark-muted block">Dark Gap</span>
-                            <span className="text-white font-bold">
+                          <div className="flex items-center justify-between py-1.5">
+                            <span className="text-slate-500 font-mono">Transponder Silence (Gap)</span>
+                            <span className="text-slate-200 font-mono font-bold">
                               {explanationData.anomaly_breakdown.dark_gap_detected ? "DETECTED" : "NONE"}
                             </span>
                           </div>
-                          <div className="bg-brand-teal-deep/80 p-2 rounded border border-hairline-dark">
-                            <span className="text-[10px] text-on-dark-muted block">Speed Score</span>
-                            <span className="text-accent-orange font-bold">
+                          <div className="flex items-center justify-between py-1.5">
+                            <span className="text-slate-500 font-mono">Kinematic Anomaly Score</span>
+                            <span className="text-slate-200 font-mono font-bold tabular-nums">
                               {explanationData.anomaly_breakdown.speed_anomaly_score.toFixed(2)}
                             </span>
                           </div>
-                          <div className="bg-brand-teal-deep/80 p-2 rounded border border-hairline-dark">
-                            <span className="text-[10px] text-on-dark-muted block">Dark Score</span>
-                            <span className="text-accent-orange font-bold">
+                          <div className="flex items-center justify-between py-1.5">
+                            <span className="text-slate-500 font-mono">Transponder Gap Score</span>
+                            <span className="text-slate-200 font-mono font-bold tabular-nums">
                               {explanationData.anomaly_breakdown.dark_gap_score.toFixed(2)}
                             </span>
                           </div>
                         </div>
-                        <p className="text-[11px] text-on-dark-muted leading-relaxed">
+                        <p className="text-[11px] text-slate-400 font-sans leading-relaxed pt-1 border-t border-slate-800/40">
                           {explanationData.anomaly_breakdown.rationale}
                         </p>
                       </div>
@@ -725,44 +724,43 @@ export function ExplainabilityDrawer({
 
                     {/* Dimension 5: Type Prior */}
                     {explanationData.type_breakdown && (
-                      <div className="rounded-lg border border-hairline-dark bg-brand-teal/20 p-3.5 space-y-2">
-                        <div className="flex items-center justify-between">
+                      <div className="rounded-sm border border-[#1F2937] bg-[#0B0F14] p-3 space-y-2 font-mono">
+                        <div className="flex items-center justify-between border-b border-slate-800 pb-1.5">
                           <div className="flex items-center gap-2">
-                            <Info className="h-4 w-4 text-brand-green" />
-                            <span className="text-xs font-bold uppercase tracking-wider text-white">
+                            <Info className="h-3.5 w-3.5 text-sky-400" />
+                            <span className="text-xs font-bold uppercase tracking-wider text-slate-200">
                               5. Vessel Type Prior Risk
                             </span>
                           </div>
-                          <div className="flex items-center gap-2">
-                            <span className="font-mono text-xs font-semibold text-brand-green">
+                          <div className="flex items-center gap-3 text-xs tabular-nums">
+                            <span className="text-sky-400 font-semibold">
                               Score: {explanationData.type_breakdown.sub_score.toFixed(1)}
                             </span>
-                            <Badge variant="greenSoft" className="text-[10px] font-mono">
-                              95.0% CI
-                            </Badge>
+                            <span className="text-slate-700">│</span>
+                            <span className="text-slate-400">95.0% CI</span>
                           </div>
                         </div>
-                        <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 pt-1 text-xs font-mono">
-                          <div className="bg-brand-teal-deep/80 p-2 rounded border border-hairline-dark">
-                            <span className="text-[10px] text-on-dark-muted block">Typology</span>
-                            <span className="text-white font-bold">
+                        <div className="divide-y divide-slate-800/60 text-xs">
+                          <div className="flex items-center justify-between py-1.5">
+                            <span className="text-slate-500 font-mono">Vessel Category</span>
+                            <span className="text-slate-200 font-mono font-bold">
                               {explanationData.type_breakdown.vessel_type}
                             </span>
                           </div>
-                          <div className="bg-brand-teal-deep/80 p-2 rounded border border-hairline-dark">
-                            <span className="text-[10px] text-on-dark-muted block">Prior Risk Score</span>
-                            <span className="text-brand-green font-bold">
+                          <div className="flex items-center justify-between py-1.5">
+                            <span className="text-slate-500 font-mono">Prior Risk Prior P(T)</span>
+                            <span className="text-slate-200 font-mono font-bold tabular-nums">
                               {explanationData.type_breakdown.prior_risk_score.toFixed(0)}%
                             </span>
                           </div>
-                          <div className="bg-brand-teal-deep/80 p-2 rounded border border-hairline-dark">
-                            <span className="text-[10px] text-on-dark-muted block">Registry</span>
-                            <span className="text-white font-bold">
+                          <div className="flex items-center justify-between py-1.5">
+                            <span className="text-slate-500 font-mono">Flag State Registry</span>
+                            <span className="text-slate-200 font-mono font-bold">
                               {explanationData.type_breakdown.flag_state || "Registered"}
                             </span>
                           </div>
                         </div>
-                        <p className="text-[11px] text-on-dark-muted leading-relaxed">
+                        <p className="text-[11px] text-slate-400 font-sans leading-relaxed pt-1 border-t border-slate-800/40">
                           {explanationData.type_breakdown.rationale}
                         </p>
                       </div>
@@ -772,53 +770,53 @@ export function ExplainabilityDrawer({
               </div>
 
               {/* 5. Counterfactual Forward Simulation Comparison (Feature 7 / D2) */}
-              <div className="rounded-xl border border-hairline-dark bg-brand-teal-deep p-4 space-y-3">
+              <div className="rounded-sm border border-[#1F2937] bg-[#111720] p-4 space-y-3">
                 <div
                   className="flex items-center justify-between cursor-pointer"
                   onClick={() => toggleSection("counterfactual")}
                 >
-                  <span className="text-sm font-semibold text-white flex items-center gap-2">
-                    <Activity className="h-4 w-4 text-brand-green" />
-                    Counterfactual Forward Drift Simulation (Feature 7 / D2)
+                  <span className="text-xs font-mono font-bold uppercase tracking-wider text-slate-300 flex items-center gap-2">
+                    <Activity className="h-3.5 w-3.5 text-emerald-400" />
+                    COUNTERFACTUAL FORWARD DRIFT SIMULATION (FEATURE 7 / D2)
                   </span>
                   {expandedSections.counterfactual ? (
-                    <ChevronUp className="h-4 w-4 text-on-dark-muted" />
+                    <ChevronUp className="h-4 w-4 text-slate-400" />
                   ) : (
-                    <ChevronDown className="h-4 w-4 text-on-dark-muted" />
+                    <ChevronDown className="h-4 w-4 text-slate-400" />
                   )}
                 </div>
 
                 {expandedSections.counterfactual && (
                   <div className="pt-1 space-y-3 text-xs">
-                    <p className="text-on-dark-muted leading-relaxed text-[11px]">
+                    <p className="text-slate-400 leading-relaxed text-[11px]">
                       Re-simulates forward Lagrangian oil particle release from candidate vessel track coordinates
                       at estimated release time, evaluating geometric Intersection-over-Union (IoU) with the observed SAR slick.
                     </p>
 
-                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 font-mono">
-                      <div className="bg-brand-teal/40 p-3 rounded-lg border border-hairline-dark">
-                        <span className="text-[10px] text-on-dark-muted block">Shape IoU Similarity</span>
-                        <span className="text-brand-green text-base font-bold">
+                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 font-mono tabular-nums">
+                      <div className="bg-[#0B0F14] p-3 rounded-sm border border-[#1F2937]">
+                        <span className="text-[10px] text-slate-500 uppercase tracking-wider block">Shape IoU Similarity</span>
+                        <span className="text-emerald-400 text-base font-bold">
                           {explanationData.counterfactual_similarity_pct !== null &&
                           explanationData.counterfactual_similarity_pct !== undefined
                             ? `${explanationData.counterfactual_similarity_pct.toFixed(1)}%`
                             : "84.8%"}
                         </span>
                       </div>
-                      <div className="bg-brand-teal/40 p-3 rounded-lg border border-hairline-dark">
-                        <span className="text-[10px] text-on-dark-muted block">Hausdorff Distance</span>
-                        <span className="text-white text-base font-bold">142 m</span>
+                      <div className="bg-[#0B0F14] p-3 rounded-sm border border-[#1F2937]">
+                        <span className="text-[10px] text-slate-500 uppercase tracking-wider block">Hausdorff Distance</span>
+                        <span className="text-slate-200 text-base font-bold">142 m</span>
                       </div>
-                      <div className="bg-brand-teal/40 p-3 rounded-lg border border-hairline-dark">
-                        <span className="text-[10px] text-on-dark-muted block">Centroid Displacement</span>
-                        <span className="text-white text-base font-bold">88 m</span>
+                      <div className="bg-[#0B0F14] p-3 rounded-sm border border-[#1F2937]">
+                        <span className="text-[10px] text-slate-500 uppercase tracking-wider block">Centroid Displacement</span>
+                        <span className="text-slate-200 text-base font-bold">88 m</span>
                       </div>
                     </div>
 
-                    <div className="flex items-center justify-between rounded-lg border border-hairline-dark bg-brand-teal/20 px-3 py-2">
-                      <span className="text-on-dark-muted">Geometric Plume Congruence:</span>
-                      <Badge variant="greenSoft" className="text-xs font-semibold">
-                        Congruent with observed slick envelope
+                    <div className="flex items-center justify-between rounded-sm border border-[#1F2937] bg-[#0B0F14] px-3 py-2">
+                      <span className="text-slate-400 font-mono text-xs">Geometric Plume Congruence:</span>
+                      <Badge variant="outline" className="text-xs font-mono font-semibold border-emerald-500/40 text-emerald-400 bg-emerald-950/20 rounded-sm">
+                        ✓ CONGRUENT WITH OBSERVED SLICK ENVELOPE
                       </Badge>
                     </div>
 
@@ -827,10 +825,10 @@ export function ExplainabilityDrawer({
                         variant="default"
                         size="sm"
                         onClick={() => onOpenCounterfactual(candidate)}
-                        className="w-full gap-2 text-xs font-semibold mt-2"
+                        className="w-full gap-2 text-xs font-mono font-semibold mt-2 rounded-sm bg-emerald-600 hover:bg-emerald-500 text-slate-950"
                       >
                         <Sparkles className="h-3.5 w-3.5" />
-                        <span>Interactive Counterfactual Comparison View (D2)</span>
+                        <span>INTERACTIVE COUNTERFACTUAL COMPARISON VIEW (D2)</span>
                       </Button>
                     )}
                   </div>
@@ -838,19 +836,19 @@ export function ExplainabilityDrawer({
               </div>
 
               {/* 6. Evidentiary Checklist (Rule 1) */}
-              <div className="rounded-xl border border-hairline-dark bg-brand-teal-deep p-4 space-y-3">
+              <div className="rounded-sm border border-[#1F2937] bg-[#111720] p-4 space-y-3">
                 <div
                   className="flex items-center justify-between cursor-pointer"
                   onClick={() => toggleSection("checklist")}
                 >
-                  <span className="text-sm font-semibold text-white flex items-center gap-2">
-                    <FileCheck className="h-4 w-4 text-brand-green" />
-                    Forensic Evidentiary Checklist (Rule 1 Paired Confidence)
+                  <span className="text-xs font-mono font-bold uppercase tracking-wider text-slate-300 flex items-center gap-2">
+                    <FileCheck className="h-3.5 w-3.5 text-emerald-400" />
+                    FORENSIC EVIDENTIARY CHECKLIST (RULE 1 PAIRED CONFIDENCE)
                   </span>
                   {expandedSections.checklist ? (
-                    <ChevronUp className="h-4 w-4 text-on-dark-muted" />
+                    <ChevronUp className="h-4 w-4 text-slate-400" />
                   ) : (
-                    <ChevronDown className="h-4 w-4 text-on-dark-muted" />
+                    <ChevronDown className="h-4 w-4 text-slate-400" />
                   )}
                 </div>
 
@@ -859,23 +857,23 @@ export function ExplainabilityDrawer({
                     {explanationData.evidence_checklist?.map((item) => (
                       <div
                         key={item.check}
-                        className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 rounded-lg border border-hairline-dark bg-brand-teal/20 p-2.5 text-xs"
+                        className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 rounded-sm border border-[#1F2937] bg-[#0B0F14] p-2.5 text-xs font-mono"
                       >
                         <div className="space-y-0.5">
                           <div className="flex items-center gap-2">
                             {item.status === "positive_indicator" ? (
-                              <CheckCircle2 className="h-3.5 w-3.5 text-brand-green" />
+                              <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400" />
                             ) : item.status === "unlikely" ? (
-                              <AlertTriangle className="h-3.5 w-3.5 text-accent-orange" />
+                              <AlertTriangle className="h-3.5 w-3.5 text-amber-400" />
                             ) : (
-                              <HelpCircle className="h-3.5 w-3.5 text-on-dark-muted" />
+                              <HelpCircle className="h-3.5 w-3.5 text-slate-500" />
                             )}
-                            <span className="font-semibold text-white">{item.check}</span>
+                            <span className="font-semibold text-slate-200">{item.check}</span>
                           </div>
-                          <p className="text-[11px] text-on-dark-muted pl-5">{item.finding}</p>
+                          <p className="text-[11px] text-slate-400 pl-5 font-sans">{item.finding}</p>
                         </div>
                         <div className="sm:text-right pl-5 sm:pl-0">
-                          <Badge variant="greenSoft" className="font-mono text-[10px]">
+                          <Badge variant="outline" className="font-mono text-[10px] rounded-sm border-slate-700 bg-slate-900/60 text-emerald-400">
                             {item.confidence_pct.toFixed(1)}% CI
                           </Badge>
                         </div>

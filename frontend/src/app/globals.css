@@ -4,65 +4,65 @@
 
 @layer base {
   :root {
-    --background: 198 100% 8%; /* #001e2b dark nautical default */
-    --foreground: 0 0% 100%; /* #ffffff */
+    --background: 216 28% 6%; /* #0B0F14 Deep Zinc Canvas */
+    --foreground: 210 20% 98%; /* #f8fafc */
 
-    --card: 198 60% 12%;
-    --card-foreground: 0 0% 100%;
+    --card: 216 30% 10%; /* #111720 Panels/Cards */
+    --card-foreground: 210 20% 98%;
 
-    --popover: 198 100% 8%;
-    --popover-foreground: 0 0% 100%;
+    --popover: 216 33% 13%; /* #161F2C Floating Menus */
+    --popover-foreground: 210 20% 98%;
 
-    --primary: 145 100% 46%; /* #00ed64 brand-green */
-    --primary-foreground: 198 100% 8%; /* #001e2b on-primary */
+    --primary: 160 84% 39%; /* #10B981 Tactical Emerald */
+    --primary-foreground: 216 28% 6%; /* #0B0F14 on-primary */
 
-    --secondary: 198 33% 16%; /* #1c2d38 charcoal */
-    --secondary-foreground: 0 0% 100%;
+    --secondary: 217 28% 17%; /* #1F2937 Ballistic Slate Border/Surface */
+    --secondary-foreground: 210 20% 98%;
 
-    --muted: 198 33% 16%; /* #1c2d38 hairline-dark */
-    --muted-foreground: 206 13% 70%; /* #a8b3bc on-dark-muted */
+    --muted: 217 28% 17%; /* #1F2937 */
+    --muted-foreground: 215 16% 55%; /* #64748b */
 
-    --accent: 194 100% 15%; /* #003d4f brand-teal */
-    --accent-foreground: 145 100% 46%; /* #00ed64 brand-green */
+    --accent: 199 89% 60%; /* #38BDF8 Steel Blue */
+    --accent-foreground: 216 28% 6%;
 
     --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 198 33% 18%; /* #1c2d38 hairline-dark */
-    --input: 198 33% 20%;
-    --ring: 145 100% 46%;
+    --border: 217 28% 17%; /* #1F2937 */
+    --input: 217 28% 17%;
+    --ring: 160 84% 39%; /* #10B981 */
 
-    --radius: 0.5rem;
+    --radius: 0.25rem; /* 4px max */
   }
 
   .light {
-    --background: 0 0% 100%; /* #ffffff */
-    --foreground: 198 100% 8%; /* #001e2b */
+    --background: 0 0% 100%;
+    --foreground: 216 28% 6%;
 
-    --card: 160 20% 98%; /* #f9fbfa */
-    --card-foreground: 198 100% 8%;
+    --card: 210 20% 98%;
+    --card-foreground: 216 28% 6%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 198 100% 8%;
+    --popover-foreground: 216 28% 6%;
 
-    --primary: 145 100% 46%; /* #00ed64 */
-    --primary-foreground: 198 100% 8%;
+    --primary: 160 84% 31%; /* #059669 */
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 164 100% 20%; /* #00684a */
-    --secondary-foreground: 0 0% 100%;
+    --secondary: 210 20% 90%;
+    --secondary-foreground: 216 28% 6%;
 
-    --muted: 206 17% 93%; /* #e1e5e8 */
-    --muted-foreground: 207 14% 42%; /* #5c6c7a */
+    --muted: 210 20% 95%;
+    --muted-foreground: 215 16% 47%;
 
-    --accent: 142 66% 85%; /* #c3f0d2 */
-    --accent-foreground: 164 100% 20%;
+    --accent: 199 89% 48%;
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 206 17% 90%; /* #e1e5e8 */
-    --input: 207 19% 80%; /* #c1ccd6 */
-    --ring: 145 100% 46%;
+    --border: 210 20% 88%;
+    --input: 210 20% 88%;
+    --ring: 160 84% 31%;
   }
 }
 
@@ -72,22 +72,22 @@
   }
   body {
     @apply bg-background text-foreground;
-    font-feature-settings: "rlig" 1, "calt" 1;
+    font-feature-settings: "rlig" 1, "calt" 1, "tnum" 1;
   }
 }
 
 /* Custom forensic UI scrollbar styling */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 5px;
+  height: 5px;
 }
 ::-webkit-scrollbar-track {
-  background: #001e2b;
+  background: #0B0F14;
 }
 ::-webkit-scrollbar-thumb {
-  background: #1c2d38;
-  border-radius: 9999px;
+  background: #1F2937;
+  border-radius: 2px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #00a35c;
+  background: #10B981;
 }

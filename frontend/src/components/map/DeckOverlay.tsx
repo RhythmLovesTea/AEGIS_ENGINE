@@ -639,23 +639,15 @@ export function DeckOverlay({
 
   return (
     <div className={`pointer-events-none absolute inset-0 z-20 ${className}`}>
-      {/* Real-time WebGL Performance Telemetry HUD (Top Right) */}
-      <div className="pointer-events-auto absolute right-16 top-4 z-20 flex items-center gap-2 rounded-xl border border-hairline-dark bg-brand-teal-deep/90 px-3 py-1.5 shadow-xl backdrop-blur">
-        <Gauge className="h-4 w-4 text-brand-green" />
-        <span className="font-mono text-xs font-bold text-white">
-          {fps} FPS
+      {/* Map HUD Diagnostics Telemetry Bar (Top Right) */}
+      <div className="pointer-events-auto absolute right-16 top-4 z-20 flex items-center gap-2 rounded-sm border border-slate-800 bg-black/70 px-2 py-1 text-[11px] font-mono text-slate-300 backdrop-blur-sm shadow-xl">
+        <span className="font-bold text-slate-200">{fps} FPS</span>
+        <span className="text-slate-700">│</span>
+        <span>{Math.round(resolvedParticles.length / 1000)}K PTS</span>
+        <span className="text-slate-700">│</span>
+        <span className={fps >= 55 ? "text-emerald-400 font-semibold" : "text-amber-400 font-semibold"}>
+          {fps >= 55 ? "NFR: PASSED" : "NFR: DEGRADED"}
         </span>
-        <span className="text-hairline-dark">|</span>
-        <div className="flex items-center gap-1.5 font-mono text-xs text-on-dark-muted">
-          <Zap className="h-3 w-3 text-brand-green" />
-          <span>{resolvedParticles.length.toLocaleString()} pts</span>
-        </div>
-        <Badge
-          variant={fps >= 55 ? "greenSoft" : "orange"}
-          className="text-[10px] font-mono ml-1"
-        >
-          {fps >= 55 ? "NFR: 60 FPS PASSED" : "NFR: DEGRADED"}
-        </Badge>
       </div>
     </div>
   );

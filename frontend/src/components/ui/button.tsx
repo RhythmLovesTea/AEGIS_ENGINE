@@ -5,30 +5,32 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap text-xs font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-3.5 [&_svg]:shrink-0 rounded-sm",
   {
     variants: {
       variant: {
         default:
-          "bg-brand-green text-brand-teal-deep font-semibold hover:bg-brand-green/90 shadow-sm rounded-full",
+          "border border-emerald-500/50 bg-emerald-500/20 text-emerald-300 hover:bg-emerald-500/30 hover:border-emerald-400 rounded-sm",
         secondary:
-          "bg-transparent border border-hairline-dark text-on-dark hover:bg-white/5 rounded-full",
+          "border border-slate-700 bg-slate-800/80 text-slate-200 hover:border-slate-500 hover:bg-slate-800 rounded-sm",
         destructive:
-          "bg-destructive text-destructive-foreground hover:bg-destructive/90 rounded-full",
+          "border border-red-500/40 bg-red-500/20 text-red-300 hover:bg-red-500/30 rounded-sm",
         outline:
-          "border border-hairline-dark bg-transparent hover:bg-white/5 hover:text-white rounded-full",
+          "border border-[#1F2937] bg-transparent text-slate-300 hover:bg-slate-800/60 hover:text-white rounded-sm",
         ghost:
-          "hover:bg-white/5 hover:text-white rounded-md",
+          "hover:bg-slate-800/80 text-slate-300 hover:text-white rounded-sm",
         link:
-          "text-brand-green underline-offset-4 hover:underline",
+          "text-emerald-400 underline-offset-4 hover:underline",
+        industrialGhost:
+          "border border-emerald-500/40 bg-emerald-500/10 text-emerald-400 hover:bg-emerald-500/20 text-xs px-3 py-1.5 rounded-sm",
         pill:
-          "bg-brand-green text-brand-teal-deep font-semibold hover:bg-brand-green/90 rounded-full px-6 py-2.5",
+          "border border-emerald-500/50 bg-emerald-500/15 text-emerald-400 hover:bg-emerald-500/25 rounded-sm px-4 py-1.5",
       },
       size: {
-        default: "h-10 px-5 py-2",
-        sm: "h-8 rounded-full px-3.5 text-xs",
-        lg: "h-12 rounded-full px-8 text-base",
-        icon: "h-10 w-10 rounded-full",
+        default: "h-8 px-3 py-1.5",
+        sm: "h-7 px-2.5 text-xs",
+        lg: "h-9 px-4 text-sm",
+        icon: "h-8 w-8",
       },
     },
     defaultVariants: {
